@@ -1,5 +1,5 @@
 ###
- * cylon-i2c
+ * cylon-gpio
  * http://cylonjs.com
  *
  * Copyright (c) 2013 The Hybrid Group
@@ -8,5 +8,13 @@
 
 'use strict';
 
-exports.awesome = ->
-  'awesome'
+require('./blinkm')
+
+module.exports =
+  driver: (opts) ->
+    if opts.name is 'blinkm'
+      new Cylon.Driver.I2C.BlinkM(opts)
+
+  register: (robot) ->
+    Logger.debug "Registering i2c BlinkM driver for #{robot.name}"
+    robot.registerDriver 'cylon-i2c', 'blinkm'

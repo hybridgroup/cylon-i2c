@@ -1,6 +1,6 @@
 'use strict';
 
-cylonI2c = source("cylon-i2c")
+i2c = source("cylon-i2c")
 
 describe "basic tests", ->
   it "standard async test", (done) ->
@@ -29,8 +29,8 @@ describe "basic tests", ->
     # hard equal
     data[0].should.be.equal obj
 
-  # Now on to a `real` test
-  it "cylon-i2c should be awesome", ->
-    cylonI2c.should.have.keys 'awesome'
-    cylonI2c.awesome.should.be.a 'function'
-    cylonI2c.awesome().should.be.equal 'awesome'
+  it "should be able to register", ->
+    i2c.register.should.be.a 'function'
+
+  it "should be able to create led driver", ->
+    i2c.driver.should.be.a 'function'
