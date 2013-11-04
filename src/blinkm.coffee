@@ -18,7 +18,7 @@ namespace "Cylon.Driver.I2C", ->
       @address = 0x09
 
     commands: ->
-      ['off', 'rgb', 'fade', 'color']
+      ['off', 'rgb', 'fade', 'color', 'version']
 
     start: (callback) ->
       Logger.debug "BlinkM started"
@@ -37,6 +37,16 @@ namespace "Cylon.Driver.I2C", ->
     fade: (r, g, b) ->
       @connection.i2cWrite @address, @commandBytes('c')
       @connection.i2cWrite @address, [r, g, b]
+
+    color: (callback) ->
+      @connection.i2cWrite @address, @commandBytes('g')
+      @connection.i2cRead @address, 3, (data) =>
+        (callback)(data[0], data[1], data[2])
+
+    version: (callback) ->
+      @connection.i2cWrite @address, @commandBytes('Z')
+      @connection.i2cRead @address, 2, (data) =>
+        (callback)("#{data[0]}.#{data[1]}")
 
     commandBytes: (s) ->
       new Buffer(s, 'ascii')

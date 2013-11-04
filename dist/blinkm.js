@@ -23,7 +23,7 @@
       }
 
       BlinkM.prototype.commands = function() {
-        return ['off', 'rgb', 'fade', 'color'];
+        return ['off', 'rgb', 'fade', 'color', 'version'];
       };
 
       BlinkM.prototype.start = function(callback) {
@@ -45,6 +45,22 @@
       BlinkM.prototype.fade = function(r, g, b) {
         this.connection.i2cWrite(this.address, this.commandBytes('c'));
         return this.connection.i2cWrite(this.address, [r, g, b]);
+      };
+
+      BlinkM.prototype.color = function(callback) {
+        var _this = this;
+        this.connection.i2cWrite(this.address, this.commandBytes('g'));
+        return this.connection.i2cRead(this.address, 3, function(data) {
+          return callback(data[0], data[1], data[2]);
+        });
+      };
+
+      BlinkM.prototype.version = function(callback) {
+        var _this = this;
+        this.connection.i2cWrite(this.address, this.commandBytes('Z'));
+        return this.connection.i2cRead(this.address, 2, function(data) {
+          return callback("" + data[0] + "." + data[1]);
+        });
       };
 
       BlinkM.prototype.commandBytes = function(s) {
