@@ -27,6 +27,9 @@ namespace "Cylon.Driver.I2C", ->
       (callback)(null)
       @device.emit 'start'
 
+    stop: ->
+      Logger.debug "BlinkM on stopping"
+
     off: ->
       @connection.i2cWrite @address, @commandBytes('o')
 
