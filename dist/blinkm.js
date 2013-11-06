@@ -33,6 +33,10 @@
         return this.device.emit('start');
       };
 
+      BlinkM.prototype.stop = function() {
+        return Logger.debug("BlinkM on stopping");
+      };
+
       BlinkM.prototype.off = function() {
         return this.connection.i2cWrite(this.address, this.commandBytes('o'));
       };
