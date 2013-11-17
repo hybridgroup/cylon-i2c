@@ -14,6 +14,8 @@ module.exports =
   driver: (opts) ->
     if opts.name is 'blinkm'
       new Cylon.Driver.I2C.BlinkM(opts)
+    else
+      null
 
   register: (robot) ->
     Logger.debug "Registering i2c BlinkM driver for #{robot.name}"

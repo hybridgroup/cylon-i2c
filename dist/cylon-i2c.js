@@ -15,6 +15,8 @@
     driver: function(opts) {
       if (opts.name === 'blinkm') {
         return new Cylon.Driver.I2C.BlinkM(opts);
+      } else {
+        return null;
       }
     },
     register: function(robot) {
