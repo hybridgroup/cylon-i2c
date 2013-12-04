@@ -90,6 +90,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 ## Release History
 [![NPM](https://nodei.co/npm/cylon-i2c.png?compact=true)](https://nodei.co/npm/cylon-i2c/)
 
+Version 0.4.0 - Update to Cylon 0.7.0
+
 Version 0.3.0 - Add support for HMC6352 digial compass
 
 Version 0.2.0 - Update to Cylon 0.5.0
