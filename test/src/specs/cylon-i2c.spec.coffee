@@ -2,7 +2,7 @@
 
 i2c = source("cylon-i2c")
 
-describe "Cylon.I2C", ->
+describe "Cylon.Drivers.I2C", ->
   it "standard async test", (done) ->
     bool = false
     bool.should.be.false

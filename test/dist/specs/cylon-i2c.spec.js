@@ -4,7 +4,7 @@
 
   i2c = source("cylon-i2c");
 
-  describe("Cylon.I2C", function() {
+  describe("Cylon.Drivers.I2C", function() {
     it("standard async test", function(done) {
       var bool;
       bool = false;

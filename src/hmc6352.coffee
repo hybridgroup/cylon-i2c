@@ -7,13 +7,15 @@
 ###
 
 'use strict';
+
+require './cylon-i2c'
+
 namespace = require 'node-namespace'
 
-namespace "Cylon.Driver.I2C", ->
-  class @Hmc6352
+namespace "Cylon.Drivers.I2C", ->
+  class @Hmc6352 extends Cylon.Drivers.Driver
     constructor: (opts) ->
-      @self = this
-      @device = opts.device
+      super
       @connection = @device.connection
       @address = 0x42
 
@@ -24,11 +26,7 @@ namespace "Cylon.Driver.I2C", ->
       Logger.debug "Hmc6352 started"
       @connection.i2cConfig(50)
 
-      (callback)(null)
-      @device.emit 'start'
-
-    stop: ->
-      Logger.debug "Hmc6352 stopping"
+      super
 
     heading: (callback) ->
       @connection.i2cWrite @address, @commandBytes('A')

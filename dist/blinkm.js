@@ -9,15 +9,20 @@
 
 (function() {
   'use strict';
-  var namespace;
+  var namespace,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  require('./cylon-i2c');
 
   namespace = require('node-namespace');
 
-  namespace("Cylon.Driver.I2C", function() {
-    return this.BlinkM = (function() {
+  namespace("Cylon.Drivers.I2C", function() {
+    return this.BlinkM = (function(_super) {
+      __extends(BlinkM, _super);
+
       function BlinkM(opts) {
-        this.self = this;
-        this.device = opts.device;
+        BlinkM.__super__.constructor.apply(this, arguments);
         this.connection = this.device.connection;
         this.address = 0x09;
       }
@@ -29,12 +34,7 @@
       BlinkM.prototype.start = function(callback) {
         Logger.debug("BlinkM started");
         this.connection.i2cConfig(50);
-        callback(null);
-        return this.device.emit('start');
-      };
-
-      BlinkM.prototype.stop = function() {
-        return Logger.debug("BlinkM on stopping");
+        return BlinkM.__super__.start.apply(this, arguments);
       };
 
       BlinkM.prototype.off = function() {
@@ -73,7 +73,7 @@
 
       return BlinkM;
 
-    })();
+    })(Cylon.Drivers.Driver);
   });
 
 }).call(this);
