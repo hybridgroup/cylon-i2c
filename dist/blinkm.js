@@ -23,7 +23,6 @@
 
       function BlinkM(opts) {
         BlinkM.__super__.constructor.apply(this, arguments);
-        this.connection = this.device.connection;
         this.address = 0x09;
       }
 
@@ -32,7 +31,6 @@
       };
 
       BlinkM.prototype.start = function(callback) {
-        Logger.debug("BlinkM started");
         this.connection.i2cConfig(50);
         return BlinkM.__super__.start.apply(this, arguments);
       };
@@ -73,7 +71,7 @@
 
       return BlinkM;
 
-    })(Cylon.Drivers.Driver);
+    })(Cylon.Driver);
   });
 
 }).call(this);

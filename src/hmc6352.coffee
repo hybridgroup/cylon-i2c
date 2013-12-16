@@ -13,17 +13,15 @@ require './cylon-i2c'
 namespace = require 'node-namespace'
 
 namespace "Cylon.Drivers.I2C", ->
-  class @Hmc6352 extends Cylon.Drivers.Driver
+  class @Hmc6352 extends Cylon.Driver
     constructor: (opts) ->
       super
-      @connection = @device.connection
       @address = 0x42
 
     commands: ->
       ['heading']
 
     start: (callback) ->
-      Logger.debug "Hmc6352 started"
       @connection.i2cConfig(50)
 
       super

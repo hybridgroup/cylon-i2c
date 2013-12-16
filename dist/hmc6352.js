@@ -23,7 +23,6 @@
 
       function Hmc6352(opts) {
         Hmc6352.__super__.constructor.apply(this, arguments);
-        this.connection = this.device.connection;
         this.address = 0x42;
       }
 
@@ -32,7 +31,6 @@
       };
 
       Hmc6352.prototype.start = function(callback) {
-        Logger.debug("Hmc6352 started");
         this.connection.i2cConfig(50);
         return Hmc6352.__super__.start.apply(this, arguments);
       };
@@ -55,7 +53,7 @@
 
       return Hmc6352;
 
-    })(Cylon.Drivers.Driver);
+    })(Cylon.Driver);
   });
 
 }).call(this);
