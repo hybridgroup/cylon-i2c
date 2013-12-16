@@ -4,20 +4,11 @@
 
   namespace = require('node-namespace');
 
-  namespace('Cylon', function() {
-    return this.Basestar = (function() {
-      function Basestar() {}
-
-      return Basestar;
-
-    })();
-  });
-
   hmc6352 = source("hmc6352");
 
-  describe("hmc6352", function() {
+  describe("Cylon.Drivers.I2C.Hmc6352", function() {
     var driver;
-    driver = new Cylon.Driver.I2C.Hmc6352({
+    driver = new Cylon.Drivers.I2C.Hmc6352({
       name: 'compass',
       device: {
         connection: 'connect'

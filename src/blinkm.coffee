@@ -7,28 +7,24 @@
 ###
 
 'use strict';
+
+require './cylon-i2c'
+
 namespace = require 'node-namespace'
 
-namespace "Cylon.Driver.I2C", ->
-  class @BlinkM
+namespace "Cylon.Drivers.I2C", ->
+  class @BlinkM extends Cylon.Driver
     constructor: (opts) ->
-      @self = this
-      @device = opts.device
-      @connection = @device.connection
+      super
       @address = 0x09
 
     commands: ->
       ['off', 'rgb', 'fade', 'color', 'version']
 
     start: (callback) ->
-      Logger.debug "BlinkM started"
       @connection.i2cConfig(50)
 
-      (callback)(null)
-      @device.emit 'start'
-
-    stop: ->
-      Logger.debug "BlinkM on stopping"
+      super
 
     off: ->
       @connection.i2cWrite @address, @commandBytes('o')

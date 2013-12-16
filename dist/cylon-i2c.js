@@ -9,6 +9,8 @@
 
 (function() {
   'use strict';
+  require('cylon');
+
   require('./blinkm');
 
   require('./hmc6352');
@@ -16,9 +18,9 @@
   module.exports = {
     driver: function(opts) {
       if (opts.name === 'blinkm') {
-        return new Cylon.Driver.I2C.BlinkM(opts);
+        return new Cylon.Drivers.I2C.BlinkM(opts);
       } else if (opts.name === 'hmc6352') {
-        return new Cylon.Driver.I2C.Hmc6352(opts);
+        return new Cylon.Drivers.I2C.Hmc6352(opts);
       } else {
         return null;
       }

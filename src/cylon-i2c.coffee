@@ -8,15 +8,16 @@
 
 'use strict';
 
+require 'cylon'
 require './blinkm'
 require './hmc6352'
 
 module.exports =
   driver: (opts) ->
     if opts.name is 'blinkm'
-      new Cylon.Driver.I2C.BlinkM(opts)
+      new Cylon.Drivers.I2C.BlinkM(opts)
     else if opts.name is 'hmc6352'
-      new Cylon.Driver.I2C.Hmc6352(opts)
+      new Cylon.Drivers.I2C.Hmc6352(opts)
     else
       null
 
