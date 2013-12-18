@@ -37,8 +37,7 @@
 
       Hmc6352.prototype.heading = function(callback) {
         var _this = this;
-        this.connection.i2cWrite(this.address, this.commandBytes('A'));
-        return this.connection.i2cRead(this.address, 2, function(data) {
+        return this.connection.i2cRead(this.address, this.commandBytes('A'), 2, function(data) {
           return callback(parseHeading(data));
         });
       };
