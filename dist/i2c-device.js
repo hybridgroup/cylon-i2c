@@ -35,8 +35,8 @@
 
       I2CDevice.prototype.disconnect = null;
 
-      I2CDevice.prototype.write = function(cmd, buffer, callback) {
-        return this.i2cWire.writeBytes(cmd, buffer, callback);
+      I2CDevice.prototype.write = function(cmd, buff, callback) {
+        return this.i2cWire.writeBytes(cmd, buff, callback);
       };
 
       I2CDevice.prototype.read = function(cmd, length, callback) {

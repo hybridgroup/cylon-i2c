@@ -28,8 +28,8 @@ namespace 'Cylon.I2C', ->
     disconnect:
       null
 
-    write: (cmd, buffer, callback) ->
-      @i2cWire.writeBytes(cmd, buffer, callback)
+    write: (cmd, buff, callback) ->
+      @i2cWire.writeBytes(cmd, buff, callback)
 
     # Passes err and data params to the callback, data contains the read bytes.
     read: (cmd, length, callback) ->
