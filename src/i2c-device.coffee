@@ -15,7 +15,7 @@ namespace = require 'node-namespace'
 
 # I2cDevice is a wrapper for the I2c module, to make it easier to work with in the adaptors.
 #
-namespace 'Cylon.IO', ->
+namespace 'Cylon.I2C', ->
   class @I2CDevice extends EventEmitter
     constructor: (opts) ->
       @address = opts.address

@@ -15,6 +15,8 @@
 
   require('./hmc6352');
 
+  require('./i2c-device');
+
   module.exports = {
     driver: function(opts) {
       if (opts.name === 'blinkm') {

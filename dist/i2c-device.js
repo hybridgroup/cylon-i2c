@@ -19,7 +19,7 @@
 
   namespace = require('node-namespace');
 
-  namespace('Cylon.IO', function() {
+  namespace('Cylon.I2C', function() {
     return this.I2CDevice = (function(_super) {
       __extends(I2CDevice, _super);
 
