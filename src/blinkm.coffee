@@ -34,7 +34,7 @@ namespace "Cylon.Drivers.I2C", ->
       @address = 0x09
 
     commands: ->
-      ['goToRGB', 'fadeToRGB', 'fadeToHSB', 'fadeToRandomRGB', 'fadeToRandomSHB',
+      ['goToRGB', 'fadeToRGB', 'fadeToHSB', 'fadeToRandomRGB', 'fadeToRandomHSB',
        'playLightScript', 'stopScript', 'setFadeSpeed', 'setTimeAdjust',
        'getRGBColor', 'setAddress', 'getAddress', 'getFirmware']
 
@@ -42,49 +42,49 @@ namespace "Cylon.Drivers.I2C", ->
     start: (callback) ->
       super
 
-    goToRGB: (r, g, b) ->
-      @connection.i2cWrite(@address, TO_RGB, [r,g,b], null)
+    goToRGB: (r, g, b, cb = null) ->
+      @connection.i2cWrite(@address, TO_RGB, [r,g,b], cb)
 
-    fadeToRGB: (r, g, b) ->
+    fadeToRGB: (r, g, b, cb = null) ->
       @connection.i2cWrite(@address, FADE_TO_RGB, [r,g,b], null)
 
-    fadeToHSB: (h, s, b) ->
+    fadeToHSB: (h, s, b, cb = null) ->
       @connection.i2cWrite(@address, FADE_TO_HSB, [h,s,b], null)
 
-    fadeToRandomRGB: (r, g, b) ->
+    fadeToRandomRGB: (r, g, b, cb = null) ->
       @connection.i2cWrite(@address, FADE_TO_RND_RGB, [r,g,b], null)
 
-    fadeToRandomHSB: (h, s, b) ->
+    fadeToRandomHSB: (h, s, b, cb = null) ->
       @connection.i2cWrite(@address, FADE_TO_RND_HSB, [h,s,b], null)
 
     # A repeat value of 0 causes the script to execute until receiving the stopScript command.
     # light script ids available in the blinkM datasheet.
-    playLightScript: (id, repeats, startAtLine) ->
+    playLightScript: (id, repeats, startAtLine, cb = null) ->
       @connection.i2cWrite(@address, PLAY_LIGHT_SCRIPT, [id, repeats, startAtLine], null)
 
-    stopScript: ->
+    stopScript: (cb = null) ->
       @connection.i2cWrite(@address, STOP_SCRIPT, [], null)
 
     # Speed must be an integer from 1 to 255
-    setFadeSpeed: (speed) ->
+    setFadeSpeed: (speed, cb = null) ->
       @connection.i2cWrite(@address, STOP_SCRIPT, [], null)
 
     # Time must be an integer betweeb -128 and 127, 0 resets the time.
     # This affects the duration of the scripts being played.
-    setTimeAdjust: (time) ->
+    setTimeAdjust: (time, cb = null) ->
       @connection.i2cWrite(@address, STOP_SCRIPT, [], null)
 
-    getRGBColor: (callback) ->
+    getRGBColor: (callback, cb = null) ->
       @connection.i2cRead(@address, GET_RGB, 3, callback)
 
-    getAddress: (callback) ->
+    getAddress: (callback, cb = null) ->
       @connection.i2cRead(@address, GET_ADDRESS, 1, callback)
 
-    setAddress: (address, callback) ->
+    setAddress: (address, callback, cb = null) ->
       @connection.i2cRead(@address, GET_ADDRESS, 1, (err, data) =>
         @address = data[0]
         callback() if typeof(callback is "function")
       )
 
-    getFirmware: (callback) ->
+    getFirmware: (callback, cb = null) ->
       @connection.i2cRead(@address, GET_FIRMWARE, 2, callback)
