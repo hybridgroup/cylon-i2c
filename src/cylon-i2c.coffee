@@ -6,11 +6,12 @@
  * Licensed under the Apache 2.0 license.
 ###
 
-'use strict';
+'use strict'
 
 require 'cylon'
 require './blinkm'
 require './hmc6352'
+require './i2c-device'
 
 module.exports =
   driver: (opts) ->

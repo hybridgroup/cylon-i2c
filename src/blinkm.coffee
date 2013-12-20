@@ -14,38 +14,77 @@ namespace = require 'node-namespace'
 
 namespace "Cylon.Drivers.I2C", ->
   class @BlinkM extends Cylon.Driver
+
+    TO_RGB        = 0x6e
+    FADE_TO_RGB   = 0x63
+    FADE_TO_HSB   = 0x68
+    FADE_TO_RND_RGB = 0x63
+    FADE_TO_RND_HSB = 0x68
+    PLAY_LIGHT_SCRIPT   = 0x70
+    STOP_SCRIPT   = 0x6f
+    SET_FADE      = 0x66
+    SET_TIME      = 0x74
+    GET_RGB       = 0x67
+    SET_ADDRESS   = 0x41
+    GET_ADDRESS   = 0x61
+    GET_FIRMWARE  = 0x5a
+
     constructor: (opts) ->
       super
       @address = 0x09
 
     commands: ->
-      ['off', 'rgb', 'fade', 'color', 'version']
+      ['goToRGB', 'fadeToRGB', 'fadeToHSB', 'fadeToRandomRGB', 'fadeToRandomHSB',
+       'playLightScript', 'stopScript', 'setFadeSpeed', 'setTimeAdjust',
+       'getRGBColor', 'setAddress', 'getAddress', 'getFirmware']
+
 
     start: (callback) ->
-      @connection.i2cConfig(50)
-
       super
 
-    off: ->
-      @connection.i2cWrite @address, @commandBytes('o')
+    goToRGB: (r, g, b, cb = null) ->
+      @connection.i2cWrite(@address, TO_RGB, [r,g,b], cb)
 
-    rgb: (r, g, b) ->
-      @connection.i2cWrite @address, @commandBytes('n')
-      @connection.i2cWrite @address, [r, g, b]
+    fadeToRGB: (r, g, b, cb = null) ->
+      @connection.i2cWrite(@address, FADE_TO_RGB, [r,g,b], null)
 
-    fade: (r, g, b) ->
-      @connection.i2cWrite @address, @commandBytes('c')
-      @connection.i2cWrite @address, [r, g, b]
+    fadeToHSB: (h, s, b, cb = null) ->
+      @connection.i2cWrite(@address, FADE_TO_HSB, [h,s,b], null)
 
-    color: (callback) ->
-      @connection.i2cWrite @address, @commandBytes('g')
-      @connection.i2cRead @address, 3, (data) =>
-        (callback)(data[0], data[1], data[2])
+    fadeToRandomRGB: (r, g, b, cb = null) ->
+      @connection.i2cWrite(@address, FADE_TO_RND_RGB, [r,g,b], null)
 
-    version: (callback) ->
-      @connection.i2cWrite @address, @commandBytes('Z')
-      @connection.i2cRead @address, 2, (data) =>
-        (callback)("#{data[0]}.#{data[1]}")
+    fadeToRandomHSB: (h, s, b, cb = null) ->
+      @connection.i2cWrite(@address, FADE_TO_RND_HSB, [h,s,b], null)
 
-    commandBytes: (s) ->
-      new Buffer(s, 'ascii')
+    # A repeat value of 0 causes the script to execute until receiving the stopScript command.
+    # light script ids available in the blinkM datasheet.
+    playLightScript: (id, repeats, startAtLine, cb = null) ->
+      @connection.i2cWrite(@address, PLAY_LIGHT_SCRIPT, [id, repeats, startAtLine], null)
+
+    stopScript: (cb = null) ->
+      @connection.i2cWrite(@address, STOP_SCRIPT, [], null)
+
+    # Speed must be an integer from 1 to 255
+    setFadeSpeed: (speed, cb = null) ->
+      @connection.i2cWrite(@address, STOP_SCRIPT, [], null)
+
+    # Time must be an integer betweeb -128 and 127, 0 resets the time.
+    # This affects the duration of the scripts being played.
+    setTimeAdjust: (time, cb = null) ->
+      @connection.i2cWrite(@address, STOP_SCRIPT, [], null)
+
+    getRGBColor: (callback, cb = null) ->
+      @connection.i2cRead(@address, GET_RGB, 3, callback)
+
+    getAddress: (callback, cb = null) ->
+      @connection.i2cRead(@address, GET_ADDRESS, 1, callback)
+
+    setAddress: (address, callback, cb = null) ->
+      @connection.i2cRead(@address, GET_ADDRESS, 1, (err, data) =>
+        @address = data[0]
+        callback() if typeof(callback is "function")
+      )
+
+    getFirmware: (callback, cb = null) ->
+      @connection.i2cRead(@address, GET_FIRMWARE, 2, callback)

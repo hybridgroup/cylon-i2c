@@ -19,7 +19,35 @@
 
   namespace("Cylon.Drivers.I2C", function() {
     return this.BlinkM = (function(_super) {
+      var FADE_TO_HSB, FADE_TO_RGB, FADE_TO_RND_HSB, FADE_TO_RND_RGB, GET_ADDRESS, GET_FIRMWARE, GET_RGB, PLAY_LIGHT_SCRIPT, SET_ADDRESS, SET_FADE, SET_TIME, STOP_SCRIPT, TO_RGB;
+
       __extends(BlinkM, _super);
+
+      TO_RGB = 0x6e;
+
+      FADE_TO_RGB = 0x63;
+
+      FADE_TO_HSB = 0x68;
+
+      FADE_TO_RND_RGB = 0x63;
+
+      FADE_TO_RND_HSB = 0x68;
+
+      PLAY_LIGHT_SCRIPT = 0x70;
+
+      STOP_SCRIPT = 0x6f;
+
+      SET_FADE = 0x66;
+
+      SET_TIME = 0x74;
+
+      GET_RGB = 0x67;
+
+      SET_ADDRESS = 0x41;
+
+      GET_ADDRESS = 0x61;
+
+      GET_FIRMWARE = 0x5a;
 
       function BlinkM(opts) {
         BlinkM.__super__.constructor.apply(this, arguments);
@@ -27,46 +55,108 @@
       }
 
       BlinkM.prototype.commands = function() {
-        return ['off', 'rgb', 'fade', 'color', 'version'];
+        return ['goToRGB', 'fadeToRGB', 'fadeToHSB', 'fadeToRandomRGB', 'fadeToRandomHSB', 'playLightScript', 'stopScript', 'setFadeSpeed', 'setTimeAdjust', 'getRGBColor', 'setAddress', 'getAddress', 'getFirmware'];
       };
 
       BlinkM.prototype.start = function(callback) {
-        this.connection.i2cConfig(50);
         return BlinkM.__super__.start.apply(this, arguments);
       };
 
-      BlinkM.prototype.off = function() {
-        return this.connection.i2cWrite(this.address, this.commandBytes('o'));
+      BlinkM.prototype.goToRGB = function(r, g, b, cb) {
+        if (cb == null) {
+          cb = null;
+        }
+        return this.connection.i2cWrite(this.address, TO_RGB, [r, g, b], cb);
       };
 
-      BlinkM.prototype.rgb = function(r, g, b) {
-        this.connection.i2cWrite(this.address, this.commandBytes('n'));
-        return this.connection.i2cWrite(this.address, [r, g, b]);
+      BlinkM.prototype.fadeToRGB = function(r, g, b, cb) {
+        if (cb == null) {
+          cb = null;
+        }
+        return this.connection.i2cWrite(this.address, FADE_TO_RGB, [r, g, b], null);
       };
 
-      BlinkM.prototype.fade = function(r, g, b) {
-        this.connection.i2cWrite(this.address, this.commandBytes('c'));
-        return this.connection.i2cWrite(this.address, [r, g, b]);
+      BlinkM.prototype.fadeToHSB = function(h, s, b, cb) {
+        if (cb == null) {
+          cb = null;
+        }
+        return this.connection.i2cWrite(this.address, FADE_TO_HSB, [h, s, b], null);
       };
 
-      BlinkM.prototype.color = function(callback) {
+      BlinkM.prototype.fadeToRandomRGB = function(r, g, b, cb) {
+        if (cb == null) {
+          cb = null;
+        }
+        return this.connection.i2cWrite(this.address, FADE_TO_RND_RGB, [r, g, b], null);
+      };
+
+      BlinkM.prototype.fadeToRandomHSB = function(h, s, b, cb) {
+        if (cb == null) {
+          cb = null;
+        }
+        return this.connection.i2cWrite(this.address, FADE_TO_RND_HSB, [h, s, b], null);
+      };
+
+      BlinkM.prototype.playLightScript = function(id, repeats, startAtLine, cb) {
+        if (cb == null) {
+          cb = null;
+        }
+        return this.connection.i2cWrite(this.address, PLAY_LIGHT_SCRIPT, [id, repeats, startAtLine], null);
+      };
+
+      BlinkM.prototype.stopScript = function(cb) {
+        if (cb == null) {
+          cb = null;
+        }
+        return this.connection.i2cWrite(this.address, STOP_SCRIPT, [], null);
+      };
+
+      BlinkM.prototype.setFadeSpeed = function(speed, cb) {
+        if (cb == null) {
+          cb = null;
+        }
+        return this.connection.i2cWrite(this.address, STOP_SCRIPT, [], null);
+      };
+
+      BlinkM.prototype.setTimeAdjust = function(time, cb) {
+        if (cb == null) {
+          cb = null;
+        }
+        return this.connection.i2cWrite(this.address, STOP_SCRIPT, [], null);
+      };
+
+      BlinkM.prototype.getRGBColor = function(callback, cb) {
+        if (cb == null) {
+          cb = null;
+        }
+        return this.connection.i2cRead(this.address, GET_RGB, 3, callback);
+      };
+
+      BlinkM.prototype.getAddress = function(callback, cb) {
+        if (cb == null) {
+          cb = null;
+        }
+        return this.connection.i2cRead(this.address, GET_ADDRESS, 1, callback);
+      };
+
+      BlinkM.prototype.setAddress = function(address, callback, cb) {
         var _this = this;
-        this.connection.i2cWrite(this.address, this.commandBytes('g'));
-        return this.connection.i2cRead(this.address, 3, function(data) {
-          return callback(data[0], data[1], data[2]);
+        if (cb == null) {
+          cb = null;
+        }
+        return this.connection.i2cRead(this.address, GET_ADDRESS, 1, function(err, data) {
+          _this.address = data[0];
+          if (typeof (callback === "function")) {
+            return callback();
+          }
         });
       };
 
-      BlinkM.prototype.version = function(callback) {
-        var _this = this;
-        this.connection.i2cWrite(this.address, this.commandBytes('Z'));
-        return this.connection.i2cRead(this.address, 2, function(data) {
-          return callback("" + data[0] + "." + data[1]);
-        });
-      };
-
-      BlinkM.prototype.commandBytes = function(s) {
-        return new Buffer(s, 'ascii');
+      BlinkM.prototype.getFirmware = function(callback, cb) {
+        if (cb == null) {
+          cb = null;
+        }
+        return this.connection.i2cRead(this.address, GET_FIRMWARE, 2, callback);
       };
 
       return BlinkM;

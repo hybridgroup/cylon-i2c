@@ -27,8 +27,7 @@ namespace "Cylon.Drivers.I2C", ->
       super
 
     heading: (callback) ->
-      @connection.i2cWrite @address, @commandBytes('A')
-      @connection.i2cRead @address, 2, (data) =>
+      @connection.i2cRead @address, @commandBytes('A'), 2, (data) =>
         (callback)(parseHeading(data))
 
     commandBytes: (s) ->
