@@ -1,5 +1,4 @@
 ###
- * Linux IO DigitalPin
  * cylonjs.com
  *
  * Copyright (c) 2013 The Hybrid Group
