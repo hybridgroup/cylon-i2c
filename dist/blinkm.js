@@ -29,9 +29,9 @@
 
       FADE_TO_HSB = 0x68;
 
-      FADE_TO_RND_RGB = 0x63;
+      FADE_TO_RND_RGB = 0x43;
 
-      FADE_TO_RND_HSB = 0x68;
+      FADE_TO_RND_HSB = 0x48;
 
       PLAY_LIGHT_SCRIPT = 0x70;
 
@@ -73,90 +73,85 @@
         if (cb == null) {
           cb = null;
         }
-        return this.connection.i2cWrite(this.address, FADE_TO_RGB, [r, g, b], null);
+        return this.connection.i2cWrite(this.address, FADE_TO_RGB, [r, g, b], cb);
       };
 
       BlinkM.prototype.fadeToHSB = function(h, s, b, cb) {
         if (cb == null) {
           cb = null;
         }
-        return this.connection.i2cWrite(this.address, FADE_TO_HSB, [h, s, b], null);
+        return this.connection.i2cWrite(this.address, FADE_TO_HSB, [h, s, b], cb);
       };
 
       BlinkM.prototype.fadeToRandomRGB = function(r, g, b, cb) {
         if (cb == null) {
           cb = null;
         }
-        return this.connection.i2cWrite(this.address, FADE_TO_RND_RGB, [r, g, b], null);
+        return this.connection.i2cWrite(this.address, FADE_TO_RND_RGB, [r, g, b], cb);
       };
 
       BlinkM.prototype.fadeToRandomHSB = function(h, s, b, cb) {
         if (cb == null) {
           cb = null;
         }
-        return this.connection.i2cWrite(this.address, FADE_TO_RND_HSB, [h, s, b], null);
+        return this.connection.i2cWrite(this.address, FADE_TO_RND_HSB, [h, s, b], cb);
       };
 
       BlinkM.prototype.playLightScript = function(id, repeats, startAtLine, cb) {
         if (cb == null) {
           cb = null;
         }
-        return this.connection.i2cWrite(this.address, PLAY_LIGHT_SCRIPT, [id, repeats, startAtLine], null);
+        return this.connection.i2cWrite(this.address, PLAY_LIGHT_SCRIPT, [id, repeats, startAtLine], cb);
       };
 
       BlinkM.prototype.stopScript = function(cb) {
         if (cb == null) {
           cb = null;
         }
-        return this.connection.i2cWrite(this.address, STOP_SCRIPT, [], null);
+        return this.connection.i2cWrite(this.address, STOP_SCRIPT, [], cb);
       };
 
       BlinkM.prototype.setFadeSpeed = function(speed, cb) {
         if (cb == null) {
           cb = null;
         }
-        return this.connection.i2cWrite(this.address, STOP_SCRIPT, [], null);
+        return this.connection.i2cWrite(this.address, STOP_SCRIPT, [speed], cb);
       };
 
       BlinkM.prototype.setTimeAdjust = function(time, cb) {
         if (cb == null) {
           cb = null;
         }
-        return this.connection.i2cWrite(this.address, STOP_SCRIPT, [], null);
+        return this.connection.i2cWrite(this.address, STOP_SCRIPT, [time], cb);
       };
 
-      BlinkM.prototype.getRGBColor = function(callback, cb) {
+      BlinkM.prototype.getRGBColor = function(cb) {
         if (cb == null) {
           cb = null;
         }
-        return this.connection.i2cRead(this.address, GET_RGB, 3, callback);
+        return this.connection.i2cRead(this.address, GET_RGB, 3, cb);
       };
 
-      BlinkM.prototype.getAddress = function(callback, cb) {
+      BlinkM.prototype.getAddress = function(cb) {
         if (cb == null) {
           cb = null;
         }
-        return this.connection.i2cRead(this.address, GET_ADDRESS, 1, callback);
+        return this.connection.i2cRead(this.address, GET_ADDRESS, 1, cb);
       };
 
-      BlinkM.prototype.setAddress = function(address, callback, cb) {
-        var _this = this;
+      BlinkM.prototype.setAddress = function(address, cb) {
         if (cb == null) {
           cb = null;
         }
-        return this.connection.i2cRead(this.address, GET_ADDRESS, 1, function(err, data) {
-          _this.address = data[0];
-          if (typeof (callback === "function")) {
-            return callback();
-          }
-        });
+        this.connection.i2cWrite(this.address, SET_ADDRESS, [address, 0xd0, 0x0d, address], cb);
+        return this.address = address;
       };
 
-      BlinkM.prototype.getFirmware = function(callback, cb) {
+      BlinkM.prototype.getFirmware = function(cb) {
         if (cb == null) {
           cb = null;
         }
-        return this.connection.i2cRead(this.address, GET_FIRMWARE, 2, callback);
+        return this.connection.i2cRead(this.address, GET_FIRMWARE, 1, cb);
       };
 
       return BlinkM;
