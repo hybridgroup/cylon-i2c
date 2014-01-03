@@ -90,6 +90,8 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 ## Release History
 [![NPM](https://nodei.co/npm/cylon-i2c.png?compact=true)](https://nodei.co/npm/cylon-i2c/)
 
+Version 0.5.1 - Bug fixes and updated BlinkM driver with full command set
+
 Version 0.5.0 - Update to Cylon 0.8.0
 
 Version 0.4.0 - Update to Cylon 0.7.0
