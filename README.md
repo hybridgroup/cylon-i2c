@@ -103,4 +103,4 @@ Version 0.2.0 - Update to Cylon 0.5.0
 Version 0.1.0 - Add support for BlinkM
 
 ## License
-Copyright (c) 2013 The Hybrid Group. Licensed under the Apache 2.0 license.
+Copyright (c) 2013-2014 The Hybrid Group. Licensed under the Apache 2.0 license.
