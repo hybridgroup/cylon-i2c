@@ -33,7 +33,6 @@
   },
   "dependencies": {
     "node-namespace": "~1.0.0",
-    "cylon": ">=0.9.0",
-    "i2c": ">=0.1.4"
+    "cylon": ">=0.9.0"
   }
 }
