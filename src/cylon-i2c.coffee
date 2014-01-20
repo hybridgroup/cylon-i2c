@@ -11,7 +11,6 @@
 require 'cylon'
 require './blinkm'
 require './hmc6352'
-require './i2c-device'
 
 module.exports =
   driver: (opts) ->
