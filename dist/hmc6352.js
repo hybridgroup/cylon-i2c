@@ -30,19 +30,11 @@
         return ['heading'];
       };
 
-      # Public: Starts the driver.
-      #
-      # Returns null.
       Hmc6352.prototype.start = function(callback) {
         this.connection.i2cConfig(50);
         return Hmc6352.__super__.start.apply(this, arguments);
       };
 
-      # Public: Returns the heading data for the compass
-      #
-      # callback - params
-      #
-      # Returns null.
       Hmc6352.prototype.heading = function(callback) {
         var _this = this;
         return this.connection.i2cRead(this.address, this.commandBytes('A'), 2, function(data) {
@@ -50,20 +42,10 @@
         });
       };
 
-      # Public: commandBytes
-      #
-      # s - params
-      #
-      # Returns null.
       Hmc6352.prototype.commandBytes = function(s) {
         return new Buffer(s, 'ascii');
       };
 
-      # Public: parseHeading
-      #
-      # val - params
-      #
-      # Returns null.
       Hmc6352.prototype.parseHeading = function(val) {
         return (val[1] + val[0] * 256) / 10.0;
       };
