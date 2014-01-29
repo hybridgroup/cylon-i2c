@@ -11,6 +11,7 @@
 require 'cylon'
 require './blinkm'
 require './hmc6352'
+require './lcd'
 
 module.exports =
   driver: (opts) ->
@@ -18,6 +19,8 @@ module.exports =
       new Cylon.Drivers.I2C.BlinkM(opts)
     else if opts.name is 'hmc6352'
       new Cylon.Drivers.I2C.Hmc6352(opts)
+    else if opts.name is 'lcd'
+      new Cylon.Drivers.I2C.LCD(opts)
     else
       null
 
@@ -26,3 +29,5 @@ module.exports =
     robot.registerDriver 'cylon-i2c', 'blinkm'
     Logger.debug "Registering i2c HMC6352 driver for #{robot.name}"
     robot.registerDriver 'cylon-i2c', 'hmc6352'
+    Logger.debug "Registering i2c LCD driver for #{robot.name}"
+    robot.registerDriver 'cylon-i2c', 'lcd'

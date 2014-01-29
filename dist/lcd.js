@@ -19,7 +19,7 @@
 
   namespace("Cylon.Drivers.I2C", function() {
     return this.LCD = (function(_super) {
-      var BACKLIGHT, BLINKOFF, BLINKON, CLEARDISPLAY, CURSORMOVE, CURSOROFF, CURSORON, CURSORSHIFT, DISPLAYCONTROL, DISPLAYMOVE, DISPLAYOFF, DISPLAYON, EIGHTBITMODE, ENTRYLEFT, ENTRYMODESET, ENTRYRIGHT, ENTRYSHIFTDECREMENT, ENTRYSHIFTINCREMENT, En, FIVExTENDOTS, FOURBITMODE, FUNCTIONSET, MOVELEFT, MOVERIGHT, NOBACKLIGHT, ONELINE, RETURNHOME, Rs, Rw, SETCGRAMADDR, SETDDRAMADDR, TWOLINE;
+      var BACKLIGHT, BLINKOFF, BLINKON, CLEARDISPLAY, CURSORMOVE, CURSOROFF, CURSORON, CURSORSHIFT, DISPLAYCONTROL, DISPLAYMOVE, DISPLAYOFF, DISPLAYON, EIGHTBITMODE, ENTRYLEFT, ENTRYMODESET, ENTRYRIGHT, ENTRYSHIFTDECREMENT, ENTRYSHIFTINCREMENT, En, FIVExEIGHTDOTS, FIVExTENDOTS, FOURBITMODE, FUNCTIONSET, MOVELEFT, MOVERIGHT, NOBACKLIGHT, ONELINE, RETURNHOME, Rs, Rw, SETCGRAMADDR, SETDDRAMADDR, TWOLINE;
 
       __extends(LCD, _super);
 
@@ -33,20 +33,23 @@
       };
 
       LCD.prototype.start = function(callback) {
-        this.displayfunction = FOURBITMODE | ONELINE | FIVExEIGHTDOTS;
-        this.connection.i2cConfig(50);
-        write4bits(0x03 << 4);
+        sleep(50);
+        this.expanderWrite(this.backlighting);
+        sleep(1000);
+        this.displayfunction = FOURBITMODE | TWOLINE | FIVExEIGHTDOTS;
+        this.write4bits(0x03 << 4);
         sleep(4);
-        write4bits(0x03 << 4);
+        this.write4bits(0x03 << 4);
         sleep(4);
-        write4bits(0x03 << 4);
-        sendCommand(FUNCTIONSET | this.displayfunction);
+        this.write4bits(0x03 << 4);
+        this.write4bits(0x02 << 4);
+        this.sendCommand(FUNCTIONSET | this.displayfunction);
         this.displaycontrol = DISPLAYON | CURSOROFF | BLINKOFF;
-        display();
-        clear();
+        this.displayOn();
+        this.clear();
         this.displaymode = ENTRYLEFT | ENTRYSHIFTDECREMENT;
-        sendCommand(ENTRYMODESET | this.displaymode);
-        home();
+        this.sendCommand(ENTRYMODESET | this.displaymode);
+        this.home();
         return LCD.__super__.start.apply(this, arguments);
       };
 
@@ -55,13 +58,13 @@
       };
 
       LCD.prototype.clear = function() {
-        sendCommand(CLEARDISPLAY);
-        return sleep(2000);
+        this.sendCommand(CLEARDISPLAY);
+        return sleep(2);
       };
 
       LCD.prototype.home = function() {
-        sendCommand(RETURNHOME);
-        return sleep(2000);
+        this.sendCommand(RETURNHOME);
+        return sleep(2);
       };
 
       LCD.prototype.setCursor = function(col, row) {
@@ -70,47 +73,47 @@
         if (row > numlines) {
           row = numlines - 1;
         }
-        return sendCommand(SETDDRAMADDR | (col + row_offsets[row]));
+        return this.sendCommand(SETDDRAMADDR | (col + row_offsets[row]));
       };
 
       LCD.prototype.displayOff = function() {
         this.displaycontrol &= ~DISPLAYON;
-        return sendCommand(DISPLAYCONTROL | this.displaycontrol);
+        return this.sendCommand(DISPLAYCONTROL | this.displaycontrol);
       };
 
       LCD.prototype.displayOn = function() {
         this.displaycontrol |= DISPLAYON;
-        return sendCommand(DISPLAYCONTROL | this.displaycontrol);
+        return this.sendCommand(DISPLAYCONTROL | this.displaycontrol);
       };
 
       LCD.prototype.cursorOff = function() {
         this.displaycontrol &= ~CURSORON;
-        return sendCommand(DISPLAYCONTROL | this.displaycontrol);
+        return this.sendCommand(DISPLAYCONTROL | this.displaycontrol);
       };
 
       LCD.prototype.cursorOn = function() {
         this.displaycontrol |= CURSORON;
-        return sendCommand(DISPLAYCONTROL | this.displaycontrol);
+        return this.sendCommand(DISPLAYCONTROL | this.displaycontrol);
       };
 
       LCD.prototype.blinkOff = function() {
         this.displaycontrol &= ~BLINKON;
-        return sendCommand(DISPLAYCONTROL | this.displaycontrol);
+        return this.sendCommand(DISPLAYCONTROL | this.displaycontrol);
       };
 
       LCD.prototype.blinkOn = function() {
         this.displaycontrol |= BLIKON;
-        return sendCommand(DISPLAYCONTROL | this.displaycontrol);
+        return this.sendCommand(DISPLAYCONTROL | this.displaycontrol);
       };
 
       LCD.prototype.backlightOff = function() {
         this.backlightVal = NOBACKLIGHT;
-        return expanderWrite(0);
+        return this.expanderWrite(0);
       };
 
       LCD.prototype.backlightOn = function() {
         this.backlightVal = BACKLIGHT;
-        return expanderWrite(0);
+        return this.expanderWrite(0);
       };
 
       LCD.prototype.backlighting = function() {
@@ -118,35 +121,33 @@
       };
 
       LCD.prototype.write4bits = function(val) {
-        expanderWrite(val);
-        return pulseEnable(val);
+        this.expanderWrite(val);
+        return this.pulseEnable(val);
       };
 
       LCD.prototype.expanderWrite = function(data) {
-        return this.connection.i2cWrite(this.address, data | backlighting());
+        return this.connection.i2cWrite(this.address, data | this.backlighting());
       };
 
       LCD.prototype.pulseEnable = function(data) {
-        expanderWrite(data | En);
-        sleep(1);
-        expanderWrite(data & ~En);
-        return sleep(50);
+        this.expanderWrite(data | En);
+        return this.expanderWrite(data & ~En);
       };
 
       LCD.prototype.sendCommand = function(value) {
-        return sendData(value, 0);
+        return this.sendData(value, 0);
       };
 
       LCD.prototype.writeData = function(value) {
-        return sendData(value, Rs);
+        return this.sendData(value, Rs);
       };
 
       LCD.prototype.sendData = function(val, mode) {
         var highnib, lownib;
         highnib = val & 0xf0;
         lownib = (val << 4) & 0xf0;
-        write4bits(highnib | mode);
-        return write4bits(lownib | mode);
+        this.write4bits(highnib | mode);
+        return this.write4bits(lownib | mode);
       };
 
       LCD.prototype.print = function(str) {
@@ -155,7 +156,8 @@
         _results = [];
         for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
           char = _ref[index];
-          _results.push(writeData(char));
+          console.log(char);
+          _results.push(this.writeData(char.charCodeAt(0)));
         }
         return _results;
       };
@@ -214,7 +216,7 @@
 
       FIVExTENDOTS = 0x04;
 
-      FIVExTENDOTS = 0x00;
+      FIVExEIGHTDOTS = 0x00;
 
       BACKLIGHT = 0x08;
 

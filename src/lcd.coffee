@@ -23,27 +23,33 @@ namespace "Cylon.Drivers.I2C", ->
        'blinkOff', 'blinkOn', 'backlightOff', 'backlightOn', 'print']
 
     start: (callback) ->
-      @displayfunction = FOURBITMODE | ONELINE | FIVExEIGHTDOTS
-      @connection.i2cConfig(50)
+      sleep(50)
 
-      write4bits(0x03 << 4)
-      sleep(4)
-      write4bits(0x03 << 4)
-      sleep(4)
-      write4bits(0x03 << 4)
+      @expanderWrite(@backlighting)
+      sleep(1000)
 
-      sendCommand(FUNCTIONSET | @displayfunction)
+      @displayfunction = FOURBITMODE | TWOLINE | FIVExEIGHTDOTS
+      #@connection.i2cConfig(50)
+
+      @write4bits(0x03 << 4)
+      sleep(4)
+      @write4bits(0x03 << 4)
+      sleep(4)
+      @write4bits(0x03 << 4)
+
+      @write4bits(0x02 << 4)
+      @sendCommand(FUNCTIONSET | @displayfunction)
 
       @displaycontrol = DISPLAYON | CURSOROFF | BLINKOFF
-      display()
+      @displayOn()
         
-      clear()
+      @clear()
         
       # Initialize to default text direction (for roman languages) & set the entry mode
       @displaymode = ENTRYLEFT | ENTRYSHIFTDECREMENT
-      sendCommand(ENTRYMODESET | @displaymode)
+      @sendCommand(ENTRYMODESET | @displaymode)
         
-      home()
+      @home()
 
       super
 
@@ -52,13 +58,13 @@ namespace "Cylon.Drivers.I2C", ->
 
     # clear display
     clear: () ->
-      sendCommand(CLEARDISPLAY)
-      sleep(2000)
+      @sendCommand(CLEARDISPLAY)
+      sleep(2)
 
     # move display cursor to home
     home: () ->
-      sendCommand(RETURNHOME)
-      sleep(2000)
+      @sendCommand(RETURNHOME)
+      sleep(2)
 
     # move display cursor to col, row
     setCursor: (col, row) ->
@@ -66,72 +72,73 @@ namespace "Cylon.Drivers.I2C", ->
       if row > numlines
         row = numlines - 1
 
-      sendCommand(SETDDRAMADDR | (col + row_offsets[row]))
+      @sendCommand(SETDDRAMADDR | (col + row_offsets[row]))
 
     displayOff: ->
       @displaycontrol &= ~DISPLAYON;
-      sendCommand(DISPLAYCONTROL | @displaycontrol)
+      @sendCommand(DISPLAYCONTROL | @displaycontrol)
 
     displayOn: ->
       @displaycontrol |= DISPLAYON;
-      sendCommand(DISPLAYCONTROL | @displaycontrol)
+      @sendCommand(DISPLAYCONTROL | @displaycontrol)
 
     cursorOff: ->
       @displaycontrol &= ~CURSORON;
-      sendCommand(DISPLAYCONTROL | @displaycontrol)
+      @sendCommand(DISPLAYCONTROL | @displaycontrol)
 
     cursorOn: ->
       @displaycontrol |= CURSORON;
-      sendCommand(DISPLAYCONTROL | @displaycontrol)
+      @sendCommand(DISPLAYCONTROL | @displaycontrol)
 
     blinkOff: ->
       @displaycontrol &= ~BLINKON;
-      sendCommand(DISPLAYCONTROL | @displaycontrol)
+      @sendCommand(DISPLAYCONTROL | @displaycontrol)
 
     blinkOn: ->
       @displaycontrol |= BLIKON;
-      sendCommand(DISPLAYCONTROL | @displaycontrol)
+      @sendCommand(DISPLAYCONTROL | @displaycontrol)
 
     backlightOff: ->
       @backlightVal = NOBACKLIGHT
-      expanderWrite(0)
+      @expanderWrite(0)
 
     backlightOn: ->
       @backlightVal = BACKLIGHT
-      expanderWrite(0)
+      @expanderWrite(0)
 
     backlighting: ->
       @backlightVal ?= NOBACKLIGHT
 
     write4bits: (val) ->
-      expanderWrite(val)
-      pulseEnable(val)
+      @expanderWrite(val)
+      @pulseEnable(val)
 
     expanderWrite: (data) ->
-      @connection.i2cWrite @address, (data | backlighting())
+      @connection.i2cWrite @address, (data | @backlighting())
 
     pulseEnable: (data) ->
-      expanderWrite(data | En)
-      sleep(1)
+      @expanderWrite(data | En)
+      #sleep(1)
         
-      expanderWrite(data & ~En)
-      sleep(50)
+      @expanderWrite(data & ~En)
+      #sleep(50)
 
     sendCommand: (value) ->
-      sendData(value, 0)
+      @sendData(value, 0)
 
     writeData: (value) ->
-      sendData(value, Rs)
+      @sendData(value, Rs)
 
     sendData: (val, mode) ->
       highnib = val & 0xf0
       lownib = (val << 4) & 0xf0
-      write4bits(highnib | mode)
-      write4bits(lownib | mode)
+      @write4bits(highnib | mode)
+      @write4bits(lownib | mode)
 
     print: (str) ->
       for char, index in str.split ''
-        writeData(char)
+        console.log char
+        @writeData(char.charCodeAt(0))
 
     # commands
     CLEARDISPLAY = 0x01
@@ -169,7 +176,7 @@ namespace "Cylon.Drivers.I2C", ->
     TWOLINE = 0x08
     ONELINE = 0x00
     FIVExTENDOTS = 0x04
-    FIVExTENDOTS = 0x00
+    FIVExEIGHTDOTS = 0x00
 
     # flags for backlight control
     BACKLIGHT = 0x08
