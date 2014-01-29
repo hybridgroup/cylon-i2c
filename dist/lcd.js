@@ -211,9 +211,9 @@
 
       NOBACKLIGHT = 0x00;
 
-      En = 0x04;
+      En = 0x01 << 2;
 
-      Rw = 0x02;
+      Rw = 0x01 << 1;
 
       Rs = 0x01;
 
