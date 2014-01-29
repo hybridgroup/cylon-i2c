@@ -34,7 +34,8 @@
 
       LCD.prototype.start = function(callback) {
         sleep(50);
-        this.expanderWrite(this.backlighting);
+        this.backlightVal = NOBACKLIGHT;
+        this.expanderWrite(this.backlightVal);
         sleep(1000);
         this.displayfunction = FOURBITMODE | TWOLINE | FIVExEIGHTDOTS;
         this.write4bits(0x03 << 4);
@@ -53,10 +54,6 @@
         return LCD.__super__.start.apply(this, arguments);
       };
 
-      LCD.prototype.commandBytes = function(s) {
-        return new Buffer(s, 'ascii');
-      };
-
       LCD.prototype.clear = function() {
         this.sendCommand(CLEARDISPLAY);
         return sleep(2);
@@ -70,9 +67,6 @@
       LCD.prototype.setCursor = function(col, row) {
         var row_offsets;
         row_offsets = [0x00, 0x40, 0x14, 0x54];
-        if (row > numlines) {
-          row = numlines - 1;
-        }
         return this.sendCommand(SETDDRAMADDR | (col + row_offsets[row]));
       };
 
@@ -102,7 +96,7 @@
       };
 
       LCD.prototype.blinkOn = function() {
-        this.displaycontrol |= BLIKON;
+        this.displaycontrol |= BLINKON;
         return this.sendCommand(DISPLAYCONTROL | this.displaycontrol);
       };
 
@@ -116,17 +110,13 @@
         return this.expanderWrite(0);
       };
 
-      LCD.prototype.backlighting = function() {
-        return this.backlightVal != null ? this.backlightVal : this.backlightVal = NOBACKLIGHT;
-      };
-
       LCD.prototype.write4bits = function(val) {
         this.expanderWrite(val);
         return this.pulseEnable(val);
       };
 
       LCD.prototype.expanderWrite = function(data) {
-        return this.connection.i2cWrite(this.address, data | this.backlighting());
+        return this.connection.i2cWrite(this.address, data | this.backlightVal);
       };
 
       LCD.prototype.pulseEnable = function(data) {
@@ -156,7 +146,6 @@
         _results = [];
         for (index = _i = 0, _len = _ref.length; _i < _len; index = ++_i) {
           char = _ref[index];
-          console.log(char);
           _results.push(this.writeData(char.charCodeAt(0)));
         }
         return _results;
@@ -222,9 +211,9 @@
 
       NOBACKLIGHT = 0x00;
 
-      En = 0x01 << 2;
+      En = 0x04;
 
-      Rw = 0x01 << 1;
+      Rw = 0x02;
 
       Rs = 0x01;
 

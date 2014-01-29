@@ -25,7 +25,8 @@ namespace "Cylon.Drivers.I2C", ->
     start: (callback) ->
       sleep(50)
 
-      @expanderWrite(@backlighting)
+      @backlightVal = NOBACKLIGHT
+      @expanderWrite(@backlightVal)
       sleep(1000)
 
       @displayfunction = FOURBITMODE | TWOLINE | FIVExEIGHTDOTS
@@ -40,21 +41,18 @@ namespace "Cylon.Drivers.I2C", ->
       @write4bits(0x02 << 4)
       @sendCommand(FUNCTIONSET | @displayfunction)
 
-      @displaycontrol = DISPLAYON | CURSOROFF | BLINKOFF
+      @displaycontrol = (DISPLAYON | CURSOROFF | BLINKOFF)
       @displayOn()
         
       @clear()
         
       # Initialize to default text direction (for roman languages) & set the entry mode
-      @displaymode = ENTRYLEFT | ENTRYSHIFTDECREMENT
+      @displaymode = (ENTRYLEFT | ENTRYSHIFTDECREMENT)
       @sendCommand(ENTRYMODESET | @displaymode)
         
       @home()
 
       super
-
-    commandBytes: (s) ->
-      new Buffer(s, 'ascii')
 
     # clear display
     clear: () ->
@@ -69,9 +67,6 @@ namespace "Cylon.Drivers.I2C", ->
     # move display cursor to col, row
     setCursor: (col, row) ->
       row_offsets = [0x00, 0x40, 0x14, 0x54]
-      if row > numlines
-        row = numlines - 1
-
       @sendCommand(SETDDRAMADDR | (col + row_offsets[row]))
 
     displayOff: ->
@@ -95,7 +90,7 @@ namespace "Cylon.Drivers.I2C", ->
       @sendCommand(DISPLAYCONTROL | @displaycontrol)
 
     blinkOn: ->
-      @displaycontrol |= BLIKON;
+      @displaycontrol |= BLINKON;
       @sendCommand(DISPLAYCONTROL | @displaycontrol)
 
     backlightOff: ->
@@ -106,22 +101,16 @@ namespace "Cylon.Drivers.I2C", ->
       @backlightVal = BACKLIGHT
       @expanderWrite(0)
 
-    backlighting: ->
-      @backlightVal ?= NOBACKLIGHT
-
     write4bits: (val) ->
       @expanderWrite(val)
       @pulseEnable(val)
 
     expanderWrite: (data) ->
-      @connection.i2cWrite @address, (data | @backlighting())
+      @connection.i2cWrite @address, (data | @backlightVal)
 
     pulseEnable: (data) ->
       @expanderWrite(data | En)
-      #sleep(1)
-        
       @expanderWrite(data & ~En)
-      #sleep(50)
 
     sendCommand: (value) ->
       @sendData(value, 0)
@@ -137,7 +126,6 @@ namespace "Cylon.Drivers.I2C", ->
 
     print: (str) ->
       for char, index in str.split ''
-        console.log char
         @writeData(char.charCodeAt(0))
 
     # commands
