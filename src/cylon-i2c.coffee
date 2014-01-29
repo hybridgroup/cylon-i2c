@@ -15,14 +15,11 @@ require './lcd'
 
 module.exports =
   driver: (opts) ->
-    if opts.name is 'blinkm'
-      new Cylon.Drivers.I2C.BlinkM(opts)
-    else if opts.name is 'hmc6352'
-      new Cylon.Drivers.I2C.Hmc6352(opts)
-    else if opts.name is 'lcd'
-      new Cylon.Drivers.I2C.LCD(opts)
-    else
-      null
+    switch opts.name
+      when 'blinkm' then new Cylon.Drivers.I2C.BlinkM opts
+      when 'hmc6352' then new Cylon.Drivers.I2C.Hmc6352 opts
+      when 'lcd' then new Cylon.Drivers.I2C.LCD opts
+      else null
 
   register: (robot) ->
     Logger.debug "Registering i2c BlinkM driver for #{robot.name}"

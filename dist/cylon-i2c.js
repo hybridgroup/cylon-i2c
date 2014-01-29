@@ -19,14 +19,15 @@
 
   module.exports = {
     driver: function(opts) {
-      if (opts.name === 'blinkm') {
-        return new Cylon.Drivers.I2C.BlinkM(opts);
-      } else if (opts.name === 'hmc6352') {
-        return new Cylon.Drivers.I2C.Hmc6352(opts);
-      } else if (opts.name === 'lcd') {
-        return new Cylon.Drivers.I2C.LCD(opts);
-      } else {
-        return null;
+      switch (opts.name) {
+        case 'blinkm':
+          return new Cylon.Drivers.I2C.BlinkM(opts);
+        case 'hmc6352':
+          return new Cylon.Drivers.I2C.Hmc6352(opts);
+        case 'lcd':
+          return new Cylon.Drivers.I2C.LCD(opts);
+        default:
+          return null;
       }
     },
     register: function(robot) {
