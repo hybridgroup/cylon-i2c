@@ -99,8 +99,6 @@ Thank you!
 
 ## Release History
 
-<a href="https://nodei.co/npm/cylon-i2c/"><img src="https://nodei.co/npm/cylon-i2c.png?compact=true"></a>
-
 Version 0.6.0 - Update to Cylon 0.9.0
 
 Version 0.5.1 - Bug fixes and updated BlinkM driver with full command set
