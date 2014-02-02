@@ -15,21 +15,28 @@
 
   require('./hmc6352');
 
+  require('./mpl115a2');
+
   module.exports = {
     driver: function(opts) {
-      if (opts.name === 'blinkm') {
-        return new Cylon.Drivers.I2C.BlinkM(opts);
-      } else if (opts.name === 'hmc6352') {
-        return new Cylon.Drivers.I2C.Hmc6352(opts);
-      } else {
-        return null;
+      switch (opts.name) {
+        case 'blinkm':
+          return new Cylon.Drivers.I2C.BlinkM(opts);
+        case 'hmc6352':
+          return new Cylon.Drivers.I2C.Hmc6352(opts);
+        case 'mpl115a2':
+          return new Cylon.Drivers.I2C.Mpl115A2(opts);
+        default:
+          return null;
       }
     },
     register: function(robot) {
       Logger.debug("Registering i2c BlinkM driver for " + robot.name);
       robot.registerDriver('cylon-i2c', 'blinkm');
       Logger.debug("Registering i2c HMC6352 driver for " + robot.name);
-      return robot.registerDriver('cylon-i2c', 'hmc6352');
+      robot.registerDriver('cylon-i2c', 'hmc6352');
+      Logger.debug("Registering i2c MPL115A2 driver for " + robot.name);
+      return robot.registerDriver('cylon-i2c', 'mpl115a2');
     }
   };
 

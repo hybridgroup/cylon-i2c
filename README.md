@@ -76,6 +76,7 @@ Cylon.js has a extensible system for connecting to hardware devices. The followi
 
   - BlinkM
   - HMC6352 Digital Compass
+  - MPL115A2 Digital Barometer & Thermometer
   
 More drivers are coming soon...
 
