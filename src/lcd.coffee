@@ -111,6 +111,7 @@ namespace "Cylon.Drivers.I2C", ->
     pulseEnable: (data) ->
       @expanderWrite(data | En)
       @expanderWrite(data & ~En)
+      @expanderWrite(data | En)
 
     sendCommand: (value) ->
       @sendData(value, 0)
