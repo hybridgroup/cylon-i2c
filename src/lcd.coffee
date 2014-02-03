@@ -17,6 +17,10 @@ namespace "Cylon.Drivers.I2C", ->
     constructor: (opts) ->
       super
       @address = 0x27
+      @_backlightVal = NOBACKLIGHT
+      @_displayfunction = FOURBITMODE | TWOLINE | FIVExEIGHTDOTS
+      @_displaycontrol = (DISPLAYON | CURSOROFF | BLINKOFF)
+      @_displaymode = (ENTRYLEFT | ENTRYSHIFTDECREMENT)
 
     commands: ->
       ['clear', 'home', 'setCursor', 'displayOff', 'displayOn', 'cursorOff', 'cursorOn',
@@ -25,30 +29,27 @@ namespace "Cylon.Drivers.I2C", ->
     start: (callback) ->
       sleep(50)
 
-      @backlightVal = NOBACKLIGHT
-      @expanderWrite(@backlightVal)
+      @_expanderWrite(@_backlightVal)
       sleep(1000)
 
-      @displayfunction = FOURBITMODE | TWOLINE | FIVExEIGHTDOTS
-      #@connection.i2cConfig(50)
-
-      @write4bits(0x03 << 4)
+      @_write4bits(0x03 << 4)
       sleep(4)
-      @write4bits(0x03 << 4)
+
+      @_write4bits(0x03 << 4)
       sleep(4)
-      @write4bits(0x03 << 4)
 
-      @write4bits(0x02 << 4)
-      @sendCommand(FUNCTIONSET | @displayfunction)
+      @_write4bits(0x03 << 4)
 
-      @displaycontrol = (DISPLAYON | CURSOROFF | BLINKOFF)
+      @_write4bits(0x02 << 4)
+
+      @_sendCommand(FUNCTIONSET | @_displayfunction)
+
       @displayOn()
         
       @clear()
         
       # Initialize to default text direction (for roman languages) & set the entry mode
-      @displaymode = (ENTRYLEFT | ENTRYSHIFTDECREMENT)
-      @sendCommand(ENTRYMODESET | @displaymode)
+      @_sendCommand(ENTRYMODESET | @_displaymode)
         
       @home()
 
@@ -56,79 +57,79 @@ namespace "Cylon.Drivers.I2C", ->
 
     # clear display
     clear: () ->
-      @sendCommand(CLEARDISPLAY)
+      @_sendCommand(CLEARDISPLAY)
       sleep(2)
 
     # move display cursor to home
     home: () ->
-      @sendCommand(RETURNHOME)
+      @_sendCommand(RETURNHOME)
       sleep(2)
 
     # move display cursor to col, row
     setCursor: (col, row) ->
       row_offsets = [0x00, 0x40, 0x14, 0x54]
-      @sendCommand(SETDDRAMADDR | (col + row_offsets[row]))
+      @_sendCommand(SETDDRAMADDR | (col + row_offsets[row]))
 
     displayOff: ->
-      @displaycontrol &= ~DISPLAYON;
-      @sendCommand(DISPLAYCONTROL | @displaycontrol)
+      @_displaycontrol &= ~DISPLAYON;
+      @_sendCommand(DISPLAYCONTROL | @_displaycontrol)
 
     displayOn: ->
-      @displaycontrol |= DISPLAYON;
-      @sendCommand(DISPLAYCONTROL | @displaycontrol)
+      @_displaycontrol |= DISPLAYON;
+      @_sendCommand(DISPLAYCONTROL | @_displaycontrol)
 
     cursorOff: ->
-      @displaycontrol &= ~CURSORON;
-      @sendCommand(DISPLAYCONTROL | @displaycontrol)
+      @_displaycontrol &= ~CURSORON;
+      @_sendCommand(DISPLAYCONTROL | @_displaycontrol)
 
     cursorOn: ->
-      @displaycontrol |= CURSORON;
-      @sendCommand(DISPLAYCONTROL | @displaycontrol)
+      @_displaycontrol |= CURSORON;
+      @_sendCommand(DISPLAYCONTROL | @_displaycontrol)
 
     blinkOff: ->
-      @displaycontrol &= ~BLINKON;
-      @sendCommand(DISPLAYCONTROL | @displaycontrol)
+      @_displaycontrol &= ~BLINKON;
+      @_sendCommand(DISPLAYCONTROL | @_displaycontrol)
 
     blinkOn: ->
-      @displaycontrol |= BLINKON;
-      @sendCommand(DISPLAYCONTROL | @displaycontrol)
+      @_displaycontrol |= BLINKON;
+      @sendCommand(DISPLAYCONTROL | @_displaycontrol)
 
     backlightOff: ->
-      @backlightVal = NOBACKLIGHT
+      @_backlightVal = NOBACKLIGHT
       @expanderWrite(0)
 
     backlightOn: ->
-      @backlightVal = BACKLIGHT
-      @expanderWrite(0)
-
-    write4bits: (val) ->
-      @expanderWrite(val)
-      @pulseEnable(val)
-
-    expanderWrite: (data) ->
-      @connection.i2cWrite @address, (data | @backlightVal)
-
-    pulseEnable: (data) ->
-      @expanderWrite(data | En)
-      @expanderWrite(data & ~En)
-
-    sendCommand: (value) ->
-      @sendData(value, 0)
-
-    writeData: (value) ->
-      @sendData(value, Rs)
-
-    sendData: (val, mode) ->
-      highnib = val & 0xf0
-      lownib = (val << 4) & 0xf0
-      @write4bits(highnib | mode)
-      @write4bits(lownib | mode)
+      @_backlightVal = BACKLIGHT
+      @_expanderWrite(0)
 
     print: (str) ->
       for char, index in str.split ''
-        @writeData(char.charCodeAt(0))
+        @_writeData(char.charCodeAt(0))
 
-    # commands
+    _write4bits: (val) ->
+      @_expanderWrite(val)
+      @_pulseEnable(val)
+
+    _expanderWrite: (data) ->
+      @connection.i2cWrite @address, (data | @_backlightVal)
+
+    _pulseEnable: (data) ->
+      @_expanderWrite(data | En)
+      @_expanderWrite(data & ~En)
+
+    _sendCommand: (value) ->
+      @_sendData(value, 0)
+
+    _writeData: (value) ->
+      @_sendData(value, Rs)
+
+    _sendData: (val, mode) ->
+      highnib = val & 0xf0
+      lownib = (val << 4) & 0xf0
+      @_write4bits(highnib | mode)
+      @_write4bits(lownib | mode)
+
+    # i2c commands
     CLEARDISPLAY = 0x01
     RETURNHOME = 0x02
     ENTRYMODESET = 0x04
