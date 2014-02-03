@@ -107,6 +107,7 @@
 
       LCD.prototype.backlightOn = function() {
         this.backlightVal = BACKLIGHT;
+        this.expanderWrite(0);
         return this.expanderWrite(0);
       };
 
@@ -211,9 +212,9 @@
 
       NOBACKLIGHT = 0x00;
 
-      En = 0x01 << 2;
+      En = 0x04;
 
-      Rw = 0x01 << 1;
+      Rw = 0x02;
 
       Rs = 0x01;
 

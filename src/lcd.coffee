@@ -111,7 +111,6 @@ namespace "Cylon.Drivers.I2C", ->
     pulseEnable: (data) ->
       @expanderWrite(data | En)
       @expanderWrite(data & ~En)
-      @expanderWrite(data | En)
 
     sendCommand: (value) ->
       @sendData(value, 0)
@@ -171,6 +170,6 @@ namespace "Cylon.Drivers.I2C", ->
     BACKLIGHT = 0x08
     NOBACKLIGHT = 0x00
 
-    En = 0x01 << 2  # Enable bit
-    Rw = 0x01 << 1  # Read/Write bit
-    Rs = 0x01       # Register select bit
+    En = 0x04 # Enable bit
+    Rw = 0x02 # Read/Write bit
+    Rs = 0x01 # Register select bit
