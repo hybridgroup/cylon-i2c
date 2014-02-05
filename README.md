@@ -99,7 +99,6 @@ Thank you!
   * For git help see [progit](http://git-scm.com/book) which is an awesome (and free) book on git
 
 ## Release History
-[![NPM](https://nodei.co/npm/cylon-i2c.png?compact=true)](https://nodei.co/npm/cylon-i2c/)
 
 Version 0.6.0 - Update to Cylon 0.9.0
 
