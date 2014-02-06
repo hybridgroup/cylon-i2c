@@ -1,73 +1,73 @@
 # Commands
 
-## goToRGB
+## goToRGB(r, g, b, cb)
 
 Sets the color of the BlinkM RGB LED to the specified combination of RGB color provided. 
 (red, green and blue values should be between `0` and `255`)
 
 ##### Returns 
 
-`(r, g, b, cb)`
+`nil`
 
-## fadeToRGB
+## fadeToRGB(r, g, b, cb)
 
 Fades the color of the BlinkM RGB LED to the specified combination of RGB color provided. 
 (red, green and blue values should be between `0` and `255`)
 
 ##### Returns 
 
-`(r, g, b, cb)`
+`nil`
 
-## fadeToHSB
+## fadeToHSB(h, s, b, cb)
 
 Fades the color of the BlinkM RGB LED to the specified combination of HSB provided.
 
 ##### Returns 
 
-`(h, s, b, cb)`
+`nil`
 
-## fadeToRandomRGB
+## fadeToRandomRGB(r, g, b, cb)
 
 Fades the color of the BlinkM RGB LED to a random combination of RGB color. 
 (red, green and blue values should be between `0` and `255`)
 
 ##### Returns 
 
-`(r, g, b, cb)`
+`nil`
 
-## fadeToRandomHSB
+## fadeToRandomHSB(h, s, b, cb)
 
 Fades the color of the BlinkM RGB LED to a random combination of HSB .
 
 ##### Returns 
 
-`(h, s, b, cb)`
+`nil`
 
-## playLightScript
+## playLightScript(id, repeats, startAtLine, cb)
 
 Plays a light script for the BlinkM RGB LED.
 
 ##### Returns 
 
-`(id, repeats, startAtLine, cb)`
+`nil`
 
-## stopScript
+## stopScript(cb)
 
 Stops an specific script for the BlinkM RGB LED.
 
 ##### Returns 
 
-`cb`
+`nil`
 
-## setFadeSpeed
+## setFadeSpeed(time, cb)
 
 Sets a time adjust for the BlinkM RGB LED.
 
 ##### Returns 
 
-`(time, cb)`
+`nil`
 
-## getRGBColor
+## getRGBColor()
 
 Returns an array containing the RGB values for the current color
 (all integer between `0` and `255`).
@@ -76,15 +76,15 @@ Returns an array containing the RGB values for the current color
 
 `integer_array` (cb).
 
-## setAddress
+## setAddress(address, cb)
 
 Returns an sring describing the I2C addresss being used.
 
 ##### Returns 
 
-`(address, cb)`
+`nil`
 
-## getFirmware
+## getFirmware()
 
 Returns an sring describing the I2C firmware version being used.
 

@@ -1,6 +1,6 @@
 # Commands
 
-## heading
+## heading()
 
 Returns the heading data for the compass.
 
