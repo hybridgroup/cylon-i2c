@@ -4,6 +4,8 @@
 
 Gets triggered every time the specified interval is met.
 
+##### Params
+
 - **interval** - Current compass reading
 
 ## start
