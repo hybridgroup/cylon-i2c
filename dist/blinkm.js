@@ -58,11 +58,9 @@
         return ['goToRGB', 'fadeToRGB', 'fadeToHSB', 'fadeToRandomRGB', 'fadeToRandomHSB', 'playLightScript', 'stopScript', 'setFadeSpeed', 'setTimeAdjust', 'getRGBColor', 'setAddress', 'getAddress', 'getFirmware'];
       };
 
-
       BlinkM.prototype.start = function(callback) {
         return BlinkM.__super__.start.apply(this, arguments);
       };
-
 
       BlinkM.prototype.goToRGB = function(r, g, b, cb) {
         if (cb == null) {
