@@ -101,6 +101,8 @@ Thank you!
 
 ## Release History
 
+Version 0.10.0 - Update to cylon 0.13.0, Tessel compatibility, support for MPU6050 and BMP180
+
 Version 0.9.0 - Update to cylon 0.12.0
 
 Version 0.8.0 - Update to cylon 0.11.0, migrated to pure JS
