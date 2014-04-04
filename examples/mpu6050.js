@@ -6,7 +6,7 @@ Cylon.robot({
 
   work: function(my) {
     every((1).seconds(), function() {
-      my.mpu6050.getMotion6(function(data) {
+      my.mpu6050.getMotionAndTemp(function(data) {
         Logger.info(data);
       });
       
