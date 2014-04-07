@@ -1,17 +1,12 @@
 'use strict';
 
-var namespace = require('node-namespace'),
-    lcd = source("lcd");
+var LCD = source("lcd");
 
 describe("Cylon.Drivers.I2C.LCD", function() {
-  var driver;
-
-  driver = new Cylon.Drivers.I2C.LCD({
+  var driver = new LCD({
     name: 'display',
     device: {
-      connection: 'connect'
+      connection: {}
     }
   });
-
-  it("needs tests");
 });

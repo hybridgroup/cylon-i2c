@@ -1,17 +1,14 @@
 'use strict';
 
-var bmp180 = source("bmp180");
+var Bmp180 = source("bmp180");
 
 describe("Cylon.Drivers.I2C.Bmp180", function() {
-  var button;
-
-  button = new Cylon.Drivers.I2C.Bmp180({
+  var driver = new Bmp180({
     name: 'bmp180',
     device: {
-      connection: 'connect',
-      pin: 13
+      connection: {},
+      pin: 13,
+      emit: spy()
     }
   });
-
-  it("needs tests");
 });
