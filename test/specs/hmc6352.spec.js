@@ -3,7 +3,7 @@
 var Hmc6352 = source("hmc6352");
 
 describe("Cylon.Drivers.I2C.Hmc6352", function() {
-  var driver = new Cylon.Drivers.I2C.Hmc6352({
+  var driver = new Hmc6352({
     name: 'compass',
     device: { emit: spy(), connection: { emit: spy() } }
   });
