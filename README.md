@@ -101,6 +101,8 @@ Thank you!
 
 ## Release History
 
+Version 0.11.0 - Compatibility with Cylon 0.14.0, remove node-namespace.
+
 Version 0.10.1 - Added new diagrams, tests, examples and bpm6080 driver
 
 Version 0.10.0 - Update to cylon 0.13.0, Tessel compatibility, support for MPU6050 and BMP180

@@ -1,6 +1,6 @@
 {
   "name": "cylon-i2c",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "main": "lib/cylon-i2c.js",
   "description": "Cylon drivers for i2c devices",
   "homepage": "http://cylonjs.com",
@@ -30,6 +30,6 @@
   },
 
   "dependencies": {
-    "cylon":          ">=0.13.0"
+    "cylon": "~0.14.0"
   }
 }
