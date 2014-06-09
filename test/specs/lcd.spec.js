@@ -1,5 +1,7 @@
 'use strict';
 
+var Cylon = require('cylon');
+
 var LCD = source("lcd");
 
 describe("Cylon.Drivers.I2C.LCD", function() {
@@ -63,7 +65,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
     beforeEach(function() {
       callback = spy();
-      stub(global, 'sleep');
+      stub(Cylon.Utils, 'sleep');
 
       for (var i = 0; i < commands.length; i++) {
         stub(driver, commands[i]);
@@ -73,18 +75,18 @@ describe("Cylon.Drivers.I2C.LCD", function() {
     });
 
     afterEach(function() {
-      global.sleep.restore();
+      Cylon.Utils.sleep.restore();
 
       for (var i = 0; i < commands.length; i++) {
         driver[commands[i]].restore();
       }
     });
 
-    it("writes the backlight val after 50ms", function() {
+    it("writes the backlight val Cylon.Utils.after 50ms", function() {
       expect(driver._expanderWrite).to.be.calledWith(0x00);
     });
 
-    it("writes data after another second", function() {
+    it("writes data Cylon.Utils.after another second", function() {
       expect(driver._write4bits).to.be.calledWith(0x03 << 4);
       expect(driver._write4bits).to.be.calledWith(0x02 << 4);
     });
@@ -109,13 +111,13 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#clear", function() {
     beforeEach(function() {
-      stub(global, 'sleep');
+      stub(Cylon.Utils, 'sleep');
       stub(driver, '_sendCommand');
       driver.clear();
     });
 
     afterEach(function() {
-      global.sleep.restore();
+      Cylon.Utils.sleep.restore();
       driver._sendCommand.restore();
     });
 
@@ -123,20 +125,20 @@ describe("Cylon.Drivers.I2C.LCD", function() {
       expect(driver._sendCommand).to.be.calledWith(0x01);
     });
 
-    it("sleeps for 2ms", function() {
-      expect(sleep).to.be.calledWith(2);
+    it("Cylon.Utils.sleeps for 2ms", function() {
+      expect(Cylon.Utils.sleep).to.be.calledWith(2);
     });
   });
 
   describe("#home", function() {
     beforeEach(function() {
-      stub(global, 'sleep');
+      stub(Cylon.Utils, 'sleep');
       stub(driver, '_sendCommand');
       driver.home();
     });
 
     afterEach(function() {
-      global.sleep.restore();
+      Cylon.Utils.sleep.restore();
       driver._sendCommand.restore();
     });
 
@@ -144,8 +146,8 @@ describe("Cylon.Drivers.I2C.LCD", function() {
       expect(driver._sendCommand).to.be.calledWith(0x02);
     });
 
-    it("sleeps for 2ms", function() {
-      expect(sleep).to.be.calledWith(2);
+    it("Cylon.Utils.sleeps for 2ms", function() {
+      expect(Cylon.Utils.sleep).to.be.calledWith(2);
     });
   });
 

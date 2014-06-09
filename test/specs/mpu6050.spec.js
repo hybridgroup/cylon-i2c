@@ -1,5 +1,7 @@
 'use strict';
 
+var Cylon = require('cylon');
+
 var Mpu6050 = source('mpu6050');
 
 describe('Cylon.Drivers.I2C.Mpu6050', function() {

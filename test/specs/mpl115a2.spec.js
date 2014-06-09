@@ -1,5 +1,7 @@
 'use strict';
 
+var Cylon = require('cylon');
+
 var MPL115A2 = source("mpl115a2");
 
 describe("Cylon.Drivers.I2C.Mpl115A2", function() {
@@ -104,12 +106,12 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
       callback = spy();
       driver.connection.i2cWrite = spy();
       driver.connection.i2cRead = stub().callsArgWith(3, [10, 10, 10, 10]);
-      stub(global, 'sleep');
+      stub(Cylon.Utils, 'sleep');
       driver.getPT(callback);
     });
 
     afterEach(function() {
-      global.sleep.restore();
+      Cylon.Utils.sleep.restore();
       driver.connection.i2cWrite = undefined;
       driver.connection.i2cRead = undefined;
     });
@@ -123,8 +125,8 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
       expect(driver.connection.i2cWrite).to.be.calledWith(driver.address, 0);
     });
 
-    it("sleeps for 5 ms", function() {
-      expect(sleep).to.be.calledWith(5);
+    it("Cylon.Utils.sleeps for 5 ms", function() {
+      expect(Cylon.Utils.sleep).to.be.calledWith(5);
     });
 
     it("uses #i2cRead to get the pressure from the sensor", function() {

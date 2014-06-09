@@ -1,5 +1,7 @@
 'use strict';
 
+var Cylon = require('cylon');
+
 var Bmp180 = source("bmp180");
 
 describe("Cylon.Drivers.I2C.Bmp180", function() {
@@ -297,7 +299,7 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
         driver.connection.i2cWrite.callsArgWith(3, null);
       });
 
-      it("calls #i2cRead to get the temp data after 5 ms", function() {
+      it("calls #i2cRead to get the temp data Cylon.Utils.after 5 ms", function() {
         driver.getRawTemp(callback);
         expect(driver.connection.i2cRead).to.not.be.called;
         clock.tick(5);
@@ -380,7 +382,7 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
         driver.connection.i2cWrite.callsArgWith(3);
       });
 
-      it("calls #i2cRead after a delay", function() {
+      it("calls #i2cRead Cylon.Utils.after a delay", function() {
         getRawPressure();
         expect(driver.connection.i2cRead).to.not.be.called;
 
