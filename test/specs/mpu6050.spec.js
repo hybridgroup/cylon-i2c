@@ -22,7 +22,7 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
 
   describe("#commands", function() {
     it("returns an array of MPU6050 commands", function() {
-      var commands = driver.commands();
+      var commands = driver.commands;
 
       expect(commands).to.be.an('array');
 

@@ -16,7 +16,7 @@ describe("Cylon.Drivers.I2C.BlinkM", function() {
 
   describe("#commands", function() {
     it("returns an array of BlinkM commands", function() {
-      var commands = driver.commands();
+      var commands = driver.commands;
 
       expect(commands).to.be.an('array');
 

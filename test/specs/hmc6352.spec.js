@@ -16,7 +16,7 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
 
   describe("#commands", function() {
     it("returns an array of Hmc6352 commands", function() {
-      var commands = driver.commands();
+      var commands = driver.commands;
 
       expect(commands).to.be.an('array');
 
