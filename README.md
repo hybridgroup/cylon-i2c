@@ -2,7 +2,7 @@
 
 Cylon.js (http://cylonjs.com) is a JavaScript framework for robotics and physical computing using Node.js
 
-This module provides drivers for i2c devices (https://en.wikipedia.org/wiki/I%C2%B2C). You would not normally use this module directly, instead it is used by Cylon.js adaptors that have i2c support. 
+This module provides drivers for i2c devices (https://en.wikipedia.org/wiki/I%C2%B2C). You would not normally use this module directly, instead it is used by Cylon.js adaptors that have i2c support.
 
 Want to use Ruby on robots? Check out our sister project Artoo (http://artoo.io)
 
@@ -14,9 +14,8 @@ Want to use the Go programming language to power your robots? Check out our sist
 
 Install the module with: `npm install cylon-i2c`
 
-## Examples
+## Example
 
-### Javascript:
 ```javascript
 var Cylon = require('cylon');
 
@@ -43,34 +42,6 @@ Cylon.robot({
 }).start();
 ```
 
-### CoffeeScript:
-```
-Cylon = require('cylon')
-
-Cylon.robot
-  connection:
-    name: 'arduino', adaptor: 'firmata', port: '/dev/ttyACM0'
-
-  device:
-    name: 'blinkm', driver: 'blinkm'
-
-  work: (my) ->
-    lit = false
-
-    my.blinkm.on 'start', ->
-      my.blinkm.off()
-
-      every 1.second(), ->
-        if lit
-          lit = false
-          my.blinkm.rgb 0xaa, 0, 0
-        else
-          lit = true
-          my.blinkm.rgb 0, 0, 0      
-
-.start()
-```
-
 ## Hardware Support
 Cylon.js has a extensible system for connecting to hardware devices. The following i2c devices are currently supported:
 
@@ -78,7 +49,7 @@ Cylon.js has a extensible system for connecting to hardware devices. The followi
   - HMC6352 Digital Compass
   - LCD
   - MPL115A2 Digital Barometer & Thermometer
-  
+
 More drivers are coming soon...
 
 ## Documentation
