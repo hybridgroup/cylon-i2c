@@ -21,13 +21,9 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
   });
 
   describe("#commands", function() {
-    it("returns an array of MPU6050 commands", function() {
-      var commands = driver.commands;
-
-      expect(commands).to.be.an('array');
-
-      for (var i = 0; i < commands.length; i++) {
-        expect(commands[i]).to.be.a('string');
+    it("is an object containing MPU6050 commands", function() {
+      for (var c in driver.commands) {
+        expect(driver.commands[c]).to.be.a('function');
       }
     });
   });
