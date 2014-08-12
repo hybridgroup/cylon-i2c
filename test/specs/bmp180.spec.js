@@ -31,13 +31,9 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
   });
 
   describe("#commands", function() {
-    it("returns an array of BMP180 commands", function() {
-      var commands = driver.commands;
-
-      expect(commands).to.be.an("array");
-
-      for (var i = 0; i < commands.length; i++) {
-        expect(commands[i]).to.be.a("string");
+    it("is an object containing BMP180 commands", function() {
+      for (var c in driver.commands) {
+        expect(driver.commands[c]).to.be.a('function');
       }
     });
   });
