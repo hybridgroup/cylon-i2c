@@ -44,25 +44,35 @@ describe("Cylon.Drivers.I2C.Hover", function() {
       callback = spy();
       driver.connection.i2cRead = stub().callsArgWith(3, [30, 20]);
       stub(driver, 'parseEvent').returns(20)
-      driver.heading(callback)
+      driver.getEvent(callback)
     });
 
     afterEach(function() {
       driver.connection.i2cRead = undefined;
-      driver.parseHeading.restore();
+      driver.parseEvent.restore();
     });
 
     it("calls the callback with the results of parseEvent", function() {
-      expect(driver.parseHeading).to.be.calledWith([30, 20]);
+      expect(driver.parseEvent).to.be.calledWith([30, 20]);
       expect(callback).to.be.calledWith(20);
     });
   });
 
   describe("#parseEvent", function() {
-    it("parses an event to determine the gesture", function() {
-      expect(driver.parseEvent([0, 0])).to.be.eql(0);
-
-      expect(driver.parseEvent([0, 1800])).to.be.eql(180);
+    it("ignores messages that are smaller than 10 bytes", function() {
+      var val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      expect(driver.parseEvent(val)).to.be.null;
     });
+
+    it("looks in the 11th byte", function() {
+      var val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66]
+      expect(driver.parseEvent(val)).to.equal(34);
+    });
+
+    it("parses an event to determine the gesture", function() {
+      var val = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 65]
+      expect(driver.parseEvent(val)).to.equal(33);
+    });
+
   });
 });
