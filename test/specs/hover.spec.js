@@ -25,15 +25,24 @@ describe("Cylon.Drivers.I2C.Hover", function() {
   describe("#start", function() {
     beforeEach(function() {
       driver.connection.i2cConfig = spy();
+      driver.connection.pinMode = spy();
+      driver.connection.digitalWrite = spy();
     });
 
     afterEach(function() {
       driver.connection.i2cConfig = undefined;
+      driver.connection.pinMode = undefined;
+      driver.connection.digitalWrite = undefined;
     });
 
-    it("calls #i2cConfig", function() {
+    it("calls #pinMode", function() {
       driver.start(function() {});
-      expect(driver.connection.i2cConfig).to.be.calledWith(50);
+      expect(driver.connection.pinMode).to.be.called;
+    });
+
+    it("calls #digitalWrite", function() {
+      driver.start(function() {});
+      expect(driver.connection.digitalWrite).to.be.called;
     });
   });
 
@@ -43,18 +52,21 @@ describe("Cylon.Drivers.I2C.Hover", function() {
     beforeEach(function() {
       callback = spy();
       driver.connection.i2cRead = stub().callsArgWith(3, [30, 20]);
+      driver.connection.pinMode = spy();
+      driver.connection.digitalWrite = spy();
       stub(driver, 'parseEvent').returns(20)
-      driver.getEvent(callback)
+      driver.getEvent()
     });
 
     afterEach(function() {
       driver.connection.i2cRead = undefined;
+      driver.connection.pinMode = undefined;
+      driver.connection.digitalWrite = undefined;
       driver.parseEvent.restore();
     });
 
-    it("calls the callback with the results of parseEvent", function() {
+    it("parses i2c data", function() {
       expect(driver.parseEvent).to.be.calledWith([30, 20]);
-      expect(callback).to.be.calledWith(20);
     });
   });
 
