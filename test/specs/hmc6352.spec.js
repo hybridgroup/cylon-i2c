@@ -22,21 +22,6 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
     });
   });
 
-  describe("#start", function() {
-    beforeEach(function() {
-      driver.connection.i2cConfig = spy();
-    });
-
-    afterEach(function() {
-      driver.connection.i2cConfig = undefined;
-    });
-
-    it("calls #i2cConfig", function() {
-      driver.start(function() {});
-      expect(driver.connection.i2cConfig).to.be.calledWith(50);
-    });
-  });
-
   describe("#heading", function() {
     var callback;
 
