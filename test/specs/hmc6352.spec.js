@@ -27,7 +27,7 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
 
     beforeEach(function() {
       callback = spy();
-      driver.connection.i2cRead = stub().callsArgWith(3, [30, 20]);
+      driver.connection.i2cRead = stub().callsArgWith(3, null, [30, 20]);
       stub(driver, 'parseHeading').returns(20)
       driver.heading(callback)
     });
