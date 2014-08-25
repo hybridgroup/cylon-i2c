@@ -9,8 +9,8 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
   });
 
   describe("#constructor", function() {
-    it("sets @address to 0x42 by default", function() {
-      expect(driver.address).to.be.eql(0x42);
+    it("sets @address to 0x21 by default", function() {
+      expect(driver.address).to.be.eql(0x21);
     });
   });
 
@@ -22,27 +22,12 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
     });
   });
 
-  describe("#start", function() {
-    beforeEach(function() {
-      driver.connection.i2cConfig = spy();
-    });
-
-    afterEach(function() {
-      driver.connection.i2cConfig = undefined;
-    });
-
-    it("calls #i2cConfig", function() {
-      driver.start(function() {});
-      expect(driver.connection.i2cConfig).to.be.calledWith(50);
-    });
-  });
-
   describe("#heading", function() {
     var callback;
 
     beforeEach(function() {
       callback = spy();
-      driver.connection.i2cRead = stub().callsArgWith(3, [30, 20]);
+      driver.connection.i2cRead = stub().callsArgWith(3, null, [30, 20]);
       stub(driver, 'parseHeading').returns(20)
       driver.heading(callback)
     });
