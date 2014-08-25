@@ -9,8 +9,8 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
   });
 
   describe("#constructor", function() {
-    it("sets @address to 0x42 by default", function() {
-      expect(driver.address).to.be.eql(0x42);
+    it("sets @address to 0x21 by default", function() {
+      expect(driver.address).to.be.eql(0x21);
     });
   });
 
