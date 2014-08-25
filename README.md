@@ -26,17 +26,15 @@ Cylon.robot({
 
   work: function(my) {
     var lit = false;
-    my.blinkm.on('start', function() {
-      my.blinkm.off()
-      every((1).seconds(), function() {
-        if (lit === true) {
-          lit = false;
-          my.blinkm.rgb(0xaa, 0, 0);
-        } else {
-          lit = true;
-          my.blinkm.rgb(0, 0, 0);
-        }
-      });
+    my.blinkm.off()
+    every((1).seconds(), function() {
+      if (lit === true) {
+        lit = false;
+        my.blinkm.rgb(0xaa, 0, 0);
+      } else {
+        lit = true;
+        my.blinkm.rgb(0, 0, 0);
+      }
     });
   }
 }).start();
@@ -46,9 +44,11 @@ Cylon.robot({
 Cylon.js has a extensible system for connecting to hardware devices. The following i2c devices are currently supported:
 
   - BlinkM
+  - BMP180
   - HMC6352 Digital Compass
   - LCD
   - MPL115A2 Digital Barometer & Thermometer
+  - MPU6050
 
 More drivers are coming soon...
 
