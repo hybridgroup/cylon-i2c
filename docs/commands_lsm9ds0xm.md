@@ -2,8 +2,8 @@
 
 ## getAccel
 
-Gets the value of  Accel.
+Gets the value of Accelerometer.
 
 ## getMag
 
-Gets the value of Mag.
+Gets the value of Magnetometer.

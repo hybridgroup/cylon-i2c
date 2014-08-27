@@ -2,4 +2,4 @@
 
 ## getGyro
 
-Gets the value of Gyro.
+Gets the value of Gyroscope.
