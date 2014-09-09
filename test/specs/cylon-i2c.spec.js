@@ -12,7 +12,7 @@ var Cylon = require("cylon");
 
 describe("I2C", function() {
   describe("#driver", function() {
-    var opts = { device: {}, extraParams: {} };
+    var opts = { device: { connection: {} }, extraParams: {} };
 
     context("with 'blinkm'", function() {
       it("returns a BlinkM driver instance", function() {
