@@ -28,7 +28,7 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
     beforeEach(function() {
       callback = spy();
       driver.connection.i2cRead = stub().callsArgWith(3, null, [30, 20]);
-      stub(driver, 'parseHeading').returns(20)
+      stub(driver, 'parseHeading').returns(20);
       driver.heading(callback)
     });
 
@@ -39,7 +39,7 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
 
     it("calls the callback with the results of parseHeading", function() {
       expect(driver.parseHeading).to.be.calledWith([30, 20]);
-      expect(callback).to.be.calledWith(20);
+      expect(callback).to.be.calledWith(null, 20);
     });
   });
 

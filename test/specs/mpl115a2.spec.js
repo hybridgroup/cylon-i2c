@@ -63,7 +63,7 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
     beforeEach(function() {
       var data = [10, 10, 10, 10, 10, 10, 10, 10];
       callback = spy();
-      driver.connection.i2cRead = stub().callsArgWith(3, data);
+      driver.connection.i2cRead = stub().callsArgWith(3, null, data);
       driver.readCoefficients(callback);
     });
 
@@ -101,7 +101,7 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
     beforeEach(function() {
       callback = spy();
       driver.connection.i2cWrite = spy();
-      driver.connection.i2cRead = stub().callsArgWith(3, [10, 10, 10, 10]);
+      driver.connection.i2cRead = stub().callsArgWith(3, null, [10, 10, 10, 10]);
       stub(Cylon.Utils, 'sleep');
       driver.getPT(callback);
     });
@@ -139,10 +139,11 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
     });
 
     it("calls the provided callback with the temp/pressure", function() {
-      expect(callback).to.be.calledWith({
+      var values = {
         pressure: 71.62334259421011,
         temperature: 110.60747663551402
-      });
-    })
+      };
+      expect(callback).to.be.calledWith(null, values);
+    });
   });
 });
