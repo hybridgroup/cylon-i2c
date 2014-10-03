@@ -66,10 +66,6 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
     afterEach(function() {
       Cylon.Utils.sleep.restore();
-
-      for (var i = 0; i < commands.length; i++) {
-        driver[commands[i]].restore();
-      }
     });
 
     it("writes the backlight val Cylon.Utils.after 50ms", function() {
