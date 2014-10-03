@@ -5,22 +5,16 @@ var Cylon = require('cylon');
 var LCD = source("lcd");
 
 describe("Cylon.Drivers.I2C.LCD", function() {
-  var driver = new LCD({
-    name: 'display',
-    device: {
-      connection: {},
-      emit: spy()
-    }
-  });
-
-  var clock;
+  var driver;
 
   beforeEach(function() {
-    clock = sinon.useFakeTimers();
-  });
-
-  afterEach(function() {
-    clock.restore();
+    driver = new LCD({
+      name: 'display',
+      device: {
+        connection: {},
+        emit: spy()
+      }
+    });
   });
 
   describe("#constructor", function() {
@@ -58,7 +52,6 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
     var commands = ["_expanderWrite", "_write4bits", "_sendCommand",
                     "clear", "displayOn", "home"];
-
 
     beforeEach(function() {
       callback = spy();
