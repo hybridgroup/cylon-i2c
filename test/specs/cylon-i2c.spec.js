@@ -19,7 +19,7 @@ describe("I2C", function() {
   });
 
   describe("#driver", function() {
-    var opts = { device: { connection: {} }, extraParams: {} };
+    var opts = { device: { connection: {} } };
 
     context("with 'blinkm'", function() {
       it("returns a BlinkM driver instance", function() {
