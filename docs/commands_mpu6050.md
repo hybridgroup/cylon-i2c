@@ -8,6 +8,6 @@ Gets the value of the Angular Velocity
 
 Gets the value of the Acceleration
 
-## getMotion6
+## getMotionAndTemp
 
 Gets the value of the Motion.
