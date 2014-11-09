@@ -7,8 +7,8 @@ Cylon.robot({
 
 .on('ready', function(robot) {
   setInterval(function() {
-    robot.mpu6050.getMotionAndTemp(function(data) {
-      console.log(data);
+    robot.mpu6050.getMotionAndTemp(function(err, data) {
+      console.log(err, data);
     });
   }, 1000);
 })
