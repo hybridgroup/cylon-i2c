@@ -119,9 +119,9 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
     beforeEach(function() {
       callback = spy();
 
-      var data = [];
+      var data = new Buffer(14);
       for (var i = 0; i < 14; i++) {
-        data.push(10);
+        data[i] = 10;
       }
 
       driver.connection.i2cRead = stub().callsArgWith(3, null, data);
