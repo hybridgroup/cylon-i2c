@@ -5,13 +5,14 @@ var Cylon = require('cylon');
 var LSM9DS0G = source("lsm9ds0g");
 
 describe("Cylon.Drivers.I2C.LSM9DS0G", function() {
-  var driver = new LSM9DS0G({
-    name: 'lsm9ds0g',
-    device: {
-      connection: {},
-      pin: 13,
-      emit: spy()
-    }
+  var driver;
+
+  beforeEach(function() {
+    driver = new LSM9DS0G({
+      name: 'lsm9ds0g',
+      adaptor: {},
+      pin: 13
+    });
   });
 
   describe("constructor", function() {

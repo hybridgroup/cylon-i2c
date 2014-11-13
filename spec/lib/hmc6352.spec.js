@@ -3,9 +3,13 @@
 var Hmc6352 = source("hmc6352");
 
 describe("Cylon.Drivers.I2C.Hmc6352", function() {
-  var driver = new Hmc6352({
-    name: 'compass',
-    device: { emit: spy(), connection: { emit: spy() } }
+  var driver;
+
+  beforeEach(function() {
+    driver = new Hmc6352({
+      name: 'compass',
+      adaptor: {}
+    });
   });
 
   describe("#constructor", function() {
@@ -27,13 +31,13 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
 
     beforeEach(function() {
       callback = spy();
-      driver.connection.i2cRead = stub().callsArgWith(3, null, [30, 20]);
+      driver.adaptor.i2cRead = stub().callsArgWith(3, null, [30, 20]);
       stub(driver, 'parseHeading').returns(20);
       driver.heading(callback)
     });
 
     afterEach(function() {
-      driver.connection.i2cRead = undefined;
+      driver.adaptor.i2cRead = undefined;
       driver.parseHeading.restore();
     });
 
