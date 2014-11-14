@@ -10,7 +10,7 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
   beforeEach(function() {
     driver = new Mpu6050({
       name: 'Mpu6050',
-      adaptor: {},
+      connection: {},
       pin: 13
     });
   });
@@ -34,13 +34,13 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
 
     beforeEach(function() {
       callback = spy();
-      i2cWrite = driver.adaptor.i2cWrite = stub();
+      i2cWrite = driver.connection.i2cWrite = stub();
       driver.emit = spy();
       driver.start(callback);
     });
 
     afterEach(function() {
-      driver.adaptor.i2cWrite = undefined;
+      driver.connection.i2cWrite = undefined;
     });
 
     it("sets up the clock", function() {
@@ -126,16 +126,16 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
         data[i] = 10;
       }
 
-      driver.adaptor.i2cRead = stub().callsArgWith(3, null, data);
+      driver.connection.i2cRead = stub().callsArgWith(3, null, data);
       driver.getMotionAndTemp(callback);
     });
 
     afterEach(function() {
-      driver.adaptor.i2cRead = undefined;
+      driver.connection.i2cRead = undefined;
     });
 
     it("calls #i2cRead to get data from the device", function() {
-      expect(driver.adaptor.i2cRead).to.be.calledWith(0x68, 0x3B, 14);
+      expect(driver.connection.i2cRead).to.be.calledWith(0x68, 0x3B, 14);
     });
 
     it("triggers the callback with the parsed data", function() {

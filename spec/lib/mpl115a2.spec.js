@@ -10,7 +10,7 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
   beforeEach(function() {
     driver = new MPL115A2({
       name: 'mpl115a2',
-      adaptor: {},
+      connection: {},
       pin: 13
     });
   });
@@ -64,17 +64,17 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
     beforeEach(function() {
       var data = [10, 10, 10, 10, 10, 10, 10, 10];
       callback = spy();
-      driver.adaptor.i2cRead = stub().callsArgWith(3, null, data);
+      driver.connection.i2cRead = stub().callsArgWith(3, null, data);
       driver.emit = spy();
       driver.readCoefficients(callback);
     });
 
     afterEach(function() {
-      driver.adaptor.i2cRead = undefined;
+      driver.connection.i2cRead = undefined;
     });
 
     it("uses i2cRead to fetch data from the board", function() {
-      expect(driver.adaptor.i2cRead).to.be.calledWith(
+      expect(driver.connection.i2cRead).to.be.calledWith(
         driver.address,
         0x04,
         8
@@ -107,8 +107,8 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
       driver.c12 = 1;
 
       callback = spy();
-      driver.adaptor.i2cWrite = spy();
-      driver.adaptor.i2cRead = stub().yields(null, [10, 10, 10, 10]);
+      driver.connection.i2cWrite = spy();
+      driver.connection.i2cRead = stub().yields(null, [10, 10, 10, 10]);
       stub(Cylon.Utils, 'sleep');
       driver.getPT(callback);
     });
@@ -118,12 +118,12 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
     });
 
     it("uses #i2cWrite to tell the sensor to start conversion", function() {
-      expect(driver.adaptor.i2cWrite).to.be.calledWith(
+      expect(driver.connection.i2cWrite).to.be.calledWith(
         driver.address,
         0x12
       );
 
-      expect(driver.adaptor.i2cWrite).to.be.calledWith(driver.address, 0);
+      expect(driver.connection.i2cWrite).to.be.calledWith(driver.address, 0);
     });
 
     it("Cylon.Utils.sleeps for 5 ms", function() {
@@ -131,7 +131,7 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
     });
 
     it("uses #i2cRead to get the pressure from the sensor", function() {
-      expect(driver.adaptor.i2cRead).to.be.calledWith(
+      expect(driver.connection.i2cRead).to.be.calledWith(
         driver.address,
         0x00,
         4

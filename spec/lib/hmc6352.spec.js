@@ -8,7 +8,7 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
   beforeEach(function() {
     driver = new Hmc6352({
       name: 'compass',
-      adaptor: {}
+      connection: {}
     });
   });
 
@@ -31,13 +31,13 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
 
     beforeEach(function() {
       callback = spy();
-      driver.adaptor.i2cRead = stub().callsArgWith(3, null, [30, 20]);
+      driver.connection.i2cRead = stub().callsArgWith(3, null, [30, 20]);
       stub(driver, 'parseHeading').returns(20);
       driver.heading(callback)
     });
 
     afterEach(function() {
-      driver.adaptor.i2cRead = undefined;
+      driver.connection.i2cRead = undefined;
       driver.parseHeading.restore();
     });
 

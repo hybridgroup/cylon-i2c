@@ -10,7 +10,7 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
   beforeEach(function() {
     driver = new Bmp180({
       name: 'bmp180',
-      adaptor: {},
+      connection: {},
       pin: 13
     });
   });
@@ -218,16 +218,16 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
 
     beforeEach(function() {
       callback = spy();
-      driver.adaptor.i2cRead = stub();
+      driver.connection.i2cRead = stub();
     });
 
     afterEach(function() {
-      driver.adaptor.i2cRead = undefined;
+      driver.connection.i2cRead = undefined;
     });
 
     it("calls #i2cRead to get coefficients from the hardware", function() {
       driver.readCoefficients(callback);
-      expect(driver.adaptor.i2cRead).to.be.calledWith(0x77, 0xAA, 22);
+      expect(driver.connection.i2cRead).to.be.calledWith(0x77, 0xAA, 22);
     });
 
     context("if #i2cRead returns data", function() {
@@ -235,7 +235,7 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
         var data = [];
         for (var i = 0; i < 22; i++) { data.push(10); }
         driver.emit = spy();
-        driver.adaptor.i2cRead.callsArgWith(3, null, data);
+        driver.connection.i2cRead.callsArgWith(3, null, data);
         driver.readCoefficients(callback);
       });
 
@@ -259,7 +259,7 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
 
     context("if #i2cRead returns an error", function() {
       beforeEach(function() {
-        driver.adaptor.i2cRead.callsArgWith(3, 'error');
+        driver.connection.i2cRead.callsArgWith(3, 'error');
       });
 
       it("triggers the callback with the error", function() {
@@ -275,36 +275,36 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
     beforeEach(function() {
       callback = spy();
       clock = sinon.useFakeTimers();
-      driver.adaptor.i2cWrite = stub();
-      driver.adaptor.i2cRead = stub();
+      driver.connection.i2cWrite = stub();
+      driver.connection.i2cRead = stub();
     });
 
     afterEach(function() {
       clock.restore();
-      driver.adaptor.i2cWrite = undefined;
-      driver.adaptor.i2cRead = undefined;
+      driver.connection.i2cWrite = undefined;
+      driver.connection.i2cRead = undefined;
     });
 
     it("calls #i2cWrite to setup temperature reading", function() {
       driver.getRawTemp(callback);
-      expect(driver.adaptor.i2cWrite).to.be.calledWith(0x77, 0xF4, [0x2E]);
+      expect(driver.connection.i2cWrite).to.be.calledWith(0x77, 0xF4, [0x2E]);
     })
 
     context("if #i2cWrite is successful", function() {
       beforeEach(function() {
-        driver.adaptor.i2cWrite.callsArgWith(3, null);
+        driver.connection.i2cWrite.callsArgWith(3, null);
       });
 
       it("calls #i2cRead to get the temp data Cylon.Utils.after 5 ms", function() {
         driver.getRawTemp(callback);
-        expect(driver.adaptor.i2cRead).to.not.be.called;
+        expect(driver.connection.i2cRead).to.not.be.called;
         clock.tick(5);
-        expect(driver.adaptor.i2cRead).to.be.calledWith(0x77, 0xF6, 2);
+        expect(driver.connection.i2cRead).to.be.calledWith(0x77, 0xF6, 2);
       });
 
       context("if #i2cRead returns data", function() {
         beforeEach(function() {
-          driver.adaptor.i2cRead.callsArgWith(3, null, [10, 10]);
+          driver.connection.i2cRead.callsArgWith(3, null, [10, 10]);
         });
 
         it("triggers the callback with the parsed data", function() {
@@ -316,7 +316,7 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
 
       context("if #i2cRead returns an error", function() {
         beforeEach(function() {
-          driver.adaptor.i2cRead.callsArgWith(3, 'error');
+          driver.connection.i2cRead.callsArgWith(3, 'error');
         });
 
         it("triggers the callback with the error", function() {
@@ -329,7 +329,7 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
 
     context("if #i2cWrite returns an error", function() {
       beforeEach(function() {
-        driver.adaptor.i2cWrite.callsArgWith(3, 'error');
+        driver.connection.i2cWrite.callsArgWith(3, 'error');
       });
 
       it("triggers the callback with the error", function() {
@@ -350,19 +350,19 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
     beforeEach(function() {
       callback = spy();
       clock = sinon.useFakeTimers();
-      driver.adaptor.i2cWrite = stub();
-      driver.adaptor.i2cRead = stub();
+      driver.connection.i2cWrite = stub();
+      driver.connection.i2cRead = stub();
     });
 
     afterEach(function() {
       clock.restore();
-      driver.adaptor.i2cWrite = undefined;
-      driver.adaptor.i2cRead = undefined;
+      driver.connection.i2cWrite = undefined;
+      driver.connection.i2cRead = undefined;
     });
 
     it("calls #i2cWrite to set up pressure reading", function() {
       getRawPressure();
-      expect(driver.adaptor.i2cWrite).to.be.calledWith(0x77, 0xF4, [0x34]);
+      expect(driver.connection.i2cWrite).to.be.calledWith(0x77, 0xF4, [0x34]);
     });
 
     context("if 'mode' is outside the 0-3 bounds", function() {
@@ -375,30 +375,30 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
 
     context("if #i2cWrite is successful", function() {
       beforeEach(function() {
-        driver.adaptor.i2cWrite.callsArgWith(3);
+        driver.connection.i2cWrite.callsArgWith(3);
       });
 
       it("calls #i2cRead Cylon.Utils.after a delay", function() {
         getRawPressure();
-        expect(driver.adaptor.i2cRead).to.not.be.called;
+        expect(driver.connection.i2cRead).to.not.be.called;
 
         clock.tick(10);
-        expect(driver.adaptor.i2cRead).to.be.calledWith(0x77, 0xF6, 3);
+        expect(driver.connection.i2cRead).to.be.calledWith(0x77, 0xF6, 3);
       });
 
       it("the delay changes depending on which mode is passed", function() {
         getRawPressure('3');
 
         clock.tick(10);
-        expect(driver.adaptor.i2cRead).to.not.be.called;
+        expect(driver.connection.i2cRead).to.not.be.called;
 
         clock.tick(18);
-        expect(driver.adaptor.i2cRead).to.be.called;
+        expect(driver.connection.i2cRead).to.be.called;
       });
 
       context("if #i2cRead returns data", function() {
         beforeEach(function() {
-          driver.adaptor.i2cRead.callsArgWith(3, null, [10, 10, 10]);
+          driver.connection.i2cRead.callsArgWith(3, null, [10, 10, 10]);
         });
 
         it("triggers the callback with the parsed data", function() {
@@ -410,7 +410,7 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
 
       context("if #i2cRead returns an error", function() {
         beforeEach(function() {
-          driver.adaptor.i2cRead.callsArgWith(3, 'error');
+          driver.connection.i2cRead.callsArgWith(3, 'error');
         });
 
         it("triggers the callback with the error", function() {
@@ -423,7 +423,7 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
 
     context("if #i2cWrite returns an error", function() {
       beforeEach(function() {
-        driver.adaptor.i2cWrite.callsArgWith(3, 'error');
+        driver.connection.i2cWrite.callsArgWith(3, 'error');
       });
 
       it("triggers the callback with the error", function() {

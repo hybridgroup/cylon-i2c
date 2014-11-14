@@ -10,7 +10,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
   beforeEach(function() {
     driver = new LCD({
       name: 'display',
-      adaptor: {}
+      connection: {}
     });
   });
 
@@ -362,16 +362,16 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#_expanderWrite", function() {
     beforeEach(function() {
-      driver.adaptor.i2cWrite = stub();
+      driver.connection.i2cWrite = stub();
       driver._expanderWrite(0xff);
     });
 
     afterEach(function() {
-      driver.adaptor.i2cWrite = undefined;
+      driver.connection.i2cWrite = undefined;
     });
 
     it("calls #i2cWrite with the passed data", function() {
-      expect(driver.adaptor.i2cWrite).to.be.calledWith(0x27, 0xff | driver._backlightVal);
+      expect(driver.connection.i2cWrite).to.be.calledWith(0x27, 0xff | driver._backlightVal);
     });
   });
 

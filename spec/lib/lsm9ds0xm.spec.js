@@ -10,7 +10,7 @@ describe("Cylon.Drivers.I2C.LSM9DS0XM", function() {
   beforeEach(function() {
     driver = new LSM9DS0XM({
       name: 'lsm9ds0xm',
-      adaptor: {},
+      connection: {},
       pin: 13
     });
   });
