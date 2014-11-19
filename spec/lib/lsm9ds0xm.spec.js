@@ -19,6 +19,13 @@ describe("Cylon.Drivers.I2C.LSM9DS0XM", function() {
     it("sets @address to 0x1d", function() {
       expect(driver.address).to.be.eql(0x1d);
     });
+
+    context("if no pin is specified", function() {
+      it("throws an error", function() {
+        var fn = function() { new LSM9DS0XM({ name: 'hi' }); };
+        expect(fn).to.throw("No pin specified for LSM9DS0XM 'hi'. Cannot proceed");
+      });
+    });
   });
 
   describe("#commands", function() {
