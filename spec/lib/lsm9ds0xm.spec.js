@@ -23,7 +23,7 @@ describe("Cylon.Drivers.I2C.LSM9DS0XM", function() {
     context("if no pin is specified", function() {
       it("throws an error", function() {
         var fn = function() { new LSM9DS0XM({ name: 'hi' }); };
-        expect(fn).to.throw("No pin specified for LSM9DS0XM 'hi'. Cannot proceed");
+        expect(fn).to.throw("No pin specified for LSM9DS0XM. Cannot proceed");
       });
     });
   });

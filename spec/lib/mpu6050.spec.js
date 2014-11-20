@@ -23,7 +23,7 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
     context("if no pin is specified", function() {
       it("throws an error", function() {
         var fn = function() { new Mpu6050({ name: 'hi' }); };
-        expect(fn).to.throw("No pin specified for MPU6050 'hi'. Cannot proceed");
+        expect(fn).to.throw("No pin specified for MPU6050. Cannot proceed");
       });
     });
   });

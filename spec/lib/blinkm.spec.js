@@ -21,7 +21,7 @@ describe("Cylon.Drivers.I2C.BlinkM", function() {
     context("if no pin is specified", function() {
       it("throws an error", function() {
         var fn = function() { new BlinkM({ name: 'hi' }); };
-        expect(fn).to.throw("No pin specified for BlinkM 'hi'. Cannot proceed");
+        expect(fn).to.throw("No pin specified for BlinkM. Cannot proceed");
       });
     });
   });

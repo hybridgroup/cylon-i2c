@@ -21,7 +21,7 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
     context("if no pin is specified", function() {
       it("throws an error", function() {
         var fn = function() { new Hmc6352({ name: 'hi' }); };
-        expect(fn).to.throw("No pin specified for HMC6352 'hi'. Cannot proceed");
+        expect(fn).to.throw("No pin specified for HMC6352. Cannot proceed");
       });
     });
   });

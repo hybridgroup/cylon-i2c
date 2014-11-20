@@ -39,7 +39,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
     context("if no pin is specified", function() {
       it("throws an error", function() {
         var fn = function() { new LCD({ name: 'hi' }); };
-        expect(fn).to.throw("No pin specified for LCD 'hi'. Cannot proceed");
+        expect(fn).to.throw("No pin specified for LCD. Cannot proceed");
       });
     });
   });

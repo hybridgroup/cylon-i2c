@@ -23,7 +23,7 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
     context("if no pin is specified", function() {
       it("throws an error", function() {
         var fn = function() { new MPL115A2({ name: 'hi' }); };
-        expect(fn).to.throw("No pin specified for MPL115A2 'hi'. Cannot proceed");
+        expect(fn).to.throw("No pin specified for MPL115A2. Cannot proceed");
       });
     });
   });
