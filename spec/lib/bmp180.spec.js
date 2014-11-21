@@ -29,13 +29,6 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
     it("sets @address to 0x77", function() {
       expect(driver.address).to.be.eql(0x77);
     });
-
-    context("if no pin is specified", function() {
-      it("throws an error", function() {
-        var fn = function() { new Bmp180({ name: 'hi' }); };
-        expect(fn).to.throw("No pin specified for BMP180. Cannot proceed");
-      });
-    });
   });
 
   describe("#commands", function() {

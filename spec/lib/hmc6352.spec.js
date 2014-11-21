@@ -8,21 +8,13 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
   beforeEach(function() {
     driver = new Hmc6352({
       name: 'compass',
-      connection: {},
-      pin: 13
+      connection: {}
     });
   });
 
   describe("#constructor", function() {
     it("sets @address to 0x21 by default", function() {
       expect(driver.address).to.be.eql(0x21);
-    });
-
-    context("if no pin is specified", function() {
-      it("throws an error", function() {
-        var fn = function() { new Hmc6352({ name: 'hi' }); };
-        expect(fn).to.throw("No pin specified for HMC6352. Cannot proceed");
-      });
     });
   });
 

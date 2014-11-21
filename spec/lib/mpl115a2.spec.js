@@ -19,17 +19,10 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
     it("sets @address to 0x60", function() {
       expect(driver.address).to.be.eql(0x60);
     });
-
-    context("if no pin is specified", function() {
-      it("throws an error", function() {
-        var fn = function() { new MPL115A2({ name: 'hi' }); };
-        expect(fn).to.throw("No pin specified for MPL115A2. Cannot proceed");
-      });
-    });
   });
 
   describe("#commands", function() {
-    it("is an object containing MPL115A2 commands", function() {
+    it("is an object containing MPL1115A2 commands", function() {
       for (var c in driver.commands) {
         expect(driver.commands[c]).to.be.a('function');
       }

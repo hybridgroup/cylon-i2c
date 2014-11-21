@@ -10,8 +10,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
   beforeEach(function() {
     driver = new LCD({
       name: 'display',
-      connection: {},
-      pin: 13
+      connection: {}
     });
   });
 
@@ -34,13 +33,6 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
     it("sets @_displaymode", function() {
       expect(driver._displaymode).to.be.eql(0x02 | 0x00);
-    });
-
-    context("if no pin is specified", function() {
-      it("throws an error", function() {
-        var fn = function() { new LCD({ name: 'hi' }); };
-        expect(fn).to.throw("No pin specified for LCD. Cannot proceed");
-      });
     });
   });
 
