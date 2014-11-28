@@ -21,8 +21,13 @@ var Cylon = require('cylon');
 
 // Initialize the robot
 Cylon.robot({
-  connection: { name: 'arduino', adaptor: 'firmata', port: '/dev/ttyACM0' },
-  device: {name: 'blinkm', driver: 'blinkm'},
+  connections: {
+    arduino: { adaptor: 'firmata', port: '/dev/ttyACM0' }
+  },
+
+  devices: {
+    blinkm: { driver: 'blinkm'}
+  },
 
   work: function(my) {
     var lit = false;
