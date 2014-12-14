@@ -5,7 +5,9 @@ var BlinkM = source('blinkm'),
   Mpl115A2 = source('mpl115a2'),
   Bmp180 = source('bmp180'),
   Mpu6050 = source('mpu6050'),
-  LCD = source('lcd');
+  LCD = source('lcd'),
+  Lsm9ds0g = source('lsm9ds0g'),
+  Lsm9ds0xm = source('lsm9ds0xm');
 
 var module = source("cylon-i2c");
 var Cylon = require("cylon");
@@ -19,12 +21,18 @@ describe("I2C", function() {
   });
 
   describe("#driver", function() {
-    var opts = {};
+    var opts, driver;
+
+    beforeEach(function() {
+      opts = {
+        connection: {},
+      };
+    });
 
     context("with 'blinkm'", function() {
       it("returns a BlinkM driver instance", function() {
         opts.driver = 'blinkm';
-        var driver = module.driver(opts);
+        driver = module.driver(opts);
         expect(driver).to.be.an.instanceOf(BlinkM);
       });
     });
@@ -32,7 +40,7 @@ describe("I2C", function() {
     context("with 'hmc6352'", function() {
       it("returns a Hmc6352 driver instance", function() {
         opts.driver = 'hmc6352';
-        var driver = module.driver(opts);
+        driver = module.driver(opts);
         expect(driver).to.be.an.instanceOf(Hmc6352);
       });
     });
@@ -40,7 +48,7 @@ describe("I2C", function() {
     context("with 'mpl115a2'", function() {
       it("returns a Mpl115A2 driver instance", function() {
         opts.driver = 'mpl115a2';
-        var driver = module.driver(opts);
+        driver = module.driver(opts);
         expect(driver).to.be.an.instanceOf(Mpl115A2);
       });
     });
@@ -48,7 +56,7 @@ describe("I2C", function() {
     context("with 'bmp180'", function() {
       it("returns a Bmp180 driver instance", function() {
         opts.driver = 'bmp180';
-        var driver = module.driver(opts);
+        driver = module.driver(opts);
         expect(driver).to.be.an.instanceOf(Bmp180);
       });
     });
@@ -56,7 +64,7 @@ describe("I2C", function() {
     context("with 'mpu6050'", function() {
       it("returns a Mpu6050 driver instance", function() {
         opts.driver = 'mpu6050';
-        var driver = module.driver(opts);
+        driver = module.driver(opts);
         expect(driver).to.be.an.instanceOf(Mpu6050);
       });
     });
@@ -64,8 +72,24 @@ describe("I2C", function() {
     context("with 'lcd'", function() {
       it("returns a LCD driver instance", function() {
         opts.driver = 'lcd';
-        var driver = module.driver(opts);
+        driver = module.driver(opts);
         expect(driver).to.be.an.instanceOf(LCD);
+      });
+    });
+
+    context("with 'lsm9ds0g'", function() {
+      it("returns a lsm9ds0g driver instance", function() {
+        opts.driver = 'lsm9ds0g';
+        driver = module.driver(opts);
+        expect(driver).to.be.an.instanceOf(Lsm9ds0g);
+      });
+    });
+
+    context("with 'lsm9ds0xm'", function() {
+      it("returns a lsm9ds0xm driver instance", function() {
+        opts.driver = 'lsm9ds0xm';
+        driver = module.driver(opts);
+        expect(driver).to.be.an.instanceOf(Lsm9ds0xm);
       });
     });
 
