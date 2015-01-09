@@ -1,6 +1,7 @@
-'use strict';
+// jshint expr:true
+"use strict";
 
-var Cylon = require('cylon');
+var Cylon = require("cylon");
 
 var MPL115A2 = source("mpl115a2");
 
@@ -9,7 +10,7 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
 
   beforeEach(function() {
     driver = new MPL115A2({
-      name: 'mpl115a2',
+      name: "mpl115a2",
       connection: {},
       pin: 13
     });
@@ -24,7 +25,7 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
   describe("#commands", function() {
     it("is an object containing MPL1115A2 commands", function() {
       for (var c in driver.commands) {
-        expect(driver.commands[c]).to.be.a('function');
+        expect(driver.commands[c]).to.be.a("function");
       }
     });
   });
@@ -34,7 +35,7 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
 
     beforeEach(function() {
       callback = spy();
-      stub(driver, 'readCoefficients');
+      stub(driver, "readCoefficients");
     });
 
     afterEach(function() {
@@ -49,13 +50,13 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
 
   describe("#getPressure", function() {
     it("is a proxy to #getPT", function() {
-      expect(driver.getPressure).to.be.eql(driver.getPT)
+      expect(driver.getPressure).to.be.eql(driver.getPT);
     });
   });
 
   describe("#getTemperature", function() {
     it("is a proxy to #getPT", function() {
-      expect(driver.getTemperature).to.be.eql(driver.getPT)
+      expect(driver.getTemperature).to.be.eql(driver.getPT);
     });
   });
 
@@ -93,7 +94,7 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
     });
 
     it("emit the 'start' event", function() {
-      expect(driver.emit).to.be.calledWith('start');
+      expect(driver.emit).to.be.calledWith("start");
     });
   });
 
@@ -109,7 +110,7 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
       callback = spy();
       driver.connection.i2cWrite = spy();
       driver.connection.i2cRead = stub().yields(null, [10, 10, 10, 10]);
-      stub(Cylon.Utils, 'sleep');
+      stub(Cylon.Utils, "sleep");
       driver.getPT(callback);
     });
 
@@ -138,7 +139,7 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
       );
     });
 
-    it("it sets the pressure and temperature based on the readings", function() {
+    it("it sets the pressure and temperature based on readings", function() {
       expect(driver.pressure).to.be.eql(156.80840664711633);
       expect(driver.temperature).to.be.eql(110.60747663551402);
     });

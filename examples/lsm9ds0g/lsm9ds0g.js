@@ -1,12 +1,14 @@
-var Cylon = require('cylon');
+"use strict";
+
+var Cylon = require("cylon");
 
 Cylon.robot({
   connections: {
-    arduino: { adaptor: 'firmata', port: '/dev/tty.usbmodem1421' }
+    arduino: { adaptor: "firmata", port: "/dev/tty.usbmodem1421" }
   },
 
   devices: {
-    gyro: { driver: 'lsm9ds0g' }
+    gyro: { driver: "lsm9ds0g" }
   },
 
   work: function(my) {

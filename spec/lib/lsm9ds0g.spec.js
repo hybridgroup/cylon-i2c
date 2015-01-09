@@ -1,6 +1,5 @@
-'use strict';
-
-var Cylon = require('cylon');
+// jshint expr:true
+"use strict";
 
 var LSM9DS0G = source("lsm9ds0g");
 
@@ -9,7 +8,7 @@ describe("Cylon.Drivers.I2C.LSM9DS0G", function() {
 
   beforeEach(function() {
     driver = new LSM9DS0G({
-      name: 'lsm9ds0g',
+      name: "lsm9ds0g",
       connection: {},
       pin: 13
     });
@@ -24,7 +23,7 @@ describe("Cylon.Drivers.I2C.LSM9DS0G", function() {
   describe("#commands", function() {
     it("is an object containing LSM9DS0G commands", function() {
       for (var c in driver.commands) {
-        expect(driver.commands[c]).to.be.a('function');
+        expect(driver.commands[c]).to.be.a("function");
       }
     });
   });
@@ -34,7 +33,7 @@ describe("Cylon.Drivers.I2C.LSM9DS0G", function() {
 
     beforeEach(function() {
       callback = spy();
-      stub(driver, '_initGyro');
+      stub(driver, "_initGyro");
     });
 
     afterEach(function() {
