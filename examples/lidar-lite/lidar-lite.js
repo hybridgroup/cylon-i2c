@@ -1,3 +1,5 @@
+"use strict";
+
 var Cylon = require("cylon");
 
 Cylon.robot({
