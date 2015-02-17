@@ -8,7 +8,8 @@ var BlinkM = source("blinkm"),
   Mpu6050 = source("mpu6050"),
   LCD = source("lcd"),
   Lsm9ds0g = source("lsm9ds0g"),
-  Lsm9ds0xm = source("lsm9ds0xm");
+  Lsm9ds0xm = source("lsm9ds0xm"),
+  LidarLite = source("lidar-lite");
 
 var i2c = source("cylon-i2c");
 
@@ -23,7 +24,8 @@ describe("I2C", function() {
         "mpu6050",
         "lcd",
         "lsm9ds0g",
-        "lsm9ds0xm"
+        "lsm9ds0xm",
+        "lidar-lite"
       ];
 
       expect(i2c.drivers).to.be.eql(drivers);
@@ -100,6 +102,14 @@ describe("I2C", function() {
         opts.driver = "lsm9ds0xm";
         driver = i2c.driver(opts);
         expect(driver).to.be.an.instanceOf(Lsm9ds0xm);
+      });
+    });
+
+    context("with 'lidar-lite'", function() {
+      it("returns a lidar-lite driver instance", function() {
+        opts.driver = "lidar-lite";
+        driver = i2c.driver(opts);
+        expect(driver).to.be.an.instanceOf(LidarLite);
       });
     });
 
