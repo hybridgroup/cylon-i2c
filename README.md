@@ -8,7 +8,7 @@ Want to use Ruby on robots? Check out our sister project Artoo (http://artoo.io)
 
 Want to use the Go programming language to power your robots? Check out our sister project Gobot (http://gobot.io).
 
-[![Build Status](https://secure.travis-ci.org/hybridgroup/cylon-i2c.png?branch=master)](http://travis-ci.org/hybridgroup/cylon-i2c)
+[![Build Status](https://secure.travis-ci.org/hybridgroup/cylon-i2c.png?branch=master)](http://travis-ci.org/hybridgroup/cylon-i2c) [![Code Climate](https://codeclimate.com/github/hybridgroup/cylon-i2c/badges/gpa.svg)](https://codeclimate.com/github/hybridgroup/cylon-i2c) [![Test Coverage](https://codeclimate.com/github/hybridgroup/cylon-i2c/badges/coverage.svg)](https://codeclimate.com/github/hybridgroup/cylon-i2c)
 
 ## Getting Started
 
@@ -21,8 +21,13 @@ var Cylon = require('cylon');
 
 // Initialize the robot
 Cylon.robot({
-  connection: { name: 'arduino', adaptor: 'firmata', port: '/dev/ttyACM0' },
-  device: {name: 'blinkm', driver: 'blinkm'},
+  connections: {
+    arduino: { adaptor: 'firmata', port: '/dev/ttyACM0' }
+  },
+
+  devices: {
+    blinkm: { driver: 'blinkm'}
+  },
 
   work: function(my) {
     var lit = false;
@@ -47,6 +52,7 @@ Cylon.js has a extensible system for connecting to hardware devices. The followi
   - BMP180
   - HMC6352 Digital Compass
   - LCD
+  - LIDAR-Lite
   - MPL115A2 Digital Barometer & Thermometer
   - MPU6050
 
@@ -71,6 +77,18 @@ Thank you!
   * For git help see [progit](http://git-scm.com/book) which is an awesome (and free) book on git
 
 ## Release History
+
+Version 0.20.0 - Add LIDAR-Lite support
+
+Version 0.19.0 - Compatibility with Cylon 0.22.0
+
+Version 0.18.0 - Compatibility with Cylon 0.21.0
+
+Version 0.17.0 - Compatibility with Cylon 0.20.0
+
+Version 0.16.0 - Compatibility with Cylon 0.19.0
+
+Version 0.15.0 - Bugfixes, add LSM9DS0 support
 
 Version 0.14.0 - Compatibility with Cylon 0.18.0
 

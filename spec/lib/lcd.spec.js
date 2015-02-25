@@ -1,26 +1,18 @@
-'use strict';
+// jshint expr:true
+"use strict";
 
-var Cylon = require('cylon');
+var Cylon = require("cylon");
 
 var LCD = source("lcd");
 
 describe("Cylon.Drivers.I2C.LCD", function() {
-  var driver = new LCD({
-    name: 'display',
-    device: {
-      connection: {},
-      emit: spy()
-    }
-  });
-
-  var clock;
+  var driver;
 
   beforeEach(function() {
-    clock = sinon.useFakeTimers();
-  });
-
-  afterEach(function() {
-    clock.restore();
+    driver = new LCD({
+      name: "display",
+      connection: {}
+    });
   });
 
   describe("#constructor", function() {
@@ -48,7 +40,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
   describe("#commands", function() {
     it("is an object containing LCD commands", function() {
       for (var c in driver.commands) {
-        expect(driver.commands[c]).to.be.a('function');
+        expect(driver.commands[c]).to.be.a("function");
       }
     });
   });
@@ -59,10 +51,9 @@ describe("Cylon.Drivers.I2C.LCD", function() {
     var commands = ["_expanderWrite", "_write4bits", "_sendCommand",
                     "clear", "displayOn", "home"];
 
-
     beforeEach(function() {
       callback = spy();
-      stub(Cylon.Utils, 'sleep');
+      stub(Cylon.Utils, "sleep");
 
       for (var i = 0; i < commands.length; i++) {
         stub(driver, commands[i]);
@@ -73,10 +64,6 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
     afterEach(function() {
       Cylon.Utils.sleep.restore();
-
-      for (var i = 0; i < commands.length; i++) {
-        driver[commands[i]].restore();
-      }
     });
 
     it("writes the backlight val Cylon.Utils.after 50ms", function() {
@@ -89,7 +76,9 @@ describe("Cylon.Drivers.I2C.LCD", function() {
     });
 
     it("sends the displayfunction command", function() {
-      expect(driver._sendCommand).to.be.calledWith(0x20 | driver._displayfunction);
+      expect(driver._sendCommand).to.be.calledWith(
+        0x20 | driver._displayfunction
+      );
     });
 
     it("turns the display on", function() {
@@ -108,8 +97,8 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#clear", function() {
     beforeEach(function() {
-      stub(Cylon.Utils, 'sleep');
-      stub(driver, '_sendCommand');
+      stub(Cylon.Utils, "sleep");
+      stub(driver, "_sendCommand");
       driver.clear();
     });
 
@@ -129,8 +118,8 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#home", function() {
     beforeEach(function() {
-      stub(Cylon.Utils, 'sleep');
-      stub(driver, '_sendCommand');
+      stub(Cylon.Utils, "sleep");
+      stub(driver, "_sendCommand");
       driver.home();
     });
 
@@ -150,7 +139,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#setCursor", function() {
     beforeEach(function() {
-      stub(driver, '_sendCommand');
+      stub(driver, "_sendCommand");
       driver.setCursor(10, 10);
     });
 
@@ -165,7 +154,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#displayOff", function() {
     beforeEach(function() {
-      stub(driver, '_sendCommand');
+      stub(driver, "_sendCommand");
       driver.displayOff();
     });
 
@@ -174,7 +163,9 @@ describe("Cylon.Drivers.I2C.LCD", function() {
     });
 
     it("calls #_sendCommand to turn the display off", function() {
-      expect(driver._sendCommand).to.be.calledWith(0x08 | driver._displaycontrol);
+      expect(driver._sendCommand).to.be.calledWith(
+        0x08 | driver._displaycontrol
+      );
     });
 
     it("changes @_displaycontrol", function() {
@@ -184,7 +175,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#displayOn", function() {
     beforeEach(function() {
-      stub(driver, '_sendCommand');
+      stub(driver, "_sendCommand");
       driver.displayOn();
     });
 
@@ -193,7 +184,9 @@ describe("Cylon.Drivers.I2C.LCD", function() {
     });
 
     it("calls #_sendCommand to turn the display on", function() {
-      expect(driver._sendCommand).to.be.calledWith(0x08 | driver._displaycontrol);
+      expect(driver._sendCommand).to.be.calledWith(
+        0x08 | driver._displaycontrol
+      );
     });
 
     it("changes @_displaycontrol", function() {
@@ -203,7 +196,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#cursorOff", function() {
     beforeEach(function() {
-      stub(driver, '_sendCommand');
+      stub(driver, "_sendCommand");
       driver.cursorOff();
     });
 
@@ -212,7 +205,9 @@ describe("Cylon.Drivers.I2C.LCD", function() {
     });
 
     it("calls #_sendCommand to turn the cursor on", function() {
-      expect(driver._sendCommand).to.be.calledWith(0x08 | driver._displaycontrol);
+      expect(driver._sendCommand).to.be.calledWith(
+        0x08 | driver._displaycontrol
+      );
     });
 
     it("changes @_displaycontrol", function() {
@@ -222,7 +217,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#cursorOn", function() {
     beforeEach(function() {
-      stub(driver, '_sendCommand');
+      stub(driver, "_sendCommand");
       driver.cursorOn();
     });
 
@@ -231,7 +226,9 @@ describe("Cylon.Drivers.I2C.LCD", function() {
     });
 
     it("calls #_sendCommand to turn the cursor on", function() {
-      expect(driver._sendCommand).to.be.calledWith(0x08 | driver._displaycontrol);
+      expect(driver._sendCommand).to.be.calledWith(
+        0x08 | driver._displaycontrol
+      );
     });
 
     it("changes @_displaycontrol", function() {
@@ -241,7 +238,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#cursorOff", function() {
     beforeEach(function() {
-      stub(driver, '_sendCommand');
+      stub(driver, "_sendCommand");
       driver.cursorOff();
     });
 
@@ -250,7 +247,9 @@ describe("Cylon.Drivers.I2C.LCD", function() {
     });
 
     it("calls #_sendCommand to turn the cursor on", function() {
-      expect(driver._sendCommand).to.be.calledWith(0x08 | driver._displaycontrol);
+      expect(driver._sendCommand).to.be.calledWith(
+        0x08 | driver._displaycontrol
+      );
     });
 
     it("changes @_displaycontrol", function() {
@@ -260,7 +259,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#blinkOff", function() {
     beforeEach(function() {
-      stub(driver, '_sendCommand');
+      stub(driver, "_sendCommand");
       driver.blinkOff();
     });
 
@@ -269,7 +268,9 @@ describe("Cylon.Drivers.I2C.LCD", function() {
     });
 
     it("calls #_sendCommand to turn the blink on", function() {
-      expect(driver._sendCommand).to.be.calledWith(0x08 | driver._displaycontrol);
+      expect(driver._sendCommand).to.be.calledWith(
+        0x08 | driver._displaycontrol
+      );
     });
 
     it("changes @_displaycontrol", function() {
@@ -279,7 +280,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#blinkOn", function() {
     beforeEach(function() {
-      stub(driver, '_sendCommand');
+      stub(driver, "_sendCommand");
       driver.blinkOn();
     });
 
@@ -288,7 +289,9 @@ describe("Cylon.Drivers.I2C.LCD", function() {
     });
 
     it("calls #_sendCommand to turn the blink on", function() {
-      expect(driver._sendCommand).to.be.calledWith(0x08 | driver._displaycontrol);
+      expect(driver._sendCommand).to.be.calledWith(
+        0x08 | driver._displaycontrol
+      );
     });
 
     it("changes @_displaycontrol", function() {
@@ -298,7 +301,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#backlightOff", function() {
     beforeEach(function() {
-      stub(driver, '_expanderWrite');
+      stub(driver, "_expanderWrite");
       driver.backlightOff();
     });
 
@@ -317,7 +320,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#backlightOn", function() {
     beforeEach(function() {
-      stub(driver, '_expanderWrite');
+      stub(driver, "_expanderWrite");
       driver.backlightOn();
     });
 
@@ -335,10 +338,10 @@ describe("Cylon.Drivers.I2C.LCD", function() {
   });
 
   describe("#print", function() {
-    var chars = "hello world".split('');
+    var chars = "hello world".split("");
 
     beforeEach(function() {
-      stub(driver, '_writeData');
+      stub(driver, "_writeData");
       driver.print("hello world");
     });
 
@@ -355,9 +358,9 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#_write4bits", function() {
     beforeEach(function() {
-      stub(driver, '_expanderWrite');
-      stub(driver, '_pulseEnable');
-      driver._write4bits(0xff)
+      stub(driver, "_expanderWrite");
+      stub(driver, "_pulseEnable");
+      driver._write4bits(0xff);
     });
 
     afterEach(function() {
@@ -385,13 +388,14 @@ describe("Cylon.Drivers.I2C.LCD", function() {
     });
 
     it("calls #i2cWrite with the passed data", function() {
-      expect(driver.connection.i2cWrite).to.be.calledWith(0x27, 0xff | driver._backlightVal);
+      var i2cWrite = driver.connection.i2cWrite;
+      expect(i2cWrite).to.be.calledWith(0x27, 0xff | driver._backlightVal);
     });
   });
 
   describe("#_pulseEnable", function() {
     beforeEach(function() {
-      stub(driver, '_expanderWrite');
+      stub(driver, "_expanderWrite");
       driver._pulseEnable(0xff);
     });
 
@@ -400,14 +404,14 @@ describe("Cylon.Drivers.I2C.LCD", function() {
     });
 
     it("calls #expanderWrite", function() {
-      expect(driver._expanderWrite).to.be.calledWith(0xff | 0x04)
-      expect(driver._expanderWrite).to.be.calledWith(0xff & ~0x04)
+      expect(driver._expanderWrite).to.be.calledWith(0xff | 0x04);
+      expect(driver._expanderWrite).to.be.calledWith(0xff & ~0x04);
     });
   });
 
   describe("#_sendCommand", function() {
     beforeEach(function() {
-      stub(driver, '_sendData');
+      stub(driver, "_sendData");
       driver._sendCommand(0xff);
     });
 
@@ -422,7 +426,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#_writeData", function() {
     beforeEach(function() {
-      stub(driver, '_sendData');
+      stub(driver, "_sendData");
       driver._writeData(0xff);
     });
 
@@ -437,7 +441,7 @@ describe("Cylon.Drivers.I2C.LCD", function() {
 
   describe("#_sendData", function() {
     beforeEach(function() {
-      stub(driver, '_write4bits');
+      stub(driver, "_write4bits");
       driver._sendData(0xAB, 0xEE);
     });
 

@@ -7,8 +7,9 @@ process.env.NODE_ENV = 'test';
 var path = require('path');
 var chai = require('chai');
 var sinonChai = require('sinon-chai');
+
 var Cylon = require('cylon');
-Cylon.Logger.setup(false) // disable Cylon's logger for tests
+Cylon.config({ logging: { logger: false } });
 
 global.chai = chai;
 global.should = chai.should();
@@ -22,7 +23,7 @@ global.stub = sinon.stub
 // can be used by test modules to require production modules,
 // relative to the base path (where the Gruntfile.js also lives)
 global.source = function (src) {
-  var resource = path.normalize('../../lib/' + src);
+  var resource = path.normalize('../lib/' + src);
   return require(resource);
 };
 

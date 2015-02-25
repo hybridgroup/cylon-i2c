@@ -1,11 +1,17 @@
-'use strict';
+// jshint expr:true
+"use strict";
 
 var BlinkM = source("blinkm");
 
 describe("Cylon.Drivers.I2C.BlinkM", function() {
-  var driver = new BlinkM({
-    name: 'blinkm',
-    device: { connection: {}, pin: 13 }
+  var driver;
+
+  beforeEach(function() {
+    driver = new BlinkM({
+      name: "blinkm",
+      connection: {},
+      pin: 13
+    });
   });
 
   describe("constructor", function() {
@@ -17,7 +23,7 @@ describe("Cylon.Drivers.I2C.BlinkM", function() {
   describe("#commands", function() {
     it("is an object containing BlinkM commands", function() {
       for (var c in driver.commands) {
-        expect(driver.commands[c]).to.be.a('function');
+        expect(driver.commands[c]).to.be.a("function");
       }
     });
   });
@@ -28,11 +34,11 @@ describe("Cylon.Drivers.I2C.BlinkM", function() {
     });
 
     it("uses #i2cWrite to set the RGB LED", function() {
-      driver.goToRGB('r', 'g', 'b');
+      driver.goToRGB("r", "g", "b");
       expect(driver.connection.i2cWrite).to.be.calledWith(
         driver.address,
         0x6e,
-        ['r', 'g', 'b']
+        ["r", "g", "b"]
       );
     });
   });
@@ -43,11 +49,11 @@ describe("Cylon.Drivers.I2C.BlinkM", function() {
     });
 
     it("uses #i2cWrite to fade the RGB LED", function() {
-      driver.fadeToRGB('r', 'g', 'b');
+      driver.fadeToRGB("r", "g", "b");
       expect(driver.connection.i2cWrite).to.be.calledWith(
         driver.address,
         0x63,
-        ['r', 'g', 'b']
+        ["r", "g", "b"]
       );
     });
   });
@@ -58,11 +64,11 @@ describe("Cylon.Drivers.I2C.BlinkM", function() {
     });
 
     it("uses #i2cWrite to fade the LED to a HSB value", function() {
-      driver.fadeToHSB('h', 's', 'b');
+      driver.fadeToHSB("h", "s", "b");
       expect(driver.connection.i2cWrite).to.be.calledWith(
         driver.address,
         0x68,
-        ['h', 's', 'b']
+        ["h", "s", "b"]
       );
     });
   });
@@ -73,11 +79,11 @@ describe("Cylon.Drivers.I2C.BlinkM", function() {
     });
 
     it("uses #i2cWrite to fade the LED to a random RGB value", function() {
-      driver.fadeToRandomRGB('r', 'g', 'b');
+      driver.fadeToRandomRGB("r", "g", "b");
       expect(driver.connection.i2cWrite).to.be.calledWith(
         driver.address,
         0x43,
-        ['r', 'g', 'b']
+        ["r", "g", "b"]
       );
     });
   });
@@ -88,11 +94,11 @@ describe("Cylon.Drivers.I2C.BlinkM", function() {
     });
 
     it("uses #i2cWrite to fade the LED to a random HSB value", function() {
-      driver.fadeToRandomHSB('h', 's', 'b');
+      driver.fadeToRandomHSB("h", "s", "b");
       expect(driver.connection.i2cWrite).to.be.calledWith(
         driver.address,
         0x48,
-        ['h', 's', 'b']
+        ["h", "s", "b"]
       );
     });
   });
@@ -103,11 +109,11 @@ describe("Cylon.Drivers.I2C.BlinkM", function() {
     });
 
     it("uses #i2cWrite to play a light script", function() {
-      driver.playLightScript('id', 'repeats', 'startAtLine');
+      driver.playLightScript("id", "repeats", "startAtLine");
       expect(driver.connection.i2cWrite).to.be.calledWith(
         driver.address,
         0x70,
-        ['id', 'repeats', 'startAtLine']
+        ["id", "repeats", "startAtLine"]
       );
     });
   });
@@ -193,14 +199,14 @@ describe("Cylon.Drivers.I2C.BlinkM", function() {
     });
 
     it("uses #i2cWrite to set the Address", function() {
-      driver.setAddress('newAddress');
+      driver.setAddress("newAddress");
       expect(driver.connection.i2cWrite).to.be.calledWith(
         9, // original address
         0x41,
-        ['newAddress', 0xd0, 0x0d, 'newAddress']
+        ["newAddress", 0xd0, 0x0d, "newAddress"]
       );
 
-      expect(driver.address).to.be.eql('newAddress');
+      expect(driver.address).to.be.eql("newAddress");
     });
   });
 

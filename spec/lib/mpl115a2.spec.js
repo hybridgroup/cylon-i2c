@@ -1,17 +1,19 @@
-'use strict';
+// jshint expr:true
+"use strict";
 
-var Cylon = require('cylon');
+var Cylon = require("cylon");
 
 var MPL115A2 = source("mpl115a2");
 
 describe("Cylon.Drivers.I2C.Mpl115A2", function() {
-  var driver = new MPL115A2({
-    name: 'mpl115a2',
-    device: {
+  var driver;
+
+  beforeEach(function() {
+    driver = new MPL115A2({
+      name: "mpl115a2",
       connection: {},
-      pin: 13,
-      emit: spy()
-    }
+      pin: 13
+    });
   });
 
   describe("constructor", function() {
@@ -23,7 +25,7 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
   describe("#commands", function() {
     it("is an object containing MPL1115A2 commands", function() {
       for (var c in driver.commands) {
-        expect(driver.commands[c]).to.be.a('function');
+        expect(driver.commands[c]).to.be.a("function");
       }
     });
   });
@@ -33,7 +35,7 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
 
     beforeEach(function() {
       callback = spy();
-      stub(driver, 'readCoefficients');
+      stub(driver, "readCoefficients");
     });
 
     afterEach(function() {
@@ -48,13 +50,13 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
 
   describe("#getPressure", function() {
     it("is a proxy to #getPT", function() {
-      expect(driver.getPressure).to.be.eql(driver.getPT)
+      expect(driver.getPressure).to.be.eql(driver.getPT);
     });
   });
 
   describe("#getTemperature", function() {
     it("is a proxy to #getPT", function() {
-      expect(driver.getTemperature).to.be.eql(driver.getPT)
+      expect(driver.getTemperature).to.be.eql(driver.getPT);
     });
   });
 
@@ -63,7 +65,8 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
     beforeEach(function() {
       var data = [10, 10, 10, 10, 10, 10, 10, 10];
       callback = spy();
-      driver.connection.i2cRead = stub().callsArgWith(3, data);
+      driver.connection.i2cRead = stub().callsArgWith(3, null, data);
+      driver.emit = spy();
       driver.readCoefficients(callback);
     });
 
@@ -90,8 +93,8 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
       expect(callback).to.be.called;
     });
 
-    it("tells the device to emit the 'start' event", function() {
-      expect(driver.device.emit).to.be.calledWith('start');
+    it("emit the 'start' event", function() {
+      expect(driver.emit).to.be.calledWith("start");
     });
   });
 
@@ -99,17 +102,20 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
     var callback;
 
     beforeEach(function() {
+      driver.a0 = 1;
+      driver.b1 = 1;
+      driver.b2 = 1;
+      driver.c12 = 1;
+
       callback = spy();
       driver.connection.i2cWrite = spy();
-      driver.connection.i2cRead = stub().callsArgWith(3, [10, 10, 10, 10]);
-      stub(Cylon.Utils, 'sleep');
+      driver.connection.i2cRead = stub().yields(null, [10, 10, 10, 10]);
+      stub(Cylon.Utils, "sleep");
       driver.getPT(callback);
     });
 
     afterEach(function() {
       Cylon.Utils.sleep.restore();
-      driver.connection.i2cWrite = undefined;
-      driver.connection.i2cRead = undefined;
     });
 
     it("uses #i2cWrite to tell the sensor to start conversion", function() {
@@ -133,16 +139,18 @@ describe("Cylon.Drivers.I2C.Mpl115A2", function() {
       );
     });
 
-    it("it sets the pressure and temperature based on the readings", function() {
-      expect(driver.pressure).to.be.eql(71.62334259421011);
+    it("it sets the pressure and temperature based on readings", function() {
+      expect(driver.pressure).to.be.eql(156.80840664711633);
       expect(driver.temperature).to.be.eql(110.60747663551402);
     });
 
     it("calls the provided callback with the temp/pressure", function() {
-      expect(callback).to.be.calledWith({
-        pressure: 71.62334259421011,
+      var values = {
+        pressure: 156.80840664711633,
         temperature: 110.60747663551402
-      });
-    })
+      };
+
+      expect(callback).to.be.calledWith(null, values);
+    });
   });
 });

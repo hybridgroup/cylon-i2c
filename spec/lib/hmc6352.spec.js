@@ -1,11 +1,16 @@
-'use strict';
+// jshint expr:true
+"use strict";
 
 var Hmc6352 = source("hmc6352");
 
 describe("Cylon.Drivers.I2C.Hmc6352", function() {
-  var driver = new Hmc6352({
-    name: 'compass',
-    device: { emit: spy(), connection: { emit: spy() } }
+  var driver;
+
+  beforeEach(function() {
+    driver = new Hmc6352({
+      name: "compass",
+      connection: {}
+    });
   });
 
   describe("#constructor", function() {
@@ -17,7 +22,7 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
   describe("#commands", function() {
     it("is an object containing Hmc6352 commands", function() {
       for (var c in driver.commands) {
-        expect(driver.commands[c]).to.be.a('function');
+        expect(driver.commands[c]).to.be.a("function");
       }
     });
   });
@@ -28,8 +33,8 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
     beforeEach(function() {
       callback = spy();
       driver.connection.i2cRead = stub().callsArgWith(3, null, [30, 20]);
-      stub(driver, 'parseHeading').returns(20)
-      driver.heading(callback)
+      stub(driver, "parseHeading").returns(20);
+      driver.heading(callback);
     });
 
     afterEach(function() {
@@ -39,14 +44,14 @@ describe("Cylon.Drivers.I2C.Hmc6352", function() {
 
     it("calls the callback with the results of parseHeading", function() {
       expect(driver.parseHeading).to.be.calledWith([30, 20]);
-      expect(callback).to.be.calledWith(20);
+      expect(callback).to.be.calledWith(null, 20);
     });
   });
 
   describe("#commandBytes", function() {
     it("creates an ASCII buffer with the provided string", function() {
       var bytes = driver.commandBytes("testing");
-      expect(bytes).to.be.a('object');
+      expect(bytes).to.be.a("object");
       expect(bytes.length).to.be.eql(7);
     });
   });

@@ -1,17 +1,17 @@
-'use strict';
+// jshint expr:true
+"use strict";
 
-var Cylon = require('cylon');
+var Mpu6050 = source("mpu6050");
 
-var Mpu6050 = source('mpu6050');
+describe("Cylon.Drivers.I2C.Mpu6050", function() {
+  var driver;
 
-describe('Cylon.Drivers.I2C.Mpu6050', function() {
-  var driver = new Mpu6050({
-    name: 'Mpu6050',
-    device: {
+  beforeEach(function() {
+    driver = new Mpu6050({
+      name: "Mpu6050",
       connection: {},
-      pin: 13,
-      emit: spy()
-    }
+      pin: 13
+    });
   });
 
   describe("#constructor", function() {
@@ -23,7 +23,7 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
   describe("#commands", function() {
     it("is an object containing MPU6050 commands", function() {
       for (var c in driver.commands) {
-        expect(driver.commands[c]).to.be.a('function');
+        expect(driver.commands[c]).to.be.a("function");
       }
     });
   });
@@ -34,6 +34,7 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
     beforeEach(function() {
       callback = spy();
       i2cWrite = driver.connection.i2cWrite = stub();
+      driver.emit = spy();
       driver.start(callback);
     });
 
@@ -73,7 +74,7 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
     });
 
     it("emits the 'start' event", function() {
-      expect(driver.device.emit).to.be.calledWith('start');
+      expect(driver.emit).to.be.calledWith("start");
     });
   });
 
@@ -82,7 +83,7 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
 
     beforeEach(function() {
       callback = spy();
-      stub(driver, 'getMotionAndTemp');
+      stub(driver, "getMotionAndTemp");
       driver.getAngularVelocity(callback);
     });
 
@@ -100,7 +101,7 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
 
     beforeEach(function() {
       callback = spy();
-      stub(driver, 'getMotionAndTemp');
+      stub(driver, "getMotionAndTemp");
       driver.getAcceleration(callback);
     });
 
@@ -119,12 +120,12 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
     beforeEach(function() {
       callback = spy();
 
-      var data = [];
+      var data = new Buffer(14);
       for (var i = 0; i < 14; i++) {
-        data.push(10);
+        data[i] = 10;
       }
 
-      driver.connection.i2cRead = stub().callsArgWith(3, data);
+      driver.connection.i2cRead = stub().callsArgWith(3, null, data);
       driver.getMotionAndTemp(callback);
     });
 
@@ -143,7 +144,7 @@ describe('Cylon.Drivers.I2C.Mpu6050', function() {
         t: 44.06470588235294
       };
 
-      expect(callback).to.be.calledWith(expected)
+      expect(callback).to.be.calledWith(null, expected);
     });
   });
 });
