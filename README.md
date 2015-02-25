@@ -52,6 +52,7 @@ Cylon.js has a extensible system for connecting to hardware devices. The followi
   - BMP180
   - HMC6352 Digital Compass
   - LCD
+  - LIDAR-Lite
   - MPL115A2 Digital Barometer & Thermometer
   - MPU6050
 
@@ -76,6 +77,8 @@ Thank you!
   * For git help see [progit](http://git-scm.com/book) which is an awesome (and free) book on git
 
 ## Release History
+
+Version 0.20.0 - Add LIDAR-Lite support
 
 Version 0.19.0 - Compatibility with Cylon 0.22.0
 
