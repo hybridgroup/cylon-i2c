@@ -9,7 +9,8 @@ var BlinkM = source("blinkm"),
   LCD = source("lcd"),
   Lsm9ds0g = source("lsm9ds0g"),
   Lsm9ds0xm = source("lsm9ds0xm"),
-  LidarLite = source("lidar-lite");
+  LidarLite = source("lidar-lite"),
+  PCA9685 = source("pca9685");
 
 var i2c = source("cylon-i2c");
 
@@ -25,7 +26,8 @@ describe("I2C", function() {
         "lcd",
         "lsm9ds0g",
         "lsm9ds0xm",
-        "lidar-lite"
+        "lidar-lite",
+        "pca9685"
       ];
 
       expect(i2c.drivers).to.be.eql(drivers);
@@ -110,6 +112,14 @@ describe("I2C", function() {
         opts.driver = "lidar-lite";
         driver = i2c.driver(opts);
         expect(driver).to.be.an.instanceOf(LidarLite);
+      });
+    });
+
+    context("with 'PCA9685'", function() {
+      it("returns a PCA9685 driver instance", function() {
+        opts.driver = "pca9685";
+        driver = i2c.driver(opts);
+        expect(driver).to.be.an.instanceOf(PCA9685);
       });
     });
 
