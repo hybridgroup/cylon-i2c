@@ -42,11 +42,13 @@ describe("Cylon.Drivers.I2C.Pca9685", function() {
         });
 
         it("wake up", function() {
-            expect(driver.connection.i2cWrite).to.be.calledWith(0x40, 0x00, [0x00]);
+            expect(driver.connection.i2cWrite).to.be.calledWith(
+                0x40, 0x00, [0x00]);
         });
 
         it("reset all", function() {
-            expect(driver.connection.i2cWrite).to.be.calledWith(0x40, 0xFD, [0x10]);
+            expect(driver.connection.i2cWrite).to.be.calledWith(
+                0x40, 0xFD, [0x10]);
         });
     });
 
@@ -84,7 +86,8 @@ describe("Cylon.Drivers.I2C.Pca9685", function() {
 
         it("reset all", function() {
             driver.stop();
-            expect(driver.connection.i2cWrite).to.be.calledWith(0x40, 0xFD, [0x10]);
+            expect(driver.connection.i2cWrite).to.be.calledWith(
+                0x40, 0xFD, [0x10]);
         });
     });
 
