@@ -12,7 +12,7 @@ Want to use the Go programming language to power your robots? Check out our sist
 
 ## Getting Started
 
-Install the module with: `npm install cylon-i2c`
+Install the module with: `npm install cylon cylon-i2c`
 
 ## Example
 
