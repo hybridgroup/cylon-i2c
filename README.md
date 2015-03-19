@@ -48,13 +48,16 @@ Cylon.robot({
 ## Hardware Support
 Cylon.js has a extensible system for connecting to hardware devices. The following i2c devices are currently supported:
 
-  - BlinkM
-  - BMP180
+  - BlinkM RBG LED
+  - BMP180 Barometric Pressure + Temperature sensor
   - HMC6352 Digital Compass
   - LCD
   - LIDAR-Lite
+  - LSM9DS0G 9 Degrees of Freedom IMU 
+  - LSM9DS0XM 9 Degrees of Freedom IMU
   - MPL115A2 Digital Barometer & Thermometer
-  - MPU6050
+  - MPU6050 Triple Axis Accelerometer and Gyro
+  - PCA9685 16-Channel 12-bit PWM/Servo Driver
 
 More drivers are coming soon...
 
