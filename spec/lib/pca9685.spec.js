@@ -7,15 +7,15 @@ describe("Cylon.Drivers.I2C.Pca9685", function() {
 
   beforeEach(function() {
     driver = new Pca9685({
-      name: "Pca9685",
+      name: "pca9685",
       connection: {},
-      pin: 13
+      address: 0x40
     });
   });
 
   describe("#constructor", function() {
-    it("sets @address to 0x40", function() {
-      expect(driver.address).to.be.eql(0x40);
+    it("sets @address to driver.details.address", function() {
+      expect(driver.details.address).to.be.above(0x3F).and.below(0x7F);
     });
   });
 
