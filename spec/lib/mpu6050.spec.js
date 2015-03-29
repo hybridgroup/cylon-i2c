@@ -29,44 +29,33 @@ describe("Cylon.Drivers.I2C.Mpu6050", function() {
   });
 
   describe("#start", function() {
-    var callback, i2cWrite;
+    var callback;
 
     beforeEach(function() {
       callback = spy();
-      i2cWrite = driver.connection.i2cWrite = stub();
+      driver._writeBits = stub();
       driver.emit = spy();
       driver.start(callback);
     });
 
     afterEach(function() {
-      driver.connection.i2cWrite = undefined;
+      driver._writeBits = undefined;
     });
 
     it("sets up the clock", function() {
-      expect(i2cWrite).to.be.calledWith(0x68, 0x6B);
-      expect(i2cWrite).to.be.calledWith(0x68, 0x02);
-      expect(i2cWrite).to.be.calledWith(0x68, 0x03);
-      expect(i2cWrite).to.be.calledWith(0x68, 0x01);
+      expect(driver._writeBits).to.be.calledWith(0x6B, [0x02, 0x03, 0x01]);
     });
 
     it("sets up the gyroscope", function() {
-      expect(i2cWrite).to.be.calledWith(0x68, 0x00);
-      expect(i2cWrite).to.be.calledWith(0x68, 0x1B);
-      expect(i2cWrite).to.be.calledWith(0x68, 0x02);
-      expect(i2cWrite).to.be.calledWith(0x68, 0x04);
+      expect(driver._writeBits).to.be.calledWith(0x1B, [0x04, 0x02, 0x00]);
     });
 
     it("sets up the accelerometer", function() {
-      expect(i2cWrite).to.be.calledWith(0x68, 0x1C);
-      expect(i2cWrite).to.be.calledWith(0x68, 0x04);
-      expect(i2cWrite).to.be.calledWith(0x68, 0x02);
-      expect(i2cWrite).to.be.calledWith(0x68, 0x00);
+      expect(driver._writeBits).to.be.calledWith(0x1C, [0x04, 0x02, 0x00]);
     });
 
     it("enables the sleep bit", function() {
-      expect(i2cWrite).to.be.calledWith(0x68, 0x6B);
-      expect(i2cWrite).to.be.calledWith(0x68, 0x06);
-      expect(i2cWrite).to.be.calledWith(0x68, 0x00);
+      expect(driver._writeBits).to.be.calledWith(0x6B, [0x06, false]);
     });
 
     it("triggers the callback", function() {
