@@ -81,6 +81,8 @@ Thank you!
 
 ## Release History
 
+Version 0.20.1 - Fixes for BMP180 and MPL115A2 devices.
+
 Version 0.20.0 - Add LIDAR-Lite support
 
 Version 0.19.0 - Compatibility with Cylon 0.22.0
