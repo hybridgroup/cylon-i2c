@@ -54,10 +54,6 @@ describe("Cylon.Drivers.I2C.Mpu6050", function() {
       expect(driver._writeBits).to.be.calledWith(0x1C, [0x04, 0x02, 0x00]);
     });
 
-    it("enables the sleep bit", function() {
-      expect(driver._writeBits).to.be.calledWith(0x6B, [0x06, false]);
-    });
-
     it("triggers the callback", function() {
       expect(callback).to.be.called;
     });
@@ -114,6 +110,7 @@ describe("Cylon.Drivers.I2C.Mpu6050", function() {
         data[i] = 10;
       }
 
+      driver.connection.i2cWrite = stub();
       driver.connection.i2cRead = stub().callsArgWith(3, null, data);
       driver.getMotionAndTemp(callback);
     });
