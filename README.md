@@ -81,6 +81,8 @@ Thank you!
 
 ## Release History
 
+Version 0.21.3 - Internal refactors
+
 Version 0.21.2 - Corrected another error in MPU6050 driver
 
 Version 0.21.1 - Corrected error in MPU6050 driver
