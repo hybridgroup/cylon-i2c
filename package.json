@@ -2,7 +2,7 @@
   "name": "cylon-i2c",
   "version": "0.21.3",
   "main": "lib/cylon-i2c.js",
-  "description": "Cylon drivers for i2c devices",
+  "description": "Cylon.js drivers for i2c devices",
   "homepage": "http://cylonjs.com",
   "bugs": "https://github.com/hybridgroup/cylon-i2c/issues",
   "author": "The Hybrid Group <cylonjs@hybridgroup.com>",
@@ -10,7 +10,21 @@
     "type": "git",
     "url": "https://github.com/hybridgroup/cylon-i2c"
   },
+
   "license": "Apache-2.0",
+
+  "keywords": [
+    "cylon",
+    "cylonjs",
+    "cylons",
+    "robot",
+    "robots",
+    "robotics",
+    "iot",
+    "hardware",
+    "i2c"
+  ],
+
   "hardware": {
     "*": false,
     "./": false,
