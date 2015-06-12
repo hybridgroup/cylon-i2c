@@ -14,6 +14,7 @@ Cylon.robot({
   work: function(my) {
     every((1).second(), function() {
       my.accel.getAccel(function(err, data) {
+        if (err) { console.error(err); }
         console.log(data);
       });
     });

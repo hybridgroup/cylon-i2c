@@ -9,6 +9,7 @@ Cylon
   .on("ready", function(bot) {
     setInterval(function() {
       bot.accel.getAccel(function(err, data) {
+        if (err) { console.error(err); }
         console.log(data);
       });
     }, 1000);

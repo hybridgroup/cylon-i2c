@@ -1,9 +1,8 @@
-// jshint expr:true
 "use strict";
 
 var Cylon = require("cylon");
 
-var I2CDriver = source("i2c-driver");
+var I2CDriver = lib("i2c-driver");
 
 describe("I2CDriver", function() {
   var driver;

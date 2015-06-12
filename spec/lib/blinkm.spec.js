@@ -1,7 +1,6 @@
-// jshint expr:true
 "use strict";
 
-var BlinkM = source("blinkm");
+var BlinkM = lib("blinkm");
 
 describe("Cylon.Drivers.I2C.BlinkM", function() {
   var driver;

@@ -1,7 +1,6 @@
-// jshint expr:true
 "use strict";
 
-var Mpu6050 = source("mpu6050");
+var Mpu6050 = lib("mpu6050");
 
 describe("Cylon.Drivers.I2C.Mpu6050", function() {
   var driver;

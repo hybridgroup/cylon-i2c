@@ -1,7 +1,6 @@
-// jshint expr:true
 "use strict";
 
-var Bmp180 = source("bmp180");
+var Bmp180 = lib("bmp180");
 
 describe("Cylon.Drivers.I2C.Bmp180", function() {
   var driver;

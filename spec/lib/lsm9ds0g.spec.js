@@ -1,7 +1,6 @@
-// jshint expr:true
 "use strict";
 
-var LSM9DS0G = source("lsm9ds0g");
+var LSM9DS0G = lib("lsm9ds0g");
 
 describe("Cylon.Drivers.I2C.LSM9DS0G", function() {
   var driver;

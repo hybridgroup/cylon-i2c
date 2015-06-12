@@ -14,6 +14,7 @@ Cylon.robot({
   work: function(my) {
     every(100, function() {
       my.lidar.distance(function(err, data) {
+        if (err) { console.error(err); }
         console.log("distance: " + data);
       });
     });

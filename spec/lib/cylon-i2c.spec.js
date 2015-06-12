@@ -1,18 +1,17 @@
-// jshint expr:true
 "use strict";
 
-var BlinkM = source("blinkm"),
-  Hmc6352 = source("hmc6352"),
-  Mpl115A2 = source("mpl115a2"),
-  Bmp180 = source("bmp180"),
-  Mpu6050 = source("mpu6050"),
-  LCD = source("lcd"),
-  Lsm9ds0g = source("lsm9ds0g"),
-  Lsm9ds0xm = source("lsm9ds0xm"),
-  LidarLite = source("lidar-lite"),
-  Pca9685 = source("pca9685");
+var BlinkM = lib("blinkm"),
+  Hmc6352 = lib("hmc6352"),
+  Mpl115A2 = lib("mpl115a2"),
+  Bmp180 = lib("bmp180"),
+  Mpu6050 = lib("mpu6050"),
+  LCD = lib("lcd"),
+  Lsm9ds0g = lib("lsm9ds0g"),
+  Lsm9ds0xm = lib("lsm9ds0xm"),
+  LidarLite = lib("lidar-lite"),
+  Pca9685 = lib("pca9685");
 
-var i2c = source("cylon-i2c");
+var i2c = lib("cylon-i2c");
 
 describe("I2C", function() {
   describe("#drivers", function() {

@@ -14,6 +14,7 @@ Cylon.robot({
   work: function(my) {
     every((1).seconds(), function() {
       my.mpl115a2.getPressure(function(err, data) {
+        if (err) { console.error(err); }
         console.log(err, data);
       });
     });

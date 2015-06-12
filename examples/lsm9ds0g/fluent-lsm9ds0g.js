@@ -10,6 +10,7 @@ Cylon
   .on("ready", function(bot) {
     setInterval(function() {
       bot.gyro.getGyro(function(err, data) {
+        if (err) { console.error(err); }
         console.log(data);
       });
     }, 1000);

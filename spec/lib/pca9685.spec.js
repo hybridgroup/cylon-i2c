@@ -1,6 +1,6 @@
 "use strict";
 
-var Pca9685 = source("pca9685");
+var Pca9685 = lib("pca9685");
 
 describe("Cylon.Drivers.I2C.Pca9685", function() {
   var driver;

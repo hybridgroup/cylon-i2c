@@ -1,9 +1,8 @@
-// jshint expr:true
 "use strict";
 
 var Cylon = require("cylon");
 
-var MPL115A2 = source("mpl115a2");
+var MPL115A2 = lib("mpl115a2");
 
 describe("Cylon.Drivers.I2C.Mpl115A2", function() {
   var driver;

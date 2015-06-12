@@ -9,6 +9,7 @@ Cylon
   .on("ready", function(bot) {
     setInterval(function() {
       bot.mpu6050.getMotionAndTemp(function(err, data) {
+        if (err) { console.error(err); }
         console.log(err, data);
       });
     }, 1000);

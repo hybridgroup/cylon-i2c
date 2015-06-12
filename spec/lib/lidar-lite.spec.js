@@ -1,7 +1,6 @@
-// jshint expr:true
 "use strict";
 
-var LidarLite = source("lidar-lite");
+var LidarLite = lib("lidar-lite");
 
 describe("Cylon.Drivers.I2C.LidarLite", function() {
   var driver;
@@ -33,7 +32,7 @@ describe("Cylon.Drivers.I2C.LidarLite", function() {
     beforeEach(function() {
       callback = spy();
       driver.connection.i2cRead = stub().callsArgWith(3, null, [30, 20]);
-      //driver.connection.i2cWrite = stub().callsArgWith(3, [30, 20]);
+      // driver.connection.i2cWrite = stub().callsArgWith(3, [30, 20]);
       driver.connection.i2cWrite = stub();
       stub(driver, "parseDistance").returns(20);
       driver.distance(callback);
