@@ -11,7 +11,7 @@ var BlinkM = lib("blinkm"),
   LidarLite = lib("lidar-lite"),
   Pca9685 = lib("pca9685");
 
-var i2c = lib("cylon-i2c");
+var i2c = lib("../");
 
 describe("I2C", function() {
   describe("#drivers", function() {
