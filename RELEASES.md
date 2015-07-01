@@ -1,5 +1,7 @@
 ## Release History
 
+Version 0.22.0 - Use Cylon 1.1.0
+
 Version 0.21.3 - Internal refactors
 
 Version 0.21.2 - Corrected another error in MPU6050 driver
