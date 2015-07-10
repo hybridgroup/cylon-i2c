@@ -4,6 +4,8 @@ Cylon.js (http://cylonjs.com) is a JavaScript framework for robotics, physical c
 
 This module provides drivers for i2c devices (https://en.wikipedia.org/wiki/I%C2%B2C). You would not normally use this module directly, instead it is used by Cylon.js adaptors that have i2c support.
 
+NOTE: This LCD driver only supports PCF8574 based displays at the moment, we are working on adding support for other LCDs.
+
 Want to use Ruby on robots? Check out our sister project Artoo (http://artoo.io)
 
 Want to use the Go programming language to power your robots? Check out our sister project Gobot (http://gobot.io).
