@@ -1,5 +1,7 @@
 ## Release History
 
+Version 0.23.0 - Use Cylon 1.2.0, refactors for LCD driver
+
 Version 0.22.0 - Use Cylon 1.1.0
 
 Version 0.21.3 - Internal refactors
