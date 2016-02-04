@@ -60,6 +60,7 @@ Cylon.js has a extensible system for connecting to hardware devices. The followi
   - MPL115A2 Digital Barometer & Thermometer
   - MPU6050 Triple Axis Accelerometer and Gyro
   - PCA9685 16-Channel 12-bit PWM/Servo Driver
+  - PCA9544a 4-Channel I2C Mux
 
 More drivers are coming soon...
 
