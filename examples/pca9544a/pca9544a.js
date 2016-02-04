@@ -1,15 +1,15 @@
 "use strict";
 
-var  cylon = require('cylon');
+var cylon = require("cylon");
 
-## We must use a mutex lock to ensure the mux state when reading values
-var  lock = new (require('rwlock'))();
+// We must use a mutex lock to ensure the mux state when reading values
+var lock = new (require("rwlock"))();
 
-## Mutex protected initialization
-var  getCoefficients = function(setChannel, bmp180) {
-    return lock.writeLock('i2c1_0x73', function(release) {
+// Mutex protected initialization
+var getCoefficients = function(setChannel, bmp180) {
+    return lock.writeLock("i2c1_0x73", function(release) {
       return setChannel(function() {
-        return bmp180.readCoefficients(function(err, val) {
+        return bmp180.readCoefficients(function(err) {
           if (err) {
             console.log(err);
           }
@@ -19,25 +19,25 @@ var  getCoefficients = function(setChannel, bmp180) {
     });
   };
 
-## Mutex protected data read
-var  getMeasurement = function(index, setChannel, bmp180) {
-    return lock.writeLock('i2c1_0x73', function(release) {
+// Mutex protected data read
+var getMeasurement = function(index, setChannel, bmp180) {
+    return lock.writeLock("i2c1_0x73", function(release) {
       return setChannel(function() {
         return bmp180.getPressure(1, function(err, val) {
-          var timestamp;
           if (err) {
-            return console.log(err);
+            console.log(err);
           } else {
-            val.time = timestamp = Math.floor(Date.now() / 1000);
+            val.time = Math.floor(Date.now() / 1000);
             console.log(index + " " + JSON.stringify(val));
-            return release();
           }
+          release();
+          return;
         });
       });
     });
   };
 
-var  robot_config = {
+var robot_config = {
     name: "test",
     connections: {
       raspi: {
@@ -62,8 +62,9 @@ var  robot_config = {
       }
     },
     work: function(my) {
-      ## The mux is in an unkown state at startup, so we mush re-read the 
-      #   coefficients with a mutex protected call to ensure valid data
+      /* The mux is in an unkown state at startup, so we mush re-read th
+      *   coefficients with a mutex protected call to ensure valid data
+      */
       getCoefficients(my.pca9544a.setChannel1, my.bmp180_1);
       getCoefficients(my.pca9544a.setChannel0, my.bmp180_0);
       return every(20..seconds(), function() {

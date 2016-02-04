@@ -43,7 +43,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
       driver.enable = undefined;
       driver.emit = undefined;
     });
-    
+
     it("emits the 'start' event", function() {
       expect(driver.emit).to.be.calledWith("start");
     });
@@ -55,7 +55,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
   });
 
   describe("#enable", function() {
-    var callback; 
+    var callback;
 
     beforeEach(function() {
       callback = spy();
@@ -96,7 +96,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
   });
 
   describe("#setChannel with Invalid channel", function() {
-    var callback; 
+    var callback;
 
     beforeEach(function() {
       callback = spy();
@@ -106,7 +106,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
     context("i2cWrite returns error", function() {
       beforeEach(function() {
         driver.connection.i2cWrite.callsArgWith(3, "error");
-        driver.setChannel(5,callback);
+        driver.setChannel(5, callback);
       });
 
       it("calls i2cWrite to disable", function() {
@@ -122,7 +122,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
     context("i2cWrite returns ok", function() {
       beforeEach(function() {
         driver.connection.i2cWrite.callsArgWith(3, null);
-        driver.setChannel(5,callback);
+        driver.setChannel(5, callback);
       });
 
       it("calls i2cWrite to disable", function() {
@@ -137,7 +137,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
   });
 
   describe("#setChannel with 0", function() {
-    var callback; 
+    var callback;
 
     beforeEach(function() {
       callback = spy();
@@ -147,7 +147,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
     context("i2cWrite returns error", function() {
       beforeEach(function() {
         driver.connection.i2cWrite.callsArgWith(3, "error");
-        driver.setChannel(0,callback);
+        driver.setChannel(0, callback);
       });
 
       it("calls i2cWrite to select channel 0", function() {
@@ -163,7 +163,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
     context("i2cWrite returns ok", function() {
       beforeEach(function() {
         driver.connection.i2cWrite.callsArgWith(3, null);
-        driver.setChannel(0,callback);
+        driver.setChannel(0, callback);
       });
 
       it("calls i2cWrite to select channel 0", function() {
@@ -178,7 +178,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
   });
 
   describe("#setChannel with 1", function() {
-    var callback; 
+    var callback;
 
     beforeEach(function() {
       callback = spy();
@@ -188,7 +188,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
     context("i2cWrite returns error", function() {
       beforeEach(function() {
         driver.connection.i2cWrite.callsArgWith(3, "error");
-        driver.setChannel(1,callback);
+        driver.setChannel(1, callback);
       });
 
       it("calls i2cWrite to select channel 0", function() {
@@ -204,7 +204,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
     context("i2cWrite returns ok", function() {
       beforeEach(function() {
         driver.connection.i2cWrite.callsArgWith(3, null);
-        driver.setChannel(1,callback);
+        driver.setChannel(1, callback);
       });
 
       it("calls i2cWrite to select channel 0", function() {
@@ -219,7 +219,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
   });
 
   describe("#setChannel with 2", function() {
-    var callback; 
+    var callback;
 
     beforeEach(function() {
       callback = spy();
@@ -229,7 +229,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
     context("i2cWrite returns error", function() {
       beforeEach(function() {
         driver.connection.i2cWrite.callsArgWith(3, "error");
-        driver.setChannel(2,callback);
+        driver.setChannel(2, callback);
       });
 
       it("calls i2cWrite to select channel 0", function() {
@@ -245,7 +245,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
     context("i2cWrite returns ok", function() {
       beforeEach(function() {
         driver.connection.i2cWrite.callsArgWith(3, null);
-        driver.setChannel(2,callback);
+        driver.setChannel(2, callback);
       });
 
       it("calls i2cWrite to select channel 0", function() {
@@ -260,7 +260,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
   });
 
   describe("#setChannel with 3", function() {
-    var callback; 
+    var callback;
 
     beforeEach(function() {
       callback = spy();
@@ -270,7 +270,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
     context("i2cWrite returns error", function() {
       beforeEach(function() {
         driver.connection.i2cWrite.callsArgWith(3, "error");
-        driver.setChannel(3,callback);
+        driver.setChannel(3, callback);
       });
 
       it("calls i2cWrite to select channel 0", function() {
@@ -286,7 +286,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
     context("i2cWrite returns ok", function() {
       beforeEach(function() {
         driver.connection.i2cWrite.callsArgWith(3, null);
-        driver.setChannel(3,callback);
+        driver.setChannel(3, callback);
       });
 
       it("calls i2cWrite to select channel 0", function() {
@@ -301,7 +301,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
   });
 
   describe("#setChannel0", function() {
-    var callback; 
+    var callback;
 
     beforeEach(function() {
       callback = spy();
@@ -342,7 +342,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
   });
 
   describe("#setChannel1", function() {
-    var callback; 
+    var callback;
 
     beforeEach(function() {
       callback = spy();
@@ -383,7 +383,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
   });
 
   describe("#setChannel2", function() {
-    var callback; 
+    var callback;
 
     beforeEach(function() {
       callback = spy();
@@ -424,7 +424,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
   });
 
   describe("#setChannel3", function() {
-    var callback; 
+    var callback;
 
     beforeEach(function() {
       callback = spy();
@@ -465,7 +465,7 @@ describe("Cylon.Drivers.I2C.Pca9544a", function() {
   });
 
   describe("#disable", function() {
-    var callback; 
+    var callback;
 
     beforeEach(function() {
       callback = spy();
