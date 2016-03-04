@@ -270,7 +270,7 @@ describe("Cylon.Drivers.I2C.Jhd1313m1", function() {
     });
 
     it("applies the provided value to #i2cWrite", function() {
-      expect(driver.connection.i2cWrite).to.be.calledWith(0x3E, [0x80, 0xff]);
+      expect(driver.connection.i2cWrite).to.be.calledWith(0x3E, 0x80, 0xff);
     });
   });
 
@@ -280,7 +280,7 @@ describe("Cylon.Drivers.I2C.Jhd1313m1", function() {
     });
 
     it("applies the provided value to #i2cWrite", function() {
-      expect(driver.connection.i2cWrite).to.be.calledWith(0x3E, [0x40, 0xff]);
+      expect(driver.connection.i2cWrite).to.be.calledWith(0x3E, 0x40, 0xff);
     });
   });
 
