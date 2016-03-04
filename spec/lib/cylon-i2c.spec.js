@@ -78,6 +78,14 @@ describe("I2C", function() {
       });
     });
 
+    context("with 'jhd1313m1'", function() {
+      it("returns a Jhd1313m1 driver instance", function() {
+        opts.driver = "jhd1313m1";
+        driver = i2c.driver(opts);
+        expect(driver).to.be.an.instanceOf(Jhd1313m1);
+      });
+    });
+
     context("with 'mpu6050'", function() {
       it("returns a Mpu6050 driver instance", function() {
         opts.driver = "mpu6050";
