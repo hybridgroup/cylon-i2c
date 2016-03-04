@@ -245,12 +245,12 @@ describe("Cylon.Drivers.I2C.Jhd1313m1", function() {
     });
   });
 
-  describe("#print", function() {
+  describe("#write", function() {
     var chars = "hello world".split("");
 
     beforeEach(function() {
       stub(driver, "_writeData");
-      driver.print("hello world");
+      driver.write("hello world");
     });
 
     afterEach(function() {
