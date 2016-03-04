@@ -4,7 +4,7 @@ var Cylon = require("cylon");
 
 var robot = Cylon.robot({
   connections: {
-    chip: { adaptor: "chip" }
+    arduino: { adaptor: "firmata", port: "/dev/ttyACM0" }
   },
 
   devices: {
@@ -13,6 +13,7 @@ var robot = Cylon.robot({
 
   work: function(my) {
     my.lcd.write("Hello");
+    my.lcd.setColor(255, 0, 0);
   }
 });
 
