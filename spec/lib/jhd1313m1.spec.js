@@ -25,16 +25,8 @@ describe("Cylon.Drivers.I2C.Jhd1313m1", function() {
       expect(driver._backlightVal).to.be.eql(0x00);
     });
 
-    it("sets @_displayfunction", function() {
-      expect(driver._displayfunction).to.be.eql(0x08);
-    });
-
     it("sets @_displaycontrol", function() {
       expect(driver._displaycontrol).to.be.eql(0x04 | 0x00 | 0x00);
-    });
-
-    it("sets @_entrymode", function() {
-      expect(driver._entrymode).to.be.eql(0x02 | 0x00);
     });
   });
 
