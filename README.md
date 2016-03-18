@@ -2,7 +2,7 @@
 
 Cylon.js (http://cylonjs.com) is a JavaScript framework for robotics, physical computing, and the Internet of Things (IoT).
 
-This module provides drivers for i2c devices (https://en.wikipedia.org/wiki/I%C2%B2C). You would not normally use this module directly, instead it is used by Cylon.js adaptors that have i2c support.
+This module provides drivers for i2c devices (https://en.wikipedia.org/wiki/I%C2%B2C). You would not normally use this module directly, instead it is used alongside Cylon.js adaptors that have i2c support.
 
 Want to use Ruby on robots? Check out our sister project Artoo (http://artoo.io)
 
