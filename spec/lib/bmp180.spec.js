@@ -50,8 +50,8 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
       driver.readCoefficients.restore();
     });
 
-    it("passes callback to #readCoefficients", function() {
-      expect(driver.readCoefficients).to.be.calledWith(callback);
+    it("calls #readCoefficients", function() {
+      expect(driver.readCoefficients).to.be.called;
     });
   });
 
@@ -120,7 +120,6 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
       });
     });
   });
-
 
   describe("#getTemperature", function() {
     var callback;
@@ -248,10 +247,6 @@ describe("Cylon.Drivers.I2C.Bmp180", function() {
 
       it("triggers the callback", function() {
         expect(callback).to.be.calledWith();
-      });
-
-      it("emits the 'start' event", function() {
-        expect(driver.emit).to.be.calledWith("start");
       });
     });
 

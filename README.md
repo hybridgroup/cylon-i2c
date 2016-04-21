@@ -2,9 +2,7 @@
 
 Cylon.js (http://cylonjs.com) is a JavaScript framework for robotics, physical computing, and the Internet of Things (IoT).
 
-This module provides drivers for i2c devices (https://en.wikipedia.org/wiki/I%C2%B2C). You would not normally use this module directly, instead it is used by Cylon.js adaptors that have i2c support.
-
-NOTE: This LCD driver only supports PCF8574 based displays at the moment, we are working on adding support for other LCDs.
+This module provides drivers for i2c devices (https://en.wikipedia.org/wiki/I%C2%B2C). You would not normally use this module directly, instead it is used alongside Cylon.js adaptors that have i2c support.
 
 Want to use Ruby on robots? Check out our sister project Artoo (http://artoo.io)
 
@@ -48,11 +46,12 @@ Cylon.robot({
 ```
 
 ## Hardware Support
-Cylon.js has a extensible system for connecting to hardware devices. The following i2c devices are currently supported:
+Cylon.js has a extensible system for connecting to hardware devices. The following 12 different i2c devices are currently supported:
 
   - BlinkM RGB LED
   - BMP180 Barometric Pressure + Temperature sensor
   - HMC6352 Digital Compass
+  - JHD1313M1 LCD with RGB Backlight  
   - LCD
   - LIDAR-Lite
   - LSM9DS0G 9 Degrees of Freedom IMU
