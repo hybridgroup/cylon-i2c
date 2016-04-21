@@ -11,7 +11,8 @@ var BlinkM = lib("blinkm"),
   Lsm9ds0xm = lib("lsm9ds0xm"),
   LidarLite = lib("lidar-lite"),
   Pca9685 = lib("pca9685"),
-  Pca9544a = lib("pca9544a");
+  Pca9544a = lib("pca9544a"),
+  Mag3110 = lib("mag3110");
 
 var i2c = lib("../");
 
@@ -30,7 +31,8 @@ describe("I2C", function() {
         "lsm9ds0xm",
         "lidar-lite",
         "pca9685",
-        "pca9544a"
+        "pca9544a",
+        "mag3110",
       ];
 
       expect(i2c.drivers).to.be.eql(drivers);
@@ -139,6 +141,14 @@ describe("I2C", function() {
         opts.driver = "pca9685";
         driver = i2c.driver(opts);
         expect(driver).to.be.an.instanceOf(Pca9685);
+      });
+    });
+
+    context("with 'mag3110'", function() {
+      it("returns a mag3110 driver instance", function() {
+        opts.driver = "mag3110";
+        driver = i2c.driver(opts);
+        expect(driver).to.be.an.instanceOf(Mag3110);
       });
     });
 
