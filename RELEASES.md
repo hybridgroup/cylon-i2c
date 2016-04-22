@@ -1,5 +1,7 @@
 ## Release History
 
+Version 0.25.0 - Use Cylon 1.3.0, add JHD1313M1 driver, fixes for BMP180
+
 Version 0.24.0 - Add PCA9544a driver
 
 Version 0.23.0 - Use Cylon 1.2.0, refactors for LCD driver
