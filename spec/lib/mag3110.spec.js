@@ -26,12 +26,25 @@ describe("Cylon.Drivers.I2C.MAG3110", function() {
     });
   });
 
-  describe("#_initMag", function () {
+  describe("#start", function() {
+    var callback;
+
+    beforeEach(function() {
+      callback = spy();
+      stub(driver, "_initMag");
+    });
+
+    afterEach(function() {
+      driver._initMag.restore();
+    });
+
+    it("calls #_initMag", function() {
       driver.start(callback);
       expect(driver._initMag).to.be.called;
+    });
   });
+
   describe("#getMag", function() {
     it("must #getMag");
   });
-
 });
