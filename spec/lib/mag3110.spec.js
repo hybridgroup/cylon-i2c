@@ -13,7 +13,7 @@ describe("Cylon.Drivers.I2C.MAG3110", function() {
   });
 
   describe("#constructor", function() {
-    it("sets @address to 0x21 by default", function() {
+    it("sets @address to 0x0E by default", function() {
       expect(driver.address).to.be.eql(0x0E);
     });
   });
@@ -26,11 +26,12 @@ describe("Cylon.Drivers.I2C.MAG3110", function() {
     });
   });
 
+  describe("#_initMag", function () {
+      driver.start(callback);
+      expect(driver._initMag).to.be.called;
+  });
   describe("#getMag", function() {
-    it("needs tests here");
+    it("must #getMag");
   });
 
-  describe("#_initMag", function() {
-    it("needs tests here");
-  });
 });
