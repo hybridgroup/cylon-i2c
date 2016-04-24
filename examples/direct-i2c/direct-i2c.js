@@ -8,7 +8,7 @@ Cylon.robot({
   },
 
   devices: {
-    thingie: { driver: "direct-i2c" }
+    thingie: { driver: "direct-i2c", address: 0x08 }
   },
 
   work: function(my) {
