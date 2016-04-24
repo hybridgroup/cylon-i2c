@@ -12,7 +12,8 @@ var BlinkM = lib("blinkm"),
   LidarLite = lib("lidar-lite"),
   Pca9685 = lib("pca9685"),
   Pca9544a = lib("pca9544a"),
-  Mag3110 = lib("mag3110");
+  Mag3110 = lib("mag3110"),
+  DirectI2C = lib("direct-i2c");
 
 var i2c = lib("../");
 
@@ -33,6 +34,7 @@ describe("I2C", function() {
         "pca9685",
         "pca9544a",
         "mag3110",
+        "direct-i2c"
       ];
 
       expect(i2c.drivers).to.be.eql(drivers);
@@ -149,6 +151,14 @@ describe("I2C", function() {
         opts.driver = "mag3110";
         driver = i2c.driver(opts);
         expect(driver).to.be.an.instanceOf(Mag3110);
+      });
+    });
+
+    context("with 'direct-i2c'", function() {
+      it("returns a DirectI2C driver instance", function() {
+        opts.driver = "direct-i2c";
+        driver = i2c.driver(opts);
+        expect(driver).to.be.an.instanceOf(DirectI2C);
       });
     });
 

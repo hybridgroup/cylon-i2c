@@ -14,6 +14,7 @@ var Drivers = {
   pca9685: require("./lib/pca9685"),
   pca9544a: require("./lib/pca9544a"),
   mag3110: require("./lib/mag3110"),
+  "direct-i2c": require("./lib/direct-i2c")
 };
 
 module.exports = {
