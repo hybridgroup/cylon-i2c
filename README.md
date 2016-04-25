@@ -52,12 +52,14 @@ Cylon.js has a extensible system for connecting to hardware devices. The followi
 
   - BlinkM RGB LED
   - BMP180 Barometric Pressure + Temperature sensor
+  - Direct I2C
   - HMC6352 Digital Compass
   - JHD1313M1 LCD with RGB Backlight  
   - LCD
   - LIDAR-Lite
   - LSM9DS0G 9 Degrees of Freedom IMU
   - LSM9DS0XM 9 Degrees of Freedom IMU
+  - MAG3110 3-Axis Digital Magnetometer
   - MPL115A2 Digital Barometer & Thermometer
   - MPU6050 Triple Axis Accelerometer and Gyro
   - PCA9544a 4-Channel I2C Mux
