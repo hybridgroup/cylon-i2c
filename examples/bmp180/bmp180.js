@@ -21,6 +21,10 @@ Cylon.robot({
         if (err) { console.error("Error:", err); }
         console.log(data);
       });
+      my.bmp180.getPressure(0, function(err, data) {
+        if (err) { console.error("Error:", err); }
+        console.log(data);
+      });
     });
   }
 }).start();
