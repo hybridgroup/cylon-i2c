@@ -155,8 +155,8 @@ describe("I2C", function() {
         expect(driver).to.be.an.instanceOf(Mag3110);
       });
     });
-    context("with 'hmc5883l'", function () {
-      it("returns a hmc5883l driver instance", function () {
+    context("with 'hmc5883l'", function() {
+      it("returns a hmc5883l driver instance", function() {
         opts.driver = "hmc5883l";
         driver = i2c.driver(opts);
         expect(driver).to.be.an.instanceOf(Hmc5883l);
