@@ -48,11 +48,12 @@ Cylon.robot({
 ```
 
 ## Hardware Support
-Cylon.js has a extensible system for connecting to hardware devices. The following 14 different i2c devices are currently supported:
+Cylon.js has a extensible system for connecting to hardware devices. The following 15 different i2c devices are currently supported:
 
   - BlinkM RGB LED
   - BMP180 Barometric Pressure + Temperature sensor
   - Direct I2C
+  - HMC5883L 3-Axis Digital Compass
   - HMC6352 Digital Compass
   - JHD1313M1 LCD with RGB Backlight  
   - LCD
