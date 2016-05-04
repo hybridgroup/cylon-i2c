@@ -14,8 +14,8 @@ describe("Cylon.Drivers.I2C.MMA8452Q", function() {
   });
 
   describe("constructor", function() {
-    it("sets @address to 0x0C", function() {
-      expect(driver.address).to.be.eql(0x0C);
+    it("sets @address to 0x1D", function() {
+      expect(driver.address).to.be.eql(0x1D);
     });
   });
 
