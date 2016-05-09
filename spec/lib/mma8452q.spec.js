@@ -33,19 +33,28 @@ describe("Cylon.Drivers.I2C.MMA8452Q", function() {
     beforeEach(function() {
       callback = spy();
       stub(driver, "_initAccel");
+      stub(driver, "_initTap");
     });
 
     afterEach(function() {
       driver._initAccel.restore();
+      driver._initTap.restore();
     });
 
     it("calls #_initAccel", function() {
       driver.start(callback);
       expect(driver._initAccel).to.be.called;
     });
+    it("calls #_initTap", function() {
+      driver.start(callback);
+      expect(driver._initTap).to.be.called;
+    });
   });
 
   describe("#getAccel", function() {
     it("must #getAccel");
+  });
+  describe("#getTap", function() {
+    it("must #getTap");
   });
 });
