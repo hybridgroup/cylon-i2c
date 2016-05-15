@@ -1,5 +1,7 @@
 ## Release History
 
+Version 0.26.1 - Correct init for JHD1313M1 backlight
+
 Version 0.26.0 - Add DirectI2C & MAG3110 drivers
 
 Version 0.25.0 - Use Cylon 1.3.0, add JHD1313M1 driver, fixes for BMP180
