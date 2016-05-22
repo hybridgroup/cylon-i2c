@@ -8,7 +8,7 @@ Cylon.robot({
   },
 
   devices: {
-    accel: { driver: "mma7660fc" }
+    accel: { driver: "mma7660" }
   },
 
   work: function(my) {

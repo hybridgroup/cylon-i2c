@@ -1,13 +1,13 @@
 "use strict";
 
-var MMA7660CF = lib("mma7660fc");
+var MMA7660 = lib("mma7660");
 
-describe("Cylon.Drivers.I2C.MMA7660CF", function() {
+describe("Cylon.Drivers.I2C.MMA7660", function() {
   var driver;
 
   beforeEach(function() {
-    driver = new MMA7660CF({
-      name: "mma7660fc",
+    driver = new MMA7660({
+      name: "mma7660",
       connection: {},
       pin: 13
     });
@@ -20,7 +20,7 @@ describe("Cylon.Drivers.I2C.MMA7660CF", function() {
   });
 
   describe("#commands", function() {
-    it("is an object containing MMA7660CF commands", function() {
+    it("is an object containing MMA7660 commands", function() {
       for (var c in driver.commands) {
         expect(driver.commands[c]).to.be.a("function");
       }
