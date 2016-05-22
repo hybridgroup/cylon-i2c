@@ -15,6 +15,8 @@ var Drivers = {
   pca9544a: require("./lib/pca9544a"),
   mag3110: require("./lib/mag3110"),
   hmc5883l: require("./lib/hmc5883l"),
+  lsm303dlhc: require("./lib/lsm303dlhc"),
+  mma7660fc: require("./lib/mma7660fc"),
   "direct-i2c": require("./lib/direct-i2c")
 };
 
