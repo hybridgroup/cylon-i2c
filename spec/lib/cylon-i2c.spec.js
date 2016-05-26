@@ -182,8 +182,8 @@ describe("I2C", function() {
         expect(driver).to.be.an.instanceOf(Mma8452q);
       });
     });
-    context("with 'lsm303dlhc'", function () {
-      it("returns a  driver instance", function () {
+    context("with 'lsm303dlhc'", function() {
+      it("returns a  driver instance", function() {
         opts.driver = "lsm303dlhc";
         driver = i2c.driver(opts);
         expect(driver).to.be.an.instanceOf(Lsm303dlhc);
