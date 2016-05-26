@@ -17,10 +17,6 @@ Cylon.robot({
         if (err) { console.error(err); }
         console.log(data);
       });
-      my.accel.getTap(function(err, data) {
-        if (err) { console.error(err); }
-        console.log(data);
-      });
     });
   }
 }).start();
