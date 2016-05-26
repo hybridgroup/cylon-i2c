@@ -15,6 +15,7 @@ var BlinkM = lib("blinkm"),
   Mag3110 = lib("mag3110"),
   Hmc5883l = lib("hmc5883l"),
   Mma7660 = lib("mma7660"),
+  Mma8452q = lib("mma8452q"),
   DirectI2C = lib("direct-i2c");
 
 var i2c = lib("../");
@@ -38,6 +39,7 @@ describe("I2C", function() {
         "mag3110",
         "hmc5883l",
         "mma7660",
+        "mma8452q",
         "direct-i2c"
       ];
 
@@ -169,6 +171,13 @@ describe("I2C", function() {
         opts.driver = "mma7660";
         driver = i2c.driver(opts);
         expect(driver).to.be.an.instanceOf(Mma7660);
+      });
+    });
+    context("with 'mma8452q'", function() {
+      it("returns a mma8452q driver instance", function() {
+        opts.driver = "mma8452q";
+        driver = i2c.driver(opts);
+        expect(driver).to.be.an.instanceOf(Mma8452q);
       });
     });
 
