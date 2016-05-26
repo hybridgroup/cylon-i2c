@@ -174,7 +174,7 @@ describe("I2C", function() {
       });
     });
     context("with 'mma8452q'", function() {
-      it("returns a mm8452q driver instance", function() {
+      it("returns a mma8452q driver instance", function() {
         opts.driver = "mma8452q";
         driver = i2c.driver(opts);
         expect(driver).to.be.an.instanceOf(Mma8452q);
