@@ -5,6 +5,7 @@ var Drivers = {
   hmc6352: require("./lib/hmc6352"),
   mpl115a2: require("./lib/mpl115a2"),
   bmp180: require("./lib/bmp180"),
+  bme280: require("./lib/bme280"),
   jhd1313m1: require("./lib/jhd1313m1"),
   mpu6050: require("./lib/mpu6050"),
   lcd: require("./lib/lcd"),
@@ -15,8 +16,6 @@ var Drivers = {
   pca9544a: require("./lib/pca9544a"),
   mag3110: require("./lib/mag3110"),
   hmc5883l: require("./lib/hmc5883l"),
-  mma7660: require("./lib/mma7660"),
-  mma8452q: require("./lib/mma8452q"),
   "direct-i2c": require("./lib/direct-i2c")
 };
 
