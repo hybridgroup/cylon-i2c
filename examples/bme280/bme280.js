@@ -1,8 +1,8 @@
 /**
  * On the BME280:
- * 3V, GND
- * CLock is SCK
- * Data is SDI
+ *   3V, GND
+ *   Clock is SCK
+ *   Data is SDI
  */
 var Cylon = require('cylon');
 
