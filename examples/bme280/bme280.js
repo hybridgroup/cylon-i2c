@@ -4,15 +4,17 @@
  *   Clock is SCK
  *   Data is SDI
  */
-var Cylon = require('cylon');
+"use strict";
+
+var Cylon = require("cylon");
 
 Cylon.robot({
   connections: {
-    raspi: { adaptor: 'raspi' }
+    raspi: { adaptor: "raspi" }
   },
 
   devices: {
-    bme280: { driver: 'bme280' }
+    bme280: { driver: "bme280" }
   },
 
   work: function(my) {
