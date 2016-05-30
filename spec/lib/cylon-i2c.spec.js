@@ -15,8 +15,8 @@ var BlinkM = lib("blinkm"),
   Pca9544a = lib("pca9544a"),
   Mag3110 = lib("mag3110"),
   Hmc5883l = lib("hmc5883l"),
-//Mma7660 = lib("mma7660"),
-//Mma8452q = lib("mma8452q"),
+  Mma7660 = lib("mma7660"),
+  Mma8452q = lib("mma8452q"),
   DirectI2C = lib("direct-i2c");
 
 var i2c = lib("../");
@@ -40,8 +40,8 @@ describe("I2C", function() {
         "pca9544a",
         "mag3110",
         "hmc5883l",
-     // "mma7660",
-     // "mma8452q",
+        "mma7660",
+        "mma8452q",
         "direct-i2c"
       ];
 
