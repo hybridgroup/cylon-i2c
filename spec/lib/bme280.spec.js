@@ -78,17 +78,12 @@ describe("Cylon.Drivers.I2C.Bme280", function() {
 
     context("if #readRawTemp returns data", function() {
       beforeEach(function() {
-        driver.readRawTemp.callsArgWith(0, null, 10);
-      });
-
-      it("calls #readRawPressure with the supplied mode", function() {
-        readPressure();
-        expect(driver.readRawPressure).to.be.calledWith("1");
+        driver.readRawTemp.callsArgWith(null);
       });
 
       context("if #readRawPressure returns data", function() {
         beforeEach(function() {
-          driver.readRawPressure.callsArgWith(1, null, 20);
+          driver.readRawPressure.callsArgWith(null);
         });
 
         it("triggers the callback with the transformed data", function() {
@@ -140,7 +135,7 @@ describe("Cylon.Drivers.I2C.Bme280", function() {
 
     context("if #readRawTemp returns data", function() {
       beforeEach(function() {
-        driver.readRawTemp.callsArgWith(0, null, 10);
+        driver.readRawTemp.callsArgWith(null);
       });
 
       it("triggers the callback with the transformed data", function() {
@@ -286,9 +281,8 @@ describe("Cylon.Drivers.I2C.Bme280", function() {
   describe("#readRawPressure", function() {
     var callback, clock;
 
-    var readRawPressure = function(mode) {
-      mode = mode || "1";
-      driver.readRawPressure(mode, callback);
+    var readRawPressure = function() {
+      driver.readRawPressure(callback);
     };
 
     beforeEach(function() {
@@ -309,14 +303,6 @@ describe("Cylon.Drivers.I2C.Bme280", function() {
       expect(driver.connection.i2cWrite).to.be.calledWith(0x77, 0xF4, [0x34]);
     });
 
-    context("if 'mode' is outside the 0-3 bounds", function() {
-      it("triggers the callback with an error", function() {
-        readRawPressure(4);
-        var error = new Error("Invalid pressure sensing mode");
-        expect(callback).to.be.calledWith(error);
-      });
-    });
-
     context("if #i2cWrite is successful", function() {
       beforeEach(function() {
         driver.connection.i2cWrite.callsArgWith(3);
@@ -328,16 +314,6 @@ describe("Cylon.Drivers.I2C.Bme280", function() {
 
         clock.tick(10);
         expect(driver.connection.i2cRead).to.be.calledWith(0x77, 0xF6, 3);
-      });
-
-      it("the delay changes depending on which mode is passed", function() {
-        readRawPressure("3");
-
-        clock.tick(10);
-        expect(driver.connection.i2cRead).to.not.be.called;
-
-        clock.tick(18);
-        expect(driver.connection.i2cRead).to.be.called;
       });
 
       context("if #i2cRead returns data", function() {
