@@ -42,16 +42,16 @@ describe("Cylon.Drivers.I2C.Bme280", function() {
 
     beforeEach(function() {
       callback = spy();
-      stub(driver, "readCoefficients");
+      stub(driver, "readCalibrationData");
       driver.start(callback);
     });
 
     afterEach(function() {
-      driver.readCoefficients.restore();
+      driver.readCalibrationData.restore();
     });
 
-    it("calls #readCoefficients", function() {
-      expect(driver.readCoefficients).to.be.called;
+    it("calls #readCalibrationData", function() {
+      expect(driver.readCalibrationData).to.be.called;
     });
   });
 
@@ -161,7 +161,7 @@ describe("Cylon.Drivers.I2C.Bme280", function() {
     });
   });
 
-  describe("#readCoefficients", function() {
+  describe("#readCalibrationData", function() {
     var callback;
 
     beforeEach(function() {
@@ -174,7 +174,7 @@ describe("Cylon.Drivers.I2C.Bme280", function() {
     });
 
     it("calls #i2cRead to get coefficients from the hardware", function() {
-      driver.readCoefficients(callback);
+      driver.readCalibrationData(callback);
       expect(driver.connection.i2cRead).to.be.calledWith(0x77, 0xAA, 22);
     });
 
@@ -184,7 +184,7 @@ describe("Cylon.Drivers.I2C.Bme280", function() {
         for (var i = 0; i < 22; i++) { data.push(10); }
         driver.emit = spy();
         driver.connection.i2cRead.callsArgWith(3, null, data);
-        driver.readCoefficients(callback);
+        driver.readCalibrationData(callback);
       });
 
       it("sets coefficients based on the passed values", function() {
@@ -207,7 +207,7 @@ describe("Cylon.Drivers.I2C.Bme280", function() {
       });
 
       it("triggers the callback with the error", function() {
-        driver.readCoefficients(callback);
+        driver.readCalibrationData(callback);
         expect(callback).to.be.calledWith("error");
       });
     });
