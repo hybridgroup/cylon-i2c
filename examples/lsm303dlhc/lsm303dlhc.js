@@ -22,6 +22,10 @@ Cylon.robot({
         if (err) { console.error(err); }
         console.log(data);
       });
+      my.mag.getTemp(function(err, data) {
+        if (err) { console.error(err); }
+        console.log(data);
+      });
     });
   }
 }).start();
