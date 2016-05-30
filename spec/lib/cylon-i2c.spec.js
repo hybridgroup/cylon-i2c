@@ -176,7 +176,6 @@ describe("I2C", function() {
         expect(driver).to.be.an.instanceOf(Hmc5883l);
       });
     });
-    /*
     context("with 'mma7660'", function() {
       it("returns a mma7660 driver instance", function() {
         opts.driver = "mma7660";
@@ -191,7 +190,6 @@ describe("I2C", function() {
         expect(driver).to.be.an.instanceOf(Mma8452q);
       });
     });
-    */
     context("with 'direct-i2c'", function() {
       it("returns a DirectI2C driver instance", function() {
         opts.driver = "direct-i2c";
