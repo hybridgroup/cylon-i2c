@@ -14,7 +14,7 @@ Gets the value of the temperature in degrees Celsius.  Returns it as an object:
 ```
 ## readPressure
 
-Gets the value of the pressure in Pascals.  Since temperature is also calculated to determine pressure, it returns the temperature as well:
+Gets the value of the pressure in Pascals. Since temperature is also calculated to determine pressure, it returns the temperature - in Celsius - as well:
 
 ##### Return
 
@@ -28,6 +28,7 @@ Gets the value of the pressure in Pascals.  Since temperature is also calculated
 ## readAltitude
 
 Calculates the altitude from the pressure and temperature, in meters.  Since temperature and pressure are calculated to determine altitude, it returns all three.
+Temperature in Celsius, pressure in Pascals, altitude in meters.
 
 ##### Return
 
