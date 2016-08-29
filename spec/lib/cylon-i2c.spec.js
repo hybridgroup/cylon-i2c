@@ -193,6 +193,7 @@ describe("I2C", function() {
     });
     context("with 'l3gd20h'", function() {
       it("returns a  driver instance", function() {
+        opts.driver = "l3gd20h";
         driver = i2c.driver(opts);
         expect(driver).to.be.an.instanceOf(L3gd20h);
       });
