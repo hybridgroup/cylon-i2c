@@ -8,7 +8,7 @@ Cylon.robot({
   },
 
   devices: {
-    gyro: { driver: "lsm9ds0g" }
+    gyro: { driver: "l3gd20h" }
   },
 
   work: function(my) {
