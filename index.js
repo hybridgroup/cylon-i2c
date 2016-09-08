@@ -19,6 +19,7 @@ var Drivers = {
   mma8452q: require("./lib/mma8452q"),
   lsm303dlhc: require("./lib/lsm303dlhc"),
   l3gd20h: require("./lib/l3gd20h"),
+  tmp006: require("./lib/tmp006"),
   "direct-i2c": require("./lib/direct-i2c")
 };
 
