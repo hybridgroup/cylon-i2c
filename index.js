@@ -5,6 +5,7 @@ var Drivers = {
   hmc6352: require("./lib/hmc6352"),
   mpl115a2: require("./lib/mpl115a2"),
   bmp180: require("./lib/bmp180"),
+  bme280: require("./lib/bme280"),
   jhd1313m1: require("./lib/jhd1313m1"),
   mpu6050: require("./lib/mpu6050"),
   lcd: require("./lib/lcd"),

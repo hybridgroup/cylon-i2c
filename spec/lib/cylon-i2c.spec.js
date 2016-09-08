@@ -4,6 +4,7 @@ var BlinkM = lib("blinkm"),
   Hmc6352 = lib("hmc6352"),
   Mpl115A2 = lib("mpl115a2"),
   Bmp180 = lib("bmp180"),
+  Bme280 = lib("bme280"),
   Jhd1313m1 = lib("jhd1313m1"),
   Mpu6050 = lib("mpu6050"),
   LCD = lib("lcd"),
@@ -30,6 +31,7 @@ describe("I2C", function() {
         "hmc6352",
         "mpl115a2",
         "bmp180",
+        "bme280",
         "jhd1313m1",
         "mpu6050",
         "lcd",
@@ -89,6 +91,14 @@ describe("I2C", function() {
         opts.driver = "bmp180";
         driver = i2c.driver(opts);
         expect(driver).to.be.an.instanceOf(Bmp180);
+      });
+    });
+
+    context("with 'bme280'", function() {
+      it("returns a Bme280 driver instance", function() {
+        opts.driver = "bme280";
+        driver = i2c.driver(opts);
+        expect(driver).to.be.an.instanceOf(Bme280);
       });
     });
 
